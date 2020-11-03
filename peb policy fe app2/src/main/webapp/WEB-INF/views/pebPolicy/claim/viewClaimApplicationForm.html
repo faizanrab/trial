@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{BaseLayout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>PEB POLICY</title>
+<style type="text/css">
+.form-actions {
+	margin: 0;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div id="page-wrapper" layout:fragment="content">
+
+		<nav aria-label="breadcrumb" class="mt-2">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="indexwithsm">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">View
+					Claim Application Form</li>
+			</ol>
+		</nav>
+		<div class="card shadow mb-4 mt-2 bkg-color">
+
+			<!--card header-->
+			<div class="card-header">
+				<span class="custom-smile-form-header" id="datatables">View
+					Claim Application Form</span>
+			</div>
+			<!--end of card header-->
+			<div class="card-body">
+				<div class="row my-2">
+					<div class="col-lg-12 order-lg-2">
+						<ul class="nav nav-pills">
+							<li class="nav-item"><a href=""
+								data-target="#basicClaimDetails" data-toggle="tab"
+								class="nav-link active" id="1">Basic Claim Details</a></li>
+							<li class="nav-item"><a href=""
+								data-target="#annexureDetails" data-toggle="tab"
+								class="nav-link" id="2">Annexure Details</a></li>
+							<li class="nav-item"><a href=""
+								data-target="#scrutinyUploadDocments" data-toggle="tab"
+								class="nav-link" id="3">Scrutiny & Upload Documents/Invoices</a></li>
+							<li class="nav-item"><a href="" data-target="#assessment"
+								data-toggle="tab" class="nav-link" id="4">Assessment/Processing
+									Of Invoices</a></li>
+							<li class="nav-item"><a href="" data-target="#claimDecision"
+								data-toggle="tab" class="nav-link" id="5">Claim Decision</a></li>
+						</ul>
+						<div class="tab-content py-4">
+							<div class="tab-pane active" id="basicClaimDetails">
+								<div class="card card-body">
+
+									<div class="card section-border-left-primary mb-4 mt-3">
+
+										<!-- Card Content - Collapse -->
+										<div class="card-body">
+											<form th:object="${claimApplicationBean}">
+
+
+												<div class="form-group row ">
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Proposal
+															Id:</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<span th:text="${claimApplicationBean.policyNo}"></span>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Policy
+															Number:</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<span th:text="${claimApplicationBean.policyNo}"></span>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Claim
+															Number :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<span th:text="${claimApplicationBean.claimNo}"></span>
+													</div>
+												</div>
+												<div class="form-group row ">
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Inward
+															Number :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<span th:text="${claimApplicationBean.inwardNo}"></span>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Inward Item
+															No :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<span th:text="${claimApplicationBean.inwardItemNo}"></span>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">ROD Id :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<span th:text="${claimApplicationBean.rodId}"></span>
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">ROD Date :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<span
+															th:text="${#dates.format(claimApplicationBean.rodDate, 'dd-MM-yyyy')}"></span>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Claim
+															Application Date :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<span
+															th:text="${#dates.format(claimApplicationBean.claimApplicationDate, 'dd-MM-yyyy')}"></span>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Gross Loss
+															Value :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<span th:text="${claimApplicationBean.grossLossValue}"></span>
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Reason For
+															Claim :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<span th:text="${claimApplicationBean.reasonForClaim}"></span>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Remarks :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<div th:if="${claimApplicationBean.remarks != ''}">
+															<span th:text="${claimApplicationBean.remarks}"></span>
+														</div>
+														<div th:if="${claimApplicationBean.remarks == ''}">
+															<span>No Data Available</span>
+														</div>
+
+													</div>
+												</div>
+											</form>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="tab-pane" id="annexureDetails">
+								<div class="card section-border-left-primary mb-4 mt-3 p-0">
+									<div class="card-header custom-smile-form-subsection-header"
+										style="margin: 0 !important;">
+										<div style="float: left; width: 50%;">Annexure 1 : Claim
+											Details</div>
+										<div style="float: right; width: 50%; text-align: right;">
+											<th:block
+												th:if="${not #lists.isEmpty(claimApplicationBean.claimDetailsAnnexureBean)}">
+												<small style=""> Invoices : <span
+													th:text="${#lists.size(claimApplicationBean.claimDetailsAnnexureBean)}"></span></small>
+											</th:block>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="form-group row ml-1 mr-1">
+											<table class="table table-striped table-bordered tablecss"
+												id="ann1" width="100%">
+												<thead>
+													<tr>
+														<th>Invoice No.</th>
+														<th>Invoice Date</th>
+														<th>Invoice Description</th>
+														<th>Bill Certified Date</th>
+														<th>Gross Invoice Value</th>
+														<th>Invoice Uploaded Status</th>
+														<th style="width: 72px;">Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													<th:block
+														th:if="${not #lists.isEmpty(claimApplicationBean.claimDetailsAnnexureBean)}">
+														<th:block
+															th:each="count,stat : ${claimApplicationBean.claimDetailsAnnexureBean}">
+															<tr>
+																<td><span th:text="${count.invoiceNo}"></span></td>
+																<td><span
+																	th:text="${#dates.format(count.invoiceDate, 'dd-MM-yyyy')}"></span>
+
+																</td>
+																<td><span th:text="${count.invoiceDescription}"></span>
+
+																</td>
+																<td><span
+																	th:text="${#dates.format(count.billCertifiedDate, 'dd-MM-yyyy')}"></span>
+
+																</td>
+																<td><span th:text="${count.grossInvoiceValueINR}"></span>
+
+																</td>
+																<td><span th:text="${count.invoiceUploadedStatus}"></span>
+
+																</td>
+																<td><a
+																	th:href="@{/claim/viewAnnexure1/{invoiceNo}/{claimNo} (invoiceNo=${count.invoiceNo}, claimNo=${count.claimNo})}"
+																	id="viewAnnexureButton" data-toggle="modal"
+																	class="btn custom-smile-btn-primary mr-1 ml-1"> <i
+																		class="fas fa-eye fa-lg "></i>
+																</a></td>
+															</tr>
+														</th:block>
+													</th:block>
+													<th:block
+														th:unless="${not #lists.isEmpty(claimApplicationBean.claimDetailsAnnexureBean)}">
+														<tr>
+															<td colspan="6">
+																<center>
+																	<span>No Invoice Present in Annexure 1</span>
+																</center>
+															</td>
+														</tr>
+													</th:block>
+												</tbody>
+											</table>
+											<div class="modal fade" id="viewAnnexureDetails">
+												<div class="modal-dialog modal-lg">
+													<div class="modal-content">
+														<div class="modal-header bg-light">
+															<h4 class="modal-title custom-smile-form-header"
+																style="color: black;">Annexure Details</h4>
+															<button class="btn text-warning"></button>
+															<button type="button" class="close" data-dismiss="modal">&times;</button>
+														</div>
+														<div class="modal-body">
+
+															<div class="card section-border-left-primary mb-4 mt-3">
+
+																<!-- Card Content - Collapse -->
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-lg-12">
+																			<div class="form-group row">
+																				<div class="col-sm-4 mb-3 mb-sm-0">
+																					<label class="custom-smile-view-label">Claim
+																						No : </label> <span id="claimNo"></span>
+																				</div>
+																				<div class="col-sm-4 mb-2 mb-sm-0">
+																					<label class="custom-smile-view-label">Invoice
+																						No : </label> <span id="invoiceNo"></span>
+																				</div>
+																				<div class="col-sm-4 mb-2 mb-sm-0">
+																					<label class="custom-smile-view-label">Invoice
+																						Date : </label> <span id="invoiceDate"></span>
+																				</div>
+																			</div>
+																			<div class="form-group row">
+																				<div class="col-sm-6 mb-2 mb-sm-0">
+																					<label class="custom-smile-view-label">Date
+																						of Shipment : </label> <span id="dateOfShipment"></span>
+																				</div>
+																				<div class="col-sm-6 mb-3 mb-sm-0">
+																					<label class="custom-smile-view-label">Bill
+																						Certified Date : </label> <span id="billCertifiedDate"></span>
+																				</div>
+
+
+																			</div>
+																			<div class="form-group row">
+																				<div class="col-sm-6 mb-3 mb-sm-0">
+																					<label class="custom-smile-view-label">Original
+																						Due Date : </label> <span id="originalDueDate"></span>
+																				</div>
+																				<div class="col-sm-6 mb-2 mb-sm-0">
+																					<label class="custom-smile-view-label">Extended
+																						Due Date : </label> <span id="extendedDueDate"></span>
+																				</div>
+																			</div>
+
+																			<div class="form-group row ">
+																				<div class="col-sm-4 mb-3 mb-sm-0">
+																					<label class="custom-smile-view-label">GIV
+																						(in INR) : </label> <span id="givINR"></span>
+																				</div>
+																				<div class="col-sm-4 mb-2 mb-sm-0">
+																					<label class="custom-smile-view-label">Payment
+																						Released : </label> <span id="paymentReleased"></span>
+																				</div>
+																				<div class="col-sm-4 mb-3 mb-sm-0">
+																					<label class="custom-smile-view-label">Amount
+																						Due : </label> <span id="amountDue"></span>
+																				</div>
+																			</div>
+																			<div class="form-group row ">
+
+																				<div class="col-sm-12 mb-2 mb-sm-0">
+																					<label class="custom-smile-view-label">Invoice
+																						Description : </label>
+
+																					<textArea rows="3" cols="95" readonly
+																						class="form-control" id="invoiceDescription"></textArea>
+																				</div>
+
+																			</div>
+																			<div class="form-group row ">
+
+
+																				<div class="col-sm-12 mb-2 mb-sm-0">
+																					<label class="custom-smile-view-label">Reason
+																						for Non-Payment : </label>
+																					<textArea rows="3" cols="95" readonly
+																						class="form-control" id="reasonForNonPayment"></textArea>
+																				</div>
+																			</div>
+
+																			<div class="form-group row">
+																				<div class="col-sm-6 mb-2 mb-sm-0">
+																					<label class="custom-smile-view-label">Invoice
+																						Uploaded Status : </label> <span id="notUploaded" class=""
+																						style="display: none;"></span> <a href="#"
+																						id="uploaded" style="display: none;">Download
+																						Invoice</a>
+																				</div>
+																				<div class="col-sm-6 mb-2 mb-sm-0">
+																					<label class="custom-smile-view-label">Invoice
+																						Sanctioned by Bank : </label> <span
+																						id="invoiceSanctionedByBank"></span>
+																				</div>
+
+																			</div>
+																			<div class="form-group row">
+																				<div class="col-sm-4 mb-3 mb-sm-0 sancyes"
+																					style="display: none;" id="">
+																					<label class="custom-smile-view-label">Bank
+																						Name : </label> <span id="bankName"></span>
+																				</div>
+																				<div class="col-sm-4 mb-2 mb-sm-0 sancyes"
+																					style="display: none;" id="">
+																					<label class="custom-smile-view-label">Bank
+																						Branch : </label> <span id="bankBranch"></span>
+																				</div>
+																				<div class="col-sm-4 mb-3 mb-sm-0 sancyes"
+																					style="display: none;" id="">
+																					<label class="custom-smile-view-label">Bank
+																						Ref. No : </label> <span id="bankRefNo"></span>
+																				</div>
+																			</div>
+																			<div class="form-group row ">
+																				<div class="col-sm-12 mb-2 mb-sm-0"
+																					style="display: none;" id="sancno">
+																					<label class="custom-smile-view-label">Reason
+																						For Invoice Not Sanction By Bank : </label>
+																					<textArea rows="3" cols="95" readonly
+																						class="form-control"
+																						id="reasonForInvoiceNotSanctionByBank"></textArea>
+																				</div>
+																			</div>
+
+
+
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-danger"
+																data-dismiss="modal">Close</button>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- modal for annexure 1 -->
+											<div class="modal fade" id="ann1Form" role="dialog">
+												<div class="modal-dialog modal-lg">
+													<div class="modal-content">
+														<div class="modal-header bg-light">
+															<h4 class="modal-title" style="color: black;">Annexure
+																1 : Claim Details</h4>
+															<button type="button" class="close" data-dismiss="modal">&times;</button>
+														</div>
+														<form th:object="${ann1}">
+															<div class="modal-body">
+																<div class="form-group row ">
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Invoice
+																			No:</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${invoiceNo}"></span> -->
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Invoice
+																			Date:</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${#dates.format(invoiceDate, 'dd-MM-yyyy')}"></span> -->
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Invoice
+																			Description :</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${invoiceDescription}"></span> -->
+																	</div>
+																</div>
+																<div class="form-group row ">
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Bill
+																			Certified Date:</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${#dates.format(billCertifiedDate, 'dd-MM-yyyy')}"></span> -->
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Original
+																			Due Date:</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${#dates.format(originalDueDate, 'dd-MM-yyyy')}"></span> -->
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Extended
+																			Due Date :</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${#dates.format(extendedDueDate, 'dd-MM-yyyy')}"></span> -->
+																	</div>
+																</div>
+																<div class="form-group row ">
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Date of
+																			Shipment:</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${#dates.format(dateOfShipment, 'dd-MM-yyyy')}"></span> -->
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Gross
+																			Invoice Value:</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${grossInvoiceValueINR}"></span> -->
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Payment
+																			Released :</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${paymentReleased}"></span> -->
+																	</div>
+																</div>
+																<div class="form-group row ">
+																	<div class="col-sm-3 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Amount
+																			Due:</label>
+																	</div>
+																	<div class="col-sm-3 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${amountDue}"></span> -->
+																	</div>
+																	<div class="col-sm-3 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Is
+																			Invoice Sanctioned by Bank:</label>
+																	</div>
+																	<div class="col-sm-3 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${invoiceSanctionedByBank}"></span> -->
+																	</div>
+																</div>
+																<div class="form-group row ">
+																	<div class="col-sm-3 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Reason
+																			If Invoice is not Sanctioned by Bank:</label>
+																	</div>
+																	<div class="col-sm-3 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${reasonForInvoiceNotSanctionByBank}"></span> -->
+																	</div>
+																</div>
+																<div class="form-group row ">
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Bank
+																			Name:</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${bankName}"></span> -->
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Bank
+																			Branch:</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${bankBranch}"></span> -->
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Bank
+																			Ref No:</label>
+																	</div>
+																	<div class="col-sm-2 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${bankRefNo}"></span> -->
+																	</div>
+																</div>
+																<div class="form-group row ">
+																	<div class="col-sm-4 mb-2 mb-sm-0 ">
+																		<label class="custom-smile-view-label">Reason
+																			For Non Payment :</label>
+																	</div>
+																	<div class="col-sm-4 mb-2 mb-sm-0 ">
+																		<!-- <span th:text="${reasonForNonPayment}"></span> -->
+																	</div>
+																	<div class="col-sm-4 mb-2 mb-sm-0 ">
+																		<!-- <th:block th:if="${dmsId}">
+																			<div class="form-group row ml-1 mr-1">
+																				<div class="col-sm-12 mb-2 mb-sm-0">
+																					<a href="#" class="btn btn-primary  btn-sm">View Invoice</a>
+																				</div>
+																			</div>
+																		</th:block>
+																		<th:block th:unless="${dmsId}">
+																			<div class="form-group row ml-1 mr-1">
+																				<div class="col-sm-12 mb-2 mb-sm-0">
+																					<span>Invoice Not Uploaded</span>
+																				</div>
+																			</div>
+																		</th:block> -->
+																	</div>
+																</div>
+
+															</div>
+
+															<div class="modal-footer">
+																<button type="button"
+																	class="btn custom-smile-btn-reject"
+																	data-dismiss="modal">Close</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+											<!-- modal for annexure 1 -->
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="scrutinyUploadDocments">
+								<div class="card card-body">
+									<div class="card section-border-left-primary mb-4 mt-3">
+										<div class="card-header custom-smile-view-subsection-header">
+											Uploaded Documents</div>
+
+										<div class="card-body">
+											<th:block th:each="document : ${claimChecklist}">
+												<div class="form-group row">
+													<div
+														class="custom-control custom-form-control-lg custom-checkbox col-sm-6">
+														<input type="checkbox"
+															th:field="*{claimApplicationBean.claimDocumentChecklistBean}"
+															id="customCheck1" name="docs"
+															th:value="${document.checklistId}"
+															class="custom-control-input" disabled="disabled">
+														<label class="custom-control-label" for="customCheck1"
+															th:text="${document.documentName}"></label>
+													</div>
+													<div class="col-sm-6">
+														<button type="button"
+															class="btn custom-smile-btn-download ml-1 mr-1">
+															<i class="fas fa-cloud-download-alt"></i>Download
+														</button>
+													</div>
+												</div>
+											</th:block>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="assessment">
+								<div class="card shadow mb-4 mt-2 border-left-primary">
+
+									<!--card header-->
+									<div class="card-header custom-smile-form-header">
+										Invoices Paid But Not Raised
+
+										<!-- <button type="button"
+											class="btn btn-primary btn-icon-split float-right btn-sm"
+											id="addNewProposal">
+											<span class="icon "> <i class="fas fa-plus"></i>
+											</span> <span class="text">Add New</span>
+										</button> -->
+									</div>
+									<!--end of card header-->
+
+
+									<div class="card-body">
+										<table class="table table-bordered table-striped "
+											id="example1" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th>Invoice No</th>
+													<th>Gross Invoice Value(INR)</th>
+													<th>Invoice Date</th>
+													<th>Amount Due</th>
+													<th>Status</th>
+													<th>Invoice Decision</th>
+													<th>Amount Approved</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+
+											<!-- <tfoot>
+													<tr>
+														<th>Type</th>
+														<th>Transaction Type</th>
+														<th>Risk Type</th>
+														<th>Is Pre-shipment</th>
+														<th>Is Cross Country</th>
+														<th>View</th>
+														<th>Edit</th>
+													</tr>
+												</tfoot> -->
+
+											<tbody>
+												<tr
+													th:each="claimInvoice : ${claimApplicationBean.claimProcessingBean.claimInvoiceProcessingBean}">
+													<td><span th:text="${claimInvoice.invoiceNo}">
+													</span></td>
+													<td><span
+														th:text="${claimInvoice.grossInvoiceValueINR}"></span></td>
+													<td><span
+														th:text="${#dates.format(claimInvoice.invoiceDate, 'dd-MM-yyyy')}">
+													</span></td>
+													<td><span th:text="${claimInvoice.amountDue}"></span></td>
+													<td><span
+														th:text="${claimInvoice.processInvoiceStatus}"> </span></td>
+													<td><span th:text="${claimInvoice.invoiceDecision}">
+													</span></td>
+													
+													<td><span th:text="${claimInvoice.amountApproved}"></span></td>
+
+													<td><a href="#"
+														th:href="@{/claim/viewProcessInvoice/{InvoiceNo}/{claimNo} (InvoiceNo=${claimInvoice.invoiceNo},claimNo=${claimInvoice.claimNo})}"
+														class="btn custom-smile-btn-primary mr-1 ml-1"
+														id="viewInvoiceButton" data-toggle="modal"><i
+															class="fas fa-eye fa-lg"></i></a></td>
+												</tr>
+											</tbody>
+										</table>
+
+										<span class="exportbuttons"> </span>
+										<!-- </div> -->
+										<!-- table responsive -->
+									</div>
+								</div>
+
+								<div class="modal fade" id="viewInvoiceDetails">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header bg-light">
+												<h4 class="modal-title custom-smile-form-header"
+													style="color: black;">Invoice Details</h4>
+												<button class="btn text-warning"></button>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+											<div class="modal-body">
+												<div class="card section-border-left-primary mb-4 mt-3">
+
+													<!-- Card Content - Collapse -->
+													<div class="card-body">
+														<div class="row">
+															<div class="col-lg-12">
+																<div class="form-group row">
+																	<div class="col-sm-4 mb-3 mb-sm-0">
+																		<label class="custom-smile-view-label">Claim
+																			No : </label> <span id="claimNo"></span>
+																	</div>
+
+																	<div class="col-sm-4 mb-2 mb-sm-0">
+																		<label class="custom-smile-view-label">Invoice
+																			No : </label> <span id="invoiceNo"></span>
+																	</div>
+																	<div class="col-sm-4 mb-2 mb-sm-0">
+																		<label class="custom-smile-view-label">Invoice
+																			Date : </label> <span id="invoiceDate"></span>
+																	</div>
+																</div>
+																<div class="form-group row">
+																	<div class="col-sm-6 mb-3 mb-sm-0">
+																		<label class="custom-smile-view-label">Original
+																			Due Date : </label> <span id="originalDueDate"></span>
+																	</div>
+																	<div class="col-sm-6 mb-2 mb-sm-0">
+																		<label class="custom-smile-view-label">Extended
+																			Due Date : </label> <span id="extendedDueDate"></span>
+																	</div>
+																</div>
+																<div class="form-group row">
+																	<div class="col-sm-4 mb-3 mb-sm-0">
+																		<label class="custom-smile-view-label">GIV (in
+																			INR) : </label> <span id="givINR"></span>
+																	</div>
+																	<div class="col-sm-4 mb-3 mb-sm-0">
+																		<label class="custom-smile-view-label">Amount
+																			Due : </label> <span id="amountDue"></span>
+																	</div>
+																	<div class="col-sm-4 mb-3 mb-sm-0">
+																		<label class="custom-smile-view-label">Exchange
+																			Rate : </label> <span id="exchangeRate"></span>
+																	</div>
+
+																</div>
+																<div class="form-group row">
+																	<div class="col-sm-6 mb-2 mb-sm-0">
+																		<label class="custom-smile-view-label">Amount
+																			Approved : </label> <span id="amountApproved"></span>
+																	</div>
+																	<div class="col-sm-6 mb-3 mb-sm-0">
+																		<label class="custom-smile-view-label">Invoice
+																			Decision : </label> <span id="invoiceDecision"></span>
+																	</div>
+																</div>
+																<div class="form-group row">
+																	<div class="col-sm-6 mb-3 mb-sm-0">
+																		<label class="custom-smile-view-label">Remarks
+																			by Exporter : </label>
+																		<textArea rows="3" cols="95" readonly
+																			class="form-control" id="remarksByExporter"></textArea>
+																	</div>
+																	<div class="col-sm-6 mb-2 mb-sm-0">
+																		<label class="custom-smile-view-label">Remarks
+																			by ECGC : </label>
+																		<textArea rows="3" cols="95" readonly
+																			class="form-control" id="remarksByECGC"></textArea>
+																	</div>
+																	<!-- <div class="col-sm-4 mb-3 mb-sm-0">
+																<label class="custom-smile-view-label">Remarks : </label>
+																<span id="remarks"></span>
+															</div> -->
+																</div>
+
+																<div class="form-group row">
+																	<div class="col-sm-6 mb-3 mb-sm-0">
+																		<label class="custom-smile-view-label">Process
+																			Invoice Status : </label> <span id="processInvoiceStatus"></span>
+																	</div>
+																	<div class="col-sm-6 mb-2 mb-sm-0">
+																		<label class="custom-smile-view-label">Invoice
+																			Document : </label> <span id="notUploadedInvoice"></span> <a
+																			href="#" id="downloadInvoice" style="display: none;">Download
+																			Invoice</a>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-danger"
+													data-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+							</div>
+							<div class="tab-pane" id="claimDecision">
+								<div class="card section-border-left-primary mb-4 mt-3">
+									<div class="card-body">
+										<div class="form-group row">
+											<div class="col-sm-3 mb-2 mb-sm-0 ">
+												<label class="custom-smile-view-label">Claim Amount
+													Approved :</label>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0 ">
+												<span
+													th:text="${claimApplicationBean.claimProcessingBean.claimAmountApproved}"></span>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0 ">
+												<a href="#"><button type="button"
+														class="btn btn-primary  btn-sm">
+														<span class="text"> View Payment Advice</span>
+													</button></a>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<div class="card section-border-left-danger mb-4 mt-3">
+									<div class="card-header custom-smile-view-subsection-header">
+										Comments/Recommendations</div>
+
+									<div class="card-body">
+										<div class="form-group row">
+											<div class="col-sm-2 mb-2 mb-sm-0 ">
+												<label class="custom-smile-view-label">PO Comments :</label>
+											</div>
+											<div class="col-sm-10 mb-2 mb-sm-0 ">
+												<textArea id="p" rows="5" cols="95" class="form-control"
+													readonly>Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.</textArea>
+												<!-- 	 <a href="#" rel="tooltip" title='Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.'  >Hover</a> -->
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-2 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Commented On
+													:</label>
+											</div>
+											<div class="col-sm-2 mb-2 mb-sm-0">
+												<span
+													th:text="${claimApplicationBean.claimProcessingBean.processingOfficerCommentedDate}"></span>
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-2 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Observer
+													Comments :</label>
+											</div>
+											<div class="col-sm-10 mb-2 mb-sm-0">
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.observerComments != ''}">
+													<textArea rows="5" cols="95" readonly class="form-control"
+														th:text="${claimApplicationBean.claimProcessingBean.observerComments}"></textArea>
+												</div>
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.observerComments == ''}">
+													<span>No Data Available</span>
+												</div>
+
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-2 mb-2 mb-sm-0 ">
+												<label class="custom-smile-view-label">Commented On
+													:</label>
+											</div>
+											<div class="col-sm-2 mb-2 mb-sm-0 ">
+												<span
+													th:text="${#dates.format(claimApplicationBean.claimProcessingBean.observerCommentedDate, 'dd-MM-yyyy')}"></span>
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-2 mb-2 mb-sm-0 ">
+												<label class="custom-smile-view-label">Recommender
+													Comments :</label>
+											</div>
+											<div class="col-sm-10 mb-2 mb-sm-0 ">
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.recommenderComments != ''}">
+													<textArea rows="5" cols="95" readonly class="form-control"
+														th:text="${claimApplicationBean.claimProcessingBean.recommenderComments}"></textArea>
+												</div>
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.recommenderComments == ''}">
+													<span>No Data Available</span>
+												</div>
+
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-2 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Commented On
+													:</label>
+											</div>
+											<div class="col-sm-2 mb-2 mb-sm-0">
+												<span
+													th:text="${#dates.format(claimApplicationBean.claimProcessingBean.recommenderCommentedDate, 'dd-MM-yyyy')}"></span>
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+
+
+
+								<div class="card section-border-left-primary mb-4 mt-3">
+									<div class="card-header custom-smile-view-subsection-header">
+										ECGC Decision</div>
+
+									<div class="card-body">
+										<div class="form-group row">
+											<div class="col-sm-3 mb-2 mb-sm-0 ">
+												<label class="custom-smile-view-label">Decision by
+													ECGC :</label>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0 ">
+												<span
+													th:text="${claimApplicationBean.claimProcessingBean.ecgcDecision}"></span>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label"> ECGC
+													Decision Date :</label>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<span
+													th:text="${#dates.format(claimApplicationBean.claimProcessingBean.ecgcDecisionDate, 'dd-MM-yyyy')}"></span>
+											</div>
+
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-2 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">ECGC Remarks
+													:</label>
+											</div>
+											<div class="col-sm-10 mb-2 mb-sm-0">
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.ecgcRemarks != ''}">
+													<textArea rows="5" cols="95" readonly class="form-control"
+														th:text="${claimApplicationBean.claimProcessingBean.ecgcRemarks}"></textArea>
+												</div>
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.ecgcRemarks == ''}">
+													<span>No Data Available</span>
+												</div>
+
+
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-2 mb-2 mb-sm-0 ">
+												<label class="custom-smile-view-label">ECGC
+													Recommendations :</label>
+											</div>
+											<div class="col-sm-10 mb-2 mb-sm-0 ">
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.ecgcRecommendation != null}">
+													<textArea rows="5" cols="95" readonly class="form-control"
+														th:text="${claimApplicationBean.claimProcessingBean.ecgcRecommendation}"></textArea>
+												</div>
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.ecgcRecommendation == null}">
+													<span>No Data Available</span>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+								<div class="card section-border-left-danger mb-4 mt-3">
+									<div class="card-header custom-smile-view-subsection-header">
+										COD Decision</div>
+
+									<div class="card-body">
+										<div class="form-group row">
+											<div class="col-sm-3 mb-2 mb-sm-0 ">
+												<label class="custom-smile-view-label">Decision by
+													COD :</label>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0 ">
+												<span
+													th:text="${claimApplicationBean.claimProcessingBean.codDecision}"></span>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label"> Decision
+													Date :</label>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<span
+													th:text="${#dates.format(claimApplicationBean.claimProcessingBean.codDecisionDate, 'dd-MM-yyyy')}"></span>
+											</div>
+
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-2 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">COD Remarks :</label>
+											</div>
+											<div class="col-sm-10 mb-2 mb-sm-0">
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.codRemarks != ''}">
+													<textArea rows="5" cols="95" readonly class="form-control"
+														th:text="${claimApplicationBean.claimProcessingBean.codRemarks}"></textArea>
+												</div>
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.codRemarks == ''}">
+													<span>No Data Available</span>
+												</div>
+
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-2 mb-2 mb-sm-0 ">
+												<label class="custom-smile-view-label">COD
+													Recommendations :</label>
+											</div>
+											<div class="col-sm-10 mb-2 mb-sm-0 ">
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.codRecommendation != null}">
+													<textArea rows="5" cols="95" readonly class="form-control"
+														th:text="${claimApplicationBean.claimProcessingBean.codRecommendation}"></textArea>
+												</div>
+												<div
+													th:if="${claimApplicationBean.claimProcessingBean.codRecommendation == null}">
+													<span>No Data Available</span>
+												</div>
+
+											</div>
+										</div>
+
+										<div class="form-group row">
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">COD Meeting
+													Date :</label>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<span
+													th:text="${#dates.format(claimApplicationBean.claimProcessingBean.codMeetingDate, 'dd-MM-yyyy')}"></span>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0 ">
+												<a href="#"><button type="button"
+														class="btn btn-primary  btn-sm">
+														<span class="text"> View Agenda</span>
+													</button></a>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<a th:href="@{/claim/listClaimForm}"
+									class="btn custom-smile-btn-back col-2 offset-5"> <span
+									class="icon"> <i
+										class="fas fa-angle-double-left mr-1 ml-1"></i></span> <span
+									class="text">Back</span>
+								</a>
+							</div>
+
+						</div>
+
+
+					</div>
+
+				</div>
+				<!--end of card body-->
+			</div>
+			<!-- ACTUAL BODY CONTENT -->
+		</div>
+	</div>
+
+	<th:block layout:fragment="scripts">
+		<!-- Page level custom scripts -->
+		<script type="text/javascript" th:src="@{/js/char-count-claim.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.html5.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.print.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/pdfmake.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/vfs_fonts.js}"></script>
+		<script type="text/javascript" th:src="@{/js/exporttable.js}"></script>
+		<script type="text/javascript" th:src="@{/js/buttonbootstrap4.js}"></script>
+		<script>
+			
+		</script>
+		<script th:inline="javascript">
+			$(document).ready(function() {
+				
+				//var name = /*[[${id}]]*/ "test";
+				
+				
+				//document.getElementById(name).click();
+				
+				let labelNames21 = ['Month-Year','Part Claim Amount','Part Claim Amount Approved','Remarks'];
+				let fieldNames21 = ['monthYear','partClaimAmount','partClaimAmountApproved','remarks'];
+				let deferred = "claimPartPaymentScheduleDetailsBeanList";
+				$(document).on('click', '#addNewRow', function(e) {
+					e.preventDefault();
+
+					//var parentDiv = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr("id");
+					//console.log(parentDiv);
+					var parentDiv = "partPaymentScheduleDiv";
+
+					var rowIndex = $('#'+parentDiv+'  #partPaymentScheduleTable tbody tr').length;
+					console.log(rowIndex);
+					
+					var partPaymentScheduleTbody = $(this).parent().parent().parent().siblings();
+					console.log(partPaymentScheduleTbody);
+					let tr = document.createElement('tr');
+					tr.classList.add('defRow');
+					
+					fieldNames21.forEach((field,index)=>{
+						let td = document.createElement('td');
+
+						let input = document.createElement('input');
+						if(index == 0){
+							input.type='month';
+						}else{
+							input.type='text';
+						}
+						input.classList.add('form-control');
+						input.id =  field;
+						input.setAttribute('name',deferred+'['+rowIndex+'].'+field);
+
+						td.appendChild(input);
+						tr.appendChild(td);
+					});
+					// remove button
+					let tdButton = document.createElement('td');
+					let button = document.createElement('button');
+					button.innerHTML = '<img src="/svg/minus.svg" height="30" width="30">';
+					button.classList.add('btn');
+					button.setAttribute('type','button');
+					button.setAttribute('title','Remove this Row');
+					button.setAttribute('id','removeThisRow');
+					tdButton.appendChild(button);
+
+					tr.appendChild(tdButton);
+					partPaymentScheduleTbody.append(tr);
+				});
+				
+				/* To remove row from Part Payment Schedule table dynamically */
+				$(document).on('click', '#removeThisRow', function(e) {
+					e.preventDefault();
+					var tr = $(this).parent().parent();
+					$(tr).remove();
+				});
+				
+				$("#closeProcessInvoiceScreen").click(function() {
+					$("#processInvoiceForm").css("display", "none");
+				});
+
+			});
+			
+			//for view annexure ajax call
+			//$('#ann1 #viewAnnexureButton').on('click',function(event){	
+				$('body').on('click','#ann1 #viewAnnexureButton',function(){	
+				event.preventDefault();
+				
+			 	var href=$(this).attr('href');
+			 
+				$.get(href,function(response,status){
+					//console.log("response : - :"+JSON.stringify(response));
+					
+					function convertDate(inputFormat) {
+					  function pad(s) { return (s < 10) ? '0' + s : s; }
+					  var d = new Date(inputFormat)
+					  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
+					}
+					$("#claimNo").text(response.claimNo);
+					$("#invoiceNo").text(response.invoiceNo);
+					$("#billCertifiedDate").text(convertDate(response.billCertifiedDate));
+					$("#invoiceDate").text(convertDate(response.invoiceDate));
+					$("#originalDueDate").text(convertDate(response.originalDueDate));
+					$("#extendedDueDate").text(convertDate(response.extendedDueDate));
+					$("#invoiceDescription").text(response.invoiceDescription);
+					
+					if(response.invoiceUploadedStatus === 'Invoice Uploaded'){
+						$("#uploaded").css("display","block");
+						$(".notuploaded").css("display","none");
+					}else{
+						$(".notuploaded").css("display","block");
+						$("#notUploaded").text("Invoice Not Uploaded");
+						$("#uploaded").css("display","none");
+					}
+
+					$("#givINR").text(response.grossInvoiceValueINR);
+					$("#paymentReleased").text(response.paymentReleased);
+					$("#amountDue").text(response.amountDue);
+					$("#reasonForNonPayment").text(response.reasonForNonPayment);
+					$("#invoiceSanctionedByBank").text(response.invoiceSanctionedByBank);
+
+					if(response.invoiceSanctionedByBank === 'yes'){
+						$("#bankName").text(response.bankName);
+						$("#bankBranch").text(response.bankBranch);
+						$("#bankRefNo").text(response.bankRefNo);
+						$(".sancyes").css("display", "block");
+						$("#sancno").css("display", "none");
+					}else{
+						$("#sancno").css("display", "block");
+						$("#reasonForInvoiceNotSanctionByBank").text(response.reasonForInvoiceNotSanctionByBank);
+						$(".sancyes").css("display", "none");
+					}
+					$("#dateOfShipment").text(convertDate(response.dateOfShipment));
+				}); 
+				$("#viewAnnexureDetails").modal();
+				
+			});
+			//end of ajax call
+			
+			
+				//for view invoice raised but not paid ajax call
+				$('#example1 #viewInvoiceButton').on('click',function(event){	
+					
+					event.preventDefault();
+					
+				 	var href=$(this).attr('href');
+				 	//var href1 = href+"/"+claimNo;
+					$.get(href,function(response,status){
+
+						console.log("response : - :"+JSON.stringify(response));
+						
+						function convertDate(inputFormat) {
+						  function pad(s) { return (s < 10) ? '0' + s : s; }
+						  var d = new Date(inputFormat)
+						  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
+						}
+						
+						$("#viewInvoiceDetails #claimNo").text(response.claimNo);
+						//$("#viewInvoiceDetails #dmsId").text(response.dmsId);
+						$("#viewInvoiceDetails #invoiceNo").text(response.invoiceNo);
+						$("#viewInvoiceDetails #invoiceDate").text(convertDate(response.invoiceDate));
+						$("#viewInvoiceDetails #originalDueDate").text(convertDate(response.originalDueDate));
+						$("#viewInvoiceDetails #extendedDueDate").text(convertDate(response.extendedDueDate));
+						$("#viewInvoiceDetails #invoiceDecision").text(response.invoiceDecision);
+
+						$("#viewInvoiceDetails #givINR").text(response.grossInvoiceValueINR);
+						$("#viewInvoiceDetails #amountApproved").text(response.amountApproved);
+						$("#viewInvoiceDetails #amountDue").text(response.amountDue);
+						$("#viewInvoiceDetails #remarksByExporter").text(response.remarksByExporter);
+						$("#viewInvoiceDetails #remarksByECGC").text(response.remarksByECGC);
+						$("#viewInvoiceDetails #remarks").text(response.remarks);
+						$("#viewInvoiceDetails #processInvoiceStatus").text(response.processInvoiceStatus);
+
+						$("#viewInvoiceDetails #exchangeRate").text(response.exchangeRate);
+						
+						if(response.dmsId == null){
+							console.log(response.dmsId);
+							$("#notUploadedInvoice").text("Invoice Not Uploaded");
+							$("#downloadInvoice").css("display","none");
+						}else{
+							console.log(response.dmsId);
+							$("#downloadInvoice").css("display","block");
+							
+						}
+					}); 
+					$("#viewInvoiceDetails").modal();
+					
+				});
+				//end of ajax call
+			
+			
+		</script>
+	</th:block>
+</body>
+</html>

@@ -1,0 +1,2135 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{BaseLayout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>PEB POLICY</title>
+<style type="text/css">
+.form-actions {
+	margin: 0;
+	text-align: center;
+}
+
+.tablecss {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
+
+.table_cell {
+	display: table-cell;
+	width: 100px;
+}
+
+.notAllowed {
+	cursor: not-allowed;
+}
+</style>
+</head>
+<body>
+	<div id="page-wrapper" layout:fragment="content">
+
+		<nav aria-label="breadcrumb" class="mt-2">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="indexwithsm">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Add
+					Claim Application Form</li>
+			</ol>
+		</nav>
+		<div th:if="${finalSubmitMsg}">
+			<div class="alert alert-success scs mt-3 alert-dismissible fade show"
+				id="scs" role="alert">
+				<strong><span th:text="${finalSubmitMsg}"></span></strong>
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+		<div class="card shadow mb-4 mt-2 bkg-color">
+
+			<!--card header-->
+			<div class="card-header">
+				<span class="custom-smile-form-header" id="datatables">Add
+					Claim Application Form</span>
+			</div>
+			<!--end of card header-->
+			<div class="card-body">
+				<div class="row my-2">
+					<div class="col-lg-12 order-lg-2">
+						<ul class="nav nav-pills">
+							<li class="nav-item"><a href="#basicClaimDetails"
+								data-target="" data-toggle="tab" class="nav-link active" id="1">Basic
+									Claim Details</a></li>
+							<li class="nav-item"><a href="#annexureDetails"
+								data-target="" data-toggle="tab" class="nav-link" id="2">Annexure
+									Details</a></li>
+							<li class="nav-item"><a href="#scrutinyUploadDocuments"
+								data-target="" data-toggle="tab" class="nav-link" id="3">Scrutiny
+									& Upload Documents/Invoices</a></li>
+							<li class="nav-item"><a href="#assessment" data-target=""
+								data-toggle="tab" class="nav-link" id="4">Assessment/Processing
+									Of Invoices</a></li>
+							<li class="nav-item"><a href="#claimDecision" data-target=""
+								data-toggle="tab" class="nav-link" id="5">Claim Decision</a></li>
+						</ul>
+						<div class="tab-content py-4">
+							<div class="tab-pane active" id="basicClaimDetails">
+								<div class="form -group row"
+									th:if="${BasicClaimDetailsFlag == 'success'}"
+									id="divRegSuccess">
+									<div
+										class="alert alert-success scs mt-2 alert-dismissible fade show"
+										id="scs" role="alert">
+										<strong><span>Basic Claim Details Saved
+												Successfully</span></strong>
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								</div>
+								<form th:action="@{/claim/saveBasicClaimForm}"
+									th:object="${claimApplicationBean}" method="post">
+									<div class="card card-body">
+										<div th:fragment="basicForm">
+											<div class="row">
+												<div class="form-group col-4">
+													<label class="custom-smile-form-label" for="inwardNo">Inward
+														Number<span class="text-danger">&nbsp;&nbsp;*</span>
+													</label> <input type="text" th:field="*{inwardNo}"
+														class="form-control" id="inwardNo"
+														placeholder="Enter Inward Number"> <span
+														th:if="${#fields.hasErrors('inwardNo')}"
+														th:errors="*{inwardNo}" class="text-danger"></span>
+												</div>
+												<div class="form-group col-4">
+													<label class="custom-smile-form-label" for="inwardItemNo">Inward
+														Item Number<span class="text-danger">&nbsp;&nbsp;*</span>
+													</label> <input type="text" th:field="*{inwardItemNo}"
+														class="form-control" id="inwardItemNo"
+														placeholder="Enter Inward Item Number"> <span
+														th:if="${#fields.hasErrors('inwardItemNo')}"
+														th:errors="*{inwardItemNo}" class="text-danger"></span>
+												</div>
+												<div class="form-group col-4">
+													<label class="custom-smile-form-label" for="policyNo">Policy
+														Number</label> <input type="text" name="policyNo"
+														class="form-control" id="policyNo" th:value="301"
+														readonly="readonly"> <span
+														th:if="${#fields.hasErrors('policyNo')}"
+														th:errors="*{policyNo}" class="text-danger"></span>
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-6">
+													<label class="custom-smile-form-label" for="rodId">ROD
+														ID</label> <input type="text" th:field="*{rodId}"
+														class="form-control" id="rodId" placeholder="Enter ROD ID">
+													<span th:if="${#fields.hasErrors('rodId')}"
+														th:errors="*{rodId}" class="text-danger"></span>
+												</div>
+												<div class="form-group col-6">
+													<label class="custom-smile-form-label" for="rodDate">ROD
+														Date</label> <input type="date" th:field="*{rodDate}"
+														class="form-control" id="rodDate" placeholder="">
+													<span th:if="${#fields.hasErrors('rodDate')}"
+														th:errors="*{rodDate}" class="text-danger"></span>
+												</div>
+											</div>
+											<div class="row">
+												<div class="form-group col-6">
+													<label class="custom-smile-form-label"
+														for="claimApplicationDate">Claim Application Date<span
+														class="text-danger">&nbsp;&nbsp;*</span></label> <input
+														type="date" th:field="*{claimApplicationDate}"
+														class="form-control" id="claimApplicationDate"
+														placeholder=""> <span
+														th:if="${#fields.hasErrors('claimApplicationDate')}"
+														th:errors="*{claimApplicationDate}" class="text-danger"></span>
+												</div>
+												<div class="form-group col-6">
+													<label class="custom-smile-form-label" for="grossLossValue">Gross
+														Loss Value</label> <input type="text" th:field="*{grossLossValue}"
+														class="form-control" id="grossLossValue" placeholder=""
+														name="grossLossValue" readonly="readonly"> <span
+														th:if="${#fields.hasErrors('grossLossValue')}"
+														th:errors="*{grossLossValue}" class="text-danger"></span>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="form-group col-6">
+													<label class="custom-smile-form-label" for="reasonForClaim">Reason
+														For Claim<span class="text-danger">&nbsp;&nbsp;*</span>
+													</label> <select th:field="*{reasonForClaim}" class="form-control"
+														id="reasonForClaim">
+														<option value="">--Please Select--</option>
+														<option value="Insolvency of the buyer">Insolvency
+															of the buyer</option>
+														<option value="Default Of the buyer">Default Of
+															the buyer</option>
+														<option value="Non-acceptance of goods/bill">Non-acceptance
+															of goods/bill</option>
+														<option value="Insolvency of the LC opening bank">Insolvency
+															of the LC opening bank</option>
+														<option value="Protracted default Of the LC opening bank">Protracted
+															default Of the LC opening bank</option>
+														<option value="Discrepancy in LC">Discrepancy in
+															LC</option>
+														<option value="Transfer delay">Transfer delay</option>
+														<option value="Other Political Risks">Other
+															Political Risks</option>
+													</select> <span th:if="${#fields.hasErrors('reasonForClaim')}"
+														th:errors="*{reasonForClaim}" class="text-danger"></span>
+												</div>
+												<div class="form-group col-6">
+													<label class="custom-smile-form-label" for="remarks">Remarks</label>
+													<textarea class="form-control" rows="2" id="remarks"
+														th:field="*{remarks}" onkeyup="countChar(this, 200)"
+														cols="58" name="textArea"
+														style="margin-top: 0px; margin-bottom: 0px; height: 55px;"
+														placeholder="Enter Remarks if any">
+												</textarea>
+													<div class="float-right">
+														<small id="remarksCharNum"></small><span
+															class="custom-smile-char-count-textarea">&nbsp;characters
+															inserted</span> OR <br> <small id="remarksCharNumLeft"></small><span
+															class="custom-smile-char-count-textarea">&nbsp;characters
+															remaining</span>
+													</div>
+
+												</div>
+											</div>
+										</div>
+										<!-- th fragment -->
+
+										<div class="form-actions mt-2">
+											<input type="submit"
+												class="btn custom-smile-btn-success col-2 offset-0"
+												value="Save"> <input type="reset"
+												class="btn custom-smile-btn-submit col-2" value="Clear">
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="tab-pane" id="annexureDetails">
+								<div class="card section-border-left-primary mb-4 mt-3 p-0">
+									<div class="card-header custom-smile-form-subsection-header"
+										style="margin: 0 !important;">
+										<div style="float: left; width: 50%;">Annexure 1 : Claim
+											Details</div>
+										<div style="float: right; width: 50%; text-align: right;">
+											<th:block th:if="${not #lists.isEmpty(ann1list)}">
+												<small style=""> Invoices : <span
+													th:text="${#lists.size(ann1list)}"></span></small>
+											</th:block>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="form-group row ml-1 mr-1">
+											<div class="form-group row">
+												<div class="col">
+													<!-- <button type="button" class="btn custom-smile-btn-submit" data-target="#ann1Form" data-toggle="modal">Add New</button> -->
+													<button type="button"
+														class="btn custom-smile-btn-submit btn-icon-split float-right btn-sm"
+														id="" data-target="#ann1Form" data-toggle="modal"
+														title="Add New">
+														<span class="icon "> <i class="fas fa-plus"></i>
+														</span> <span class="text">Add New</span>
+													</button>
+												</div>
+											</div>
+
+											<table class="table table-striped table-bordered tablecss"
+												id="ann1" width="100%">
+												<thead>
+													<tr>
+														<th>Invoice No.</th>
+														<th>Invoice Date</th>
+														<th>Gross Invoice Value</th>
+														<th>Sanctioned by Bank</th>
+														<th>Bill Certified Date</th>
+														<th>Invoice Uploaded Status</th>
+														<th style="width: 72px;">Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													<th:block th:if="${not #lists.isEmpty(ann1list)}">
+														<th:block th:each="count,stat : ${ann1list}">
+															<tr>
+																<td><span th:text="${count.invoiceNo}"></span></td>
+																<td><span
+																	th:text="${#dates.format(count.invoiceDate, 'dd-MM-yyyy')}"></span>
+																</td>
+																<td><span th:text="${count.grossInvoiceValueINR}"></span>
+
+																</td>
+																<td><span
+																	th:text="${count.invoiceSanctionedByBank}"></span></td>
+																<td><span
+																	th:text="${#dates.format(count.billCertifiedDate, 'dd-MM-yyyy')}"></span>
+
+																</td>
+																<td><span th:text="${count.invoiceUploadedStatus}"
+																	style="font-weight: bold"></span></td>
+																<td>
+																	<!-- <a
+																	th:href="${'/updateAnnexure1/'+{count.invoiceNo}}"
+																	id="" class="btn custom-smile-btn-warning mr-1 ml-1">
+																		<i class="fas fa-edit "></i>
+																</a> -->
+																	<form th:action="@{/claim/viewUpdateAnnexure1}" method="post">
+																		<input type="hidden" name="invoiceNo" id="invoiceNo"
+																			th:value="${count.invoiceNo}">
+																		<button type="submit"
+																			class="btn btn-link text-warning">
+																			<i class="fas fa-edit fa-lg"></i>
+																		</button>
+																	</form>
+																</td>
+															</tr>
+														</th:block>
+													</th:block>
+													<th:block th:unless="${not #lists.isEmpty(ann1list)}">
+														<tr>
+															<td colspan="7">
+																<center>
+																	<span>No Invoice Present in Annexure 1</span>
+																</center>
+															</td>
+														</tr>
+													</th:block>
+												</tbody>
+											</table>
+
+											<!-- modal for annexure 1 -->
+											<div class="modal fade" id="ann1Form" role="dialog">
+												<div class="modal-dialog modal-lg">
+													<div class="modal-content">
+														<div class="modal-header bg-light">
+															<h4 class="modal-title" style="color: black;">Annexure
+																1 : Claim Details</h4>
+															<button type="button" class="close" data-dismiss="modal">&times;</button>
+														</div>
+														<div class="form -group row mt-1 ml-2"
+															th:if="${invoiceNoExistError}" id="invoiceNoExist">
+															<div
+																class="alert alert-danger scs mt-2 alert-dismissible fade show"
+																id="scs" role="alert">
+																<strong><span>Invoice Already Exist</span></strong>
+																<button type="button" class="close" data-dismiss="alert"
+																	aria-label="Close">
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+														</div>
+														<form th:action="@{/claim/saveAnnexure1}" th:object="${ann1}"
+															method="post" enctype="multipart/form-data">
+															<div th:fragment="ann1Modal">
+																<div class="modal-body">
+																	<div class="card section-border-left-primary mb-3 p-0">
+																		<div
+																			class="card-header custom-smile-form-subsection-header"
+																			style="margin: 0 !important;">Invoice Details</div>
+																		<div class="card-body">
+																			<div class="row">
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Invoice
+																						Number<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{invoiceNo}"
+																						placeholder='Enter Invoice Number'
+																						class="form-control" id="invoiceNo" /> <span
+																						th:if="${#fields.hasErrors('invoiceNo')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{invoiceNo}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Invoice
+																						Date<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="date" th:field="*{invoiceDate}"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('invoiceDate')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{invoiceDate}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Invoice
+																						Description<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text"
+																						th:field="*{invoiceDescription}"
+																						placeholder='Enter Invoice Description'
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('invoiceDescription')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{invoiceDescription}"></span>
+																				</div>
+																			</div>
+																			<div class="row">
+																				<div class="form-group col-3">
+																					<label class="custom-smile-form-label" for="">Bill
+																						Certified Date<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="date" th:field="*{billCertifiedDate}"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('billCertifiedDate')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{billCertifiedDate}"></span>
+																				</div>
+																				<div class="form-group col-3">
+																					<label class="custom-smile-form-label" for="">Original
+																						Due Date<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="date" th:field="*{originalDueDate}"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('originalDueDate')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{originalDueDate}"></span>
+																				</div>
+																				<div class="form-group col-3">
+																					<label class="custom-smile-form-label" for="">Extended
+																						Due Date<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="date" th:field="*{extendedDueDate}"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('extendedDueDate')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{extendedDueDate}"></span>
+																				</div>
+																				<div class="form-group col-3">
+																					<label class="custom-smile-form-label" for="">Date
+																						of Shipment<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="date" th:field="*{dateOfShipment}"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('dateOfShipment')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{dateOfShipment}"></span>
+																				</div>
+																			</div>
+																			<div class="row">
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Gross
+																						Invoice Value<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" id="grossInvoiceValue"
+																						th:field="*{grossInvoiceValueINR}"
+																						placeholder="Enter GIV Value in INR"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('grossInvoiceValueINR')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{grossInvoiceValueINR}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Payment
+																						Released<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{paymentReleased}"
+																						placeholder="Enter Payment Released"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('paymentReleased')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{paymentReleased}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Amount
+																						Due<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{amountDue}"
+																						id="amountDue" placeholder="Enter Amount Due"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('amountDue')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{amountDue}"></span>
+																				</div>
+																			</div>
+																			<div class="row">
+																				<div class="form-group col-8">
+																					<label class="custom-smile-form-label" for="">Reason
+																						for Non-Payment<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label>
+																					<!-- <textarea th:field="*{reasonForNonPayment}" placeholder="Provide Reason for Non-Payment." class="form-control"></textarea> -->
+																					<textarea class="form-control" rows="2"
+																						id="reasonForNonPayment"
+																						th:field="*{reasonForNonPayment}"
+																						onkeyup="countChar(this, 200)" cols="58"
+																						name="textArea"
+																						style="margin-top: 0px; margin-bottom: 0px; height: 55px;"
+																						placeholder="Enter Reason for Non-Payment">
+																		</textarea>
+																					<div class="float-right">
+																						<small id="reasonNonPaymentCharNum"></small><span
+																							class="custom-smile-char-count-textarea">&nbsp;characters
+																							inserted</span> OR <br> <small
+																							id="reasonNonPaymentCharNumLeft"></small><span
+																							class="custom-smile-char-count-textarea">&nbsp;characters
+																							remaining</span>
+																					</div>
+
+																					<span
+																						th:if="${#fields.hasErrors('reasonForNonPayment')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{reasonForNonPayment}"></span>
+																				</div>
+																				<div class="form-group col-sm-4">
+																					<div class="form-group row">
+																						<div class="col">
+																							<div class="form-group">
+																								<label class="custom-smile-form-label">Invoice
+																									to Upload</label>
+																								<div class="custom-file">
+																									<input type="file" class="custom-file-input"
+																										name="annexure1Invoice" id="inputGroupFile04"
+																										aria-describedby="inputGroupFileAddon04">
+																									<label class="custom-file-label"
+																										for="inputGroupFile04">Choose file</label>
+																								</div>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="card section-border-left-primary mb-3 p-0">
+																		<div class="card-body row">
+																			<div class="form-group col-sm-12">
+																				<label class="custom-smile-form-label" for="">Is
+																					Invoice Sanctioned by Bank&nbsp;?<span
+																					class="text-danger">&nbsp;*</span>
+																				</label>
+																				<div class="col-sm-12 mb-3 mb-sm-0 form-check p-0">
+																					<div
+																						class="custom-radio custom-control custom-control-inline">
+																						<input type="radio" id="invoiceSanctionedYes"
+																							th:field="*{invoiceSanctionedByBank}"
+																							class="custom-control-input" th:value="yes">
+																						<label class="custom-control-label labelYes"
+																							for="invoiceSanctionedYes">Yes</label>
+																					</div>
+																					<div
+																						class="custom-radio custom-control custom-control-inline">
+																						<input type="radio" id="invoiceSanctionedNo"
+																							th:field="*{invoiceSanctionedByBank}"
+																							class="custom-control-input" th:value="no">
+																						<label class="custom-control-label labelNo"
+																							for="invoiceSanctionedNo">No</label>
+																					</div>
+																				</div>
+																				<span
+																					th:if="${#fields.hasErrors('invoiceSanctionedByBank')}"
+																					style="color: red" th:errorclass="form-field-error"
+																					th:errors="*{invoiceSanctionedByBank}"></span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="card section-border-left-primary mb-3 p-0"
+																		id="sanctionedNo" style="display: none;">
+																		<div class="card-body row">
+																			<div class="form-group col-sm-12">
+																				<label class="custom-smile-form-label" for="">Reason
+																					If Invoice is not Sanctioned by Bank<span
+																					class="text-danger">&nbsp;&nbsp;*</span>
+																				</label>
+
+																				<textarea class="form-control" rows="3"
+																					id="reasonForInvoiceNotSanctionByBank"
+																					th:field="*{reasonForInvoiceNotSanctionByBank}"
+																					onkeyup="countChar(this, 200)" cols="58"
+																					name="textArea"
+																					style="margin-top: 0px; margin-bottom: 0px; height: 55px;"
+																					placeholder="Enter Reason">
+																		</textarea>
+																				<div class="float-right">
+																					<small id="reasonNotSanctionedCharNum"></small><span
+																						class="custom-smile-char-count-textarea">&nbsp;characters
+																						inserted</span> OR <br> <small
+																						id="reasonNotSanctionedCharNumLeft"></small><span
+																						class="custom-smile-char-count-textarea">&nbsp;characters
+																						remaining</span>
+																				</div>
+
+																				<span
+																					th:if="${#fields.hasErrors('reasonForInvoiceNotSanctionByBank')}"
+																					style="color: red" th:errorclass="form-field-error"
+																					th:errors="*{reasonForInvoiceNotSanctionByBank}"></span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="card section-border-left-primary mb-3 p-0"
+																		id="sanctionedYes" style="display: none;">
+																		<div
+																			class="card-header custom-smile-form-subsection-header"
+																			style="margin: 0 !important;">Bank Details</div>
+																		<div class="card-body">
+																			<div class="row">
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Bank
+																						Name<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{bankName}"
+																						placeholder="Enter Bank Name" class="form-control" />
+																					<span th:if="${#fields.hasErrors('bankName')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{bankName}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Bank
+																						Branch<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{bankBranch}"
+																						placeholder="Enter Bank Branch"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('bankBranch')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{bankBranch}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Bank
+																						Reference Number<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{bankRefNo}"
+																						placeholder="Enter Bank Ref. No."
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('bankRefNo')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{bankRefNo}"></span>
+																				</div>
+																			</div>
+
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="modal-footer">
+																<button type="submit"
+																	class="btn custom-smile-btn-submit">Save</button>
+																<button type="button"
+																	class="btn custom-smile-btn-reject"
+																	data-dismiss="modal">Close</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+											<!-- modal for annexure 1 -->
+
+											<!-- update ann1 modal  -->
+											<th:block th:if="${annexure1}">
+												<div class="modal fade" id="updateAnn1" role="dialog">
+													<div class="modal-dialog modal-lg">
+														<div class="modal-content">
+															<div class="modal-header bg-light">
+																<h4 class="modal-title" style="color: black;">Modify
+																	Annexure 1 : Claim Details</h4>
+																<button type="button" class="close" data-dismiss="modal">&times;</button>
+															</div>
+															<form th:action="@{/claim/updateAnnexure1}"
+																th:object="${annexure1}" th:method="post" id=""
+																enctype="multipart/form-data">
+																<div class="modal-body">
+																	<div class="card section-border-left-primary mb-3 p-0">
+																		<div
+																			class="card-header custom-smile-form-subsection-header"
+																			style="margin: 0 !important;">Invoice Details</div>
+																		<div class="card-body">
+																			<div class="row">
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Invoice
+																						Number<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{invoiceNo}"
+																						placeholder='Enter Invoice Number'
+																						class="form-control not-allowed" id="invoiceNo"
+																						readonly="readonly" /> <span
+																						th:if="${#fields.hasErrors('invoiceNo')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{invoiceNo}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Invoice
+																						Date<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="date" th:field="*{invoiceDate}"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('invoiceDate')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{invoiceDate}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Invoice
+																						Description<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text"
+																						th:field="*{invoiceDescription}"
+																						placeholder='Enter Invoice Description'
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('invoiceDescription')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{invoiceDescription}"></span>
+																				</div>
+																			</div>
+																			<div class="row">
+																				<div class="form-group col-3">
+																					<label class="custom-smile-form-label" for="">Bill
+																						Certified Date<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="date" th:field="*{billCertifiedDate}"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('billCertifiedDate')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{billCertifiedDate}"></span>
+																				</div>
+																				<div class="form-group col-3">
+																					<label class="custom-smile-form-label" for="">Original
+																						Due Date<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="date" th:field="*{originalDueDate}"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('originalDueDate')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{originalDueDate}"></span>
+																				</div>
+																				<div class="form-group col-3">
+																					<label class="custom-smile-form-label" for="">Extended
+																						Due Date<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="date" th:field="*{extendedDueDate}"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('extendedDueDate')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{extendedDueDate}"></span>
+																				</div>
+																				<div class="form-group col-3">
+																					<label class="custom-smile-form-label" for="">Date
+																						of Shipment<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="date" th:field="*{dateOfShipment}"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('dateOfShipment')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{dateOfShipment}"></span>
+																				</div>
+																			</div>
+																			<div class="row">
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Gross
+																						Invoice Value<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" id="updateGrossInvoiceValue"
+																						th:field="*{grossInvoiceValueINR}"
+																						placeholder="Enter GIV Value in INR"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('grossInvoiceValueINR')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{grossInvoiceValueINR}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Payment
+																						Released<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{paymentReleased}"
+																						placeholder="Enter Payment Released"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('paymentReleased')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{paymentReleased}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Amount
+																						Due<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{amountDue}"
+																						id="updateAmountDue"
+																						placeholder="Enter Amount Due"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('amountDue')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{amountDue}"></span>
+																				</div>
+																			</div>
+																			<div class="row">
+																				<div class="form-group col-8">
+																					<label class="custom-smile-form-label" for="">Reason
+																						for Non-Payment<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label>
+																					<!-- <textarea th:field="*{reasonForNonPayment}" placeholder="Provide Reason for Non-Payment." class="form-control"></textarea> -->
+																					<textarea class="form-control" rows="2"
+																						id="reasonForNonPayment"
+																						th:field="*{reasonForNonPayment}"
+																						onkeyup="countChar(this, 200)" cols="58"
+																						name="textArea"
+																						style="margin-top: 0px; margin-bottom: 0px; height: 55px;"
+																						placeholder="Enter Reason for Non-Payment">
+																		</textarea>
+																					<div class="float-right">
+																						<small id="reasonNonPaymentCharNum"></small><span
+																							class="custom-smile-char-count-textarea">&nbsp;characters
+																							inserted</span> OR <br> <small
+																							id="reasonNonPaymentCharNumLeft"></small><span
+																							class="custom-smile-char-count-textarea">&nbsp;characters
+																							remaining</span>
+																					</div>
+
+																					<span
+																						th:if="${#fields.hasErrors('reasonForNonPayment')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{reasonForNonPayment}"></span>
+																				</div>
+																				<div class="form-group col-sm-4">
+																					<div class="form-group row">
+																						<div class="col">
+																							<div class="form-group">
+																								<label class="custom-smile-form-label">Invoice
+																									to Upload</label>
+																								<div class="custom-file">
+																									<input type="file" class="custom-file-input"
+																										name="annexure1Invoice" id="inputGroupFile04"
+																										aria-describedby="inputGroupFileAddon04">
+																									<label class="custom-file-label"
+																										for="inputGroupFile04">Choose file</label>
+																								</div>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="card section-border-left-primary mb-3 p-0">
+																		<div class="card-body row">
+																			<div class="form-group col-sm-12">
+																				<label class="custom-smile-form-label" for="">Is
+																					Invoice Sanctioned by Bank&nbsp;?<span
+																					class="text-danger">&nbsp;*</span>
+																				</label>
+																				<div class="col-sm-12 mb-3 mb-sm-0 form-check p-0">
+																					<div
+																						class="custom-radio custom-control custom-control-inline">
+																						<input type="radio"
+																							id="updateInvoiceSanctionedYes"
+																							th:field="*{invoiceSanctionedByBank}"
+																							class="custom-control-input" th:value="yes">
+																						<label class="custom-control-label labelYes"
+																							for="updateInvoiceSanctionedYes">Yes</label>
+																					</div>
+																					<div
+																						class="custom-radio custom-control custom-control-inline">
+																						<input type="radio" id="updateInvoiceSanctionedNo"
+																							th:field="*{invoiceSanctionedByBank}"
+																							class="custom-control-input" th:value="no">
+																						<label class="custom-control-label labelNo"
+																							for="updateInvoiceSanctionedNo">No</label>
+																					</div>
+																				</div>
+																				<span
+																					th:if="${#fields.hasErrors('invoiceSanctionedByBank')}"
+																					style="color: red" th:errorclass="form-field-error"
+																					th:errors="*{invoiceSanctionedByBank}"></span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="card section-border-left-primary mb-3 p-0"
+																		id="updateSanctionedNo" style="display: none;">
+																		<div class="card-body row">
+																			<div class="form-group col-sm-12">
+																				<label class="custom-smile-form-label" for="">Reason
+																					If Invoice is not Sanctioned by Bank<span
+																					class="text-danger">&nbsp;&nbsp;*</span>
+																				</label>
+
+																				<textarea class="form-control" rows="3"
+																					id="reasonForInvoiceNotSanctionByBank"
+																					th:field="*{reasonForInvoiceNotSanctionByBank}"
+																					onkeyup="countChar(this, 200)" cols="58"
+																					name="textArea"
+																					style="margin-top: 0px; margin-bottom: 0px; height: 55px;"
+																					placeholder="Enter Reason">
+																		</textarea>
+																				<div class="float-right">
+																					<small id="reasonNotSanctionedCharNum"></small><span
+																						class="custom-smile-char-count-textarea">&nbsp;characters
+																						inserted</span> OR <br> <small
+																						id="reasonNotSanctionedCharNumLeft"></small><span
+																						class="custom-smile-char-count-textarea">&nbsp;characters
+																						remaining</span>
+																				</div>
+
+																				<span
+																					th:if="${#fields.hasErrors('reasonForInvoiceNotSanctionByBank')}"
+																					style="color: red" th:errorclass="form-field-error"
+																					th:errors="*{reasonForInvoiceNotSanctionByBank}"></span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="card section-border-left-primary mb-3 p-0"
+																		id="updateSanctionedYes" style="display: none;">
+																		<div
+																			class="card-header custom-smile-form-subsection-header"
+																			style="margin: 0 !important;">Bank Details</div>
+																		<div class="card-body">
+																			<div class="row">
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Bank
+																						Name<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{bankName}"
+																						placeholder="Enter Bank Name" class="form-control" />
+																					<span th:if="${#fields.hasErrors('bankName')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{bankName}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Bank
+																						Branch<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{bankBranch}"
+																						placeholder="Enter Bank Branch"
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('bankBranch')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{bankBranch}"></span>
+																				</div>
+																				<div class="form-group col-4">
+																					<label class="custom-smile-form-label" for="">Bank
+																						Reference Number<span class="text-danger">&nbsp;&nbsp;*</span>
+																					</label> <input type="text" th:field="*{bankRefNo}"
+																						placeholder="Enter Bank Ref. No."
+																						class="form-control" /> <span
+																						th:if="${#fields.hasErrors('bankRefNo')}"
+																						style="color: red"
+																						th:errorclass="form-field-error"
+																						th:errors="*{bankRefNo}"></span>
+																				</div>
+																			</div>
+
+																		</div>
+																	</div>
+																</div>
+
+
+																<div class="modal-footer">
+																	<button type="submit"
+																		class="btn custom-smile-btn-warning">Update</button>
+																	<!-- <a  th:href="${'/deleteAnnexure1/'+{invoiceNo}}"
+																			class="btn custom-smile-btn-reject">Delete</a> -->
+																	<button type="button"
+																		class="btn custom-smile-btn-submit"
+																		data-dismiss="modal">Close</button>
+																	<a></a>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</th:block>
+
+
+										</div>
+									</div>
+								</div>
+								<div class="card section-border-left-danger mb-4 mt-3 p-0">
+									<div class="card-header custom-smile-form-subsection-header"
+										style="margin: 0 !important;">
+										<div style="float: left; width: 50%;">Annexure 2 :
+											Experience with Buyer</div>
+										<div style="float: right; width: 50%; text-align: right;">
+											<th:block th:if="${not #lists.isEmpty(ann2list)}">
+												<small style=""> Invoices : <span
+													th:text="${#lists.size(ann2list)}"></span></small>
+											</th:block>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="form-group row ml-1 mr-1">
+											<div class="form-group row" style="display: none;">
+												<div class="col">
+													<button type="button" class="btn custom-smile-btn-submit"
+														data-target="#ann2Form" data-toggle="modal">Add
+														New</button>
+												</div>
+											</div>
+											<table class="table table-striped table-bordered tablecss"
+												id="ann2" width="100%">
+												<thead>
+													<tr>
+														<th>Invoice No.</th>
+														<th>Invoice Date</th>
+														<th>Bank Reference No.</th>
+														<th>Gross Invoice Value</th>
+														<th>Terms of Payment</th>
+														<th style="width: 72px;">Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													<th:block th:if="${not #lists.isEmpty(ann2list)}">
+														<th:block th:each="count,stat : ${ann2list}">
+															<tr>
+																<td>
+																	<center>
+																		<span th:text="${count.invoiceNo}"></span>
+																	</center>
+																</td>
+																<td>
+																	<center>
+																		<span
+																			th:text="${#dates.format(count.dateOfBillSubmitted, 'dd-MM-yyyy')}"></span>
+																	</center>
+																</td>
+																<td>
+																	<center>
+																		<span th:text="${count.bankRefNo}"></span>
+																	</center>
+																</td>
+																<td>
+																	<center>
+																		<span th:text="${count.grossInvoiceValueINR}"></span>
+																	</center>
+																</td>
+																<td>
+																	<center>
+																		<span th:text="${count.termsOfPayment}"></span>
+																	</center>
+																</td>
+																<td><a th:href="${'/#'}" id=""
+																	class="btn custom-smile-btn-verify mr-1 ml-1"> <i
+																		class="fas fa-edit "></i>
+																</a></td>
+															</tr>
+														</th:block>
+													</th:block>
+													<th:block th:unless="${not #lists.isEmpty(ann2list)}">
+														<tr>
+															<td colspan="6">
+																<center>
+																	<span>No Invoice Present in Annexure 2</span>
+																</center>
+															</td>
+														</tr>
+													</th:block>
+												</tbody>
+											</table>
+
+											<!-- modal for annexure 2-->
+											<div class="modal fade" id="ann2Form" role="dialog">
+												<div class="modal-dialog modal-lg">
+													<div class="modal-content">
+														<div class="modal-header bg-light">
+															<h4 class="modal-title" style="color: black;">Annexure
+																2 : Experience with Buyer</h4>
+															<button type="button" class="close" data-dismiss="modal">&times;</button>
+														</div>
+														<form th:action="@{/saveAnnexure2}" th:object="${ann2}"
+															method="post">
+															<div class="modal-body">
+																<div class="row">
+																	<div class="form-group col-4">
+																		<label class="custom-smile-form-label" for="">Invoice
+																			Number<span class="text-danger">&nbsp;&nbsp;*</span>
+																		</label> <input type="text" th:field="*{invoiceNo}"
+																			placeholder='Enter Invoice Number'
+																			class="form-control" /> <span
+																			th:if="${#fields.hasErrors('invoiceNo')}"
+																			style="color: red" th:errorclass="form-field-error"
+																			th:errors="*{invoiceNo}"></span>
+																	</div>
+																	<div class="form-group col-4">
+																		<label class="custom-smile-form-label" for="">Invoice
+																			Date<span class="text-danger">&nbsp;&nbsp;*</span>
+																		</label> <input type="date" th:field="*{invoiceDate}"
+																			class="form-control" /> <span
+																			th:if="${#fields.hasErrors('invoiceDate')}"
+																			style="color: red" th:errorclass="form-field-error"
+																			th:errors="*{invoiceDate}"></span>
+																	</div>
+																	<div class="form-group col-4">
+																		<label class="custom-smile-form-label" for="">Bank
+																			Reference Number<span class="text-danger">&nbsp;&nbsp;*</span>
+																		</label> <input type="text" th:field="*{bankRefNo}"
+																			placeholder='Provide Bank Ref No.'
+																			class="form-control" /> <span
+																			th:if="${#fields.hasErrors('bankRefNo')}"
+																			style="color: red" th:errorclass="form-field-error"
+																			th:errors="*{bankRefNo}"></span>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="form-group col-4">
+																		<label class="custom-smile-form-label" for="">Gross
+																			Invoice Value<span class="text-danger">&nbsp;&nbsp;*</span>
+																		</label> <input type="text" th:field="*{grossInvoiceValueINR}"
+																			placeholder="Enter GIV Value in INR"
+																			class="form-control" /> <span
+																			th:if="${#fields.hasErrors('grossInvoiceValueINR')}"
+																			style="color: red" th:errorclass="form-field-error"
+																			th:errors="*{grossInvoiceValueINR}"></span>
+																	</div>
+																	<div class="form-group col-4">
+																		<label class="custom-smile-form-label" for="">Due
+																			Date<span class="text-danger">&nbsp;&nbsp;*</span>
+																		</label> <input type="date" th:field="*{dueDate}"
+																			class="form-control" /> <span
+																			th:if="${#fields.hasErrors('dueDate')}"
+																			style="color: red" th:errorclass="form-field-error"
+																			th:errors="*{dueDate}"></span>
+																	</div>
+																	<div class="form-group col-4">
+																		<label class="custom-smile-form-label" for="">Date
+																			of Realisation<span class="text-danger">&nbsp;&nbsp;*</span>
+																		</label> <input type="date" th:field="*{dateOfRealisation}"
+																			class="form-control" /> <span
+																			th:if="${#fields.hasErrors('dateOfRealisation')}"
+																			style="color: red" th:errorclass="form-field-error"
+																			th:errors="*{dateOfRealisation}"></span>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="form-group col-8">
+																		<label class="custom-smile-form-label" for="">Terms
+																			of Payment<span class="text-danger">&nbsp;&nbsp;*</span>
+																		</label>
+																		<textarea th:field="*{termsOfPayment}"
+																			placeholder="Provide Terms of Payment"
+																			class="form-control"></textarea>
+																		<span th:if="${#fields.hasErrors('termsOfPayment')}"
+																			style="color: red" th:errorclass="form-field-error"
+																			th:errors="*{termsOfPayment}"></span>
+																	</div>
+																	<div class="form-group col-sm-4">
+																		<div class="form-group row">
+																			<div class="col">
+																				<div class="form-group">
+																					<label class="custom-smile-form-label">Invoice
+																						to Upload</label>
+																					<div class="custom-file">
+																						<input type="file" class=" custom-file-input"
+																							name="dms" id="inputGroupFile04"
+																							aria-describedby="inputGroupFileAddon04">
+																						<label class="custom-file-label"
+																							for="inputGroupFile04">Choose file</label>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="modal-footer">
+																<button type="submit"
+																	class="btn custom-smile-btn-submit">Save</button>
+																<button type="button"
+																	class="btn custom-smile-btn-reject"
+																	data-dismiss="modal">Close</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+											<!-- modal for annexure 1 -->
+										</div>
+									</div>
+								</div>
+								<!-- Annexures end here  -->
+
+
+							</div>
+							<div class="tab-pane" id="scrutinyUploadDocuments">
+								<div class="form -group row"
+									th:if="${ScrutinyUploadDocumentsFlag == 'success'}"
+									id="divRegSuccess">
+									<div
+										class="alert alert-success scs mt-2 alert-dismissible fade show"
+										id="scs" role="alert">
+										<strong><span>Scrutiny Details Saved
+												Successfully</span></strong>
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								</div>
+
+								<form th:action="@{/claim/saveClaimScrutiny}"
+									th:object="${claimApplicationBean}" method="post">
+									<div class="card card-body mb-3">
+
+										<!-- <div class="form-check">
+											<input class="form-check-input" type="checkbox" name="docs"
+												th:value="${document.documentName}" th:field="*{checklist}">
+											<label class="form-check-label"
+												th:text="${document.documentName}"></label>
+										</div> -->
+
+										<th:block th:each="document : ${claimChecklist}">
+											<div class="form-group row">
+												<div
+													class="custom-control custom-form-control-lg custom-checkbox col-sm-6">
+													<input type="checkbox" class="custom-control-input"
+														th:id="${document.documentName}"
+														th:field="*{claimDocumentChecklistBean}"
+														th:value="${document.checklistId}"> <label
+														class="custom-control-label"
+														th:for="${document.documentName}"
+														th:text="${document.documentName}"></label>
+												</div>
+												<div class="col-sm-6">
+													<button type="button" class="btn custom-smile-btn-upload">
+														<i class="fas fa-cloud-upload-alt"></i> Upload
+													</button>
+												</div>
+											</div>
+										</th:block>
+
+										<span
+											th:if="${#fields.hasErrors('claimDocumentChecklistBean')}"
+											th:errors="*{claimDocumentChecklistBean}" style="color: red;"
+											th:errorclass="form-field-error"></span>
+
+										<div class="form-actions mt-2">
+											<input type="submit"
+												class="btn custom-smile-btn-success col-2 offset-0"
+												value="Save"> <input type="reset"
+												class="btn custom-smile-btn-submit col-2" value="Clear">
+										</div>
+									</div>
+
+								</form>
+
+							</div>
+							<div class="tab-pane" id="assessment">
+								<!-- Process Invoice -->
+								<div id="processInvoiceForm"
+									th:if="${showProcessInvoiceForm}=='yes'">
+									<th:block
+										th:each="claimInvoice : ${ListOfInvoicesRaisedButNotPaid}">
+										<div th:if="${claimInvoice.invoiceNo}==${invoiceNo}">
+											<form action="#" th:action="@{/claim/saveProcessInvoiceDecision}"
+												th:object="${claimInvoiceProcessingBean}" method="POST">
+												<div
+													class="card section-border-left-danger mb-4 col-10 offset-1 p-0">
+													<div class="card-header custom-smile-form-header"
+														style="margin: 0 !important;">
+														Process Invoice
+														<!-- BUTTON TO CLOSE THE PROCESS INVOICE SCREEN -->
+														<button type="button"
+															class="btn custom-smile-btn-light float-right"
+															id="closeProcessInvoiceScreen">
+															<i class="fa fa-times-circle" aria-hidden="true"></i>
+														</button>
+													</div>
+
+													<div class="card-body p-3">
+														<input type="hidden" th:field="*{claimNo}"
+															th:value="${claimNo}" class="form-control"> <input
+															type="hidden" th:field="*{dmsId}" th:value="${dmsId}"
+															class="form-control">
+														<div class="form-group row ml-1 mr-1">
+															<div class="col-sm-6 mb-3 mb-sm-0">
+																<label class="custom-smile-form-label" for="premiumRate">Invoice
+																	No<span class="text-danger">&nbsp;&nbsp;*</span>
+																</label> <input type="text" th:field="*{invoiceNo}"
+																	class="form-control" id="" readonly="readonly">
+																<span th:if="${#fields.hasErrors('invoiceNo')}"
+																	class="text-danger" th:errorclass="form-field-error"
+																	th:errors="*{invoiceNo}"> </span>
+															</div>
+															<div class="col-sm-6 mb-3 mb-sm-0">
+																<label class="custom-smile-form-label"
+																	for="premiumValue">Gross Loss Value(INR)<span
+																	class="text-danger">&nbsp;&nbsp;*</span>
+																</label> <input type="text" th:field="*{grossInvoiceValueINR}"
+																	class="form-control" id="" readonly="readonly">
+																<span
+																	th:if="${#fields.hasErrors('grossInvoiceValueINR')}"
+																	class="text-danger" th:errorclass="form-field-error"
+																	th:errors="*{grossInvoiceValueINR}"> </span>
+															</div>
+														</div>
+														<div class="form-group row ml-1 mr-1">
+															<div class="col-sm-6 mb-2 mb-sm-0">
+																<label class="custom-smile-form-label">Original
+																	Due Date<span class="text-danger">&nbsp;*</span>
+																</label> <input type="text" th:field="*{originalDueDate}"
+																	class="form-control" id="originalDueDate"
+																	placeholder="" readonly="readonly"> <span
+																	th:if="${#fields.hasErrors('originalDueDate')}"
+																	th:errors="*{originalDueDate}" class="text-danger"></span>
+															</div>
+															<div class="col-sm-6 mb-2 mb-sm-0">
+																<label class="custom-smile-form-label">Extended
+																	Due Date<span class="text-danger">&nbsp;*</span>
+																</label> <input type="text" th:field="*{extendedDueDate}"
+																	class="form-control" id="preShipmentEndDate"
+																	placeholder="" readonly="readonly"> <span
+																	th:if="${#fields.hasErrors('extendedDueDate')}"
+																	th:errors="*{extendedDueDate}" class="text-danger"></span>
+															</div>
+														</div>
+														<div class="form-group row ml-1 mr-1">
+															<div class="col-sm-6 mb-3 mb-sm-0">
+																<label class="custom-smile-form-label">Invoice
+																	Date<span class="text-danger">&nbsp;&nbsp;*</span>
+																</label> <input type="text" th:field="*{invoiceDate}"
+																	class="form-control" id="invoiceDate" placeholder=""
+																	readonly="readonly"> <span
+																	th:if="${#fields.hasErrors('invoiceDate')}"
+																	th:errors="*{invoiceDate}" class="text-danger"></span>
+															</div>
+															<div class="col-sm-6 mb-2 mb-sm-0">
+																<label class="custom-smile-form-label">Exchange
+																	Rate<span class="text-danger">&nbsp;*</span>
+																</label> <input type="text" th:field="*{exchangeRate}"
+																	class="form-control" id="exchangeRate"
+																	placeholder="Enter the Exchange Rate"> <span
+																	th:if="${#fields.hasErrors('exchangeRate')}"
+																	th:errors="*{exchangeRate}" class="text-danger"></span>
+															</div>
+														</div>
+														<div class="form-group row ml-1 mr-1">
+															<div class="col-sm-6 mb-2 mb-sm-0">
+																<label class="custom-smile-form-label">Amount
+																	Due<span class="text-danger">&nbsp;*</span>
+																</label> <input type="text" th:field="*{amountDue}"
+																	class="form-control" id="amountDue" placeholder="">
+																<span th:if="${#fields.hasErrors('amountDue')}"
+																	th:errors="*{amountDue}" class="text-danger"></span>
+															</div>
+															<div class="col-sm-6 mb-2 mb-sm-0">
+																<label class="custom-smile-form-label">Amount
+																	Approved<span class="text-danger">&nbsp;*</span>
+																</label> <input type="text" th:field="*{amountApproved}"
+																	class="form-control" id="amountApproved"
+																	placeholder="Enter the Amount Approved.."> <span
+																	th:if="${#fields.hasErrors('amountApproved')}"
+																	th:errors="*{amountApproved}" class="text-danger"></span>
+																	<span
+																	th:if="${AmountExceedsError}" class="text-danger">Approved Amount is Greater than Amount due</span>
+															</div>
+														</div>
+														<div class="form-group card row ml-3 mr-3">
+															<div class="col-sm-6 card-body">
+																<label class="custom-smile-form-label">Invoice
+																	Decision</label>&nbsp; &nbsp;
+																<div
+																	class="custom-control custom-radio custom-control-inline">
+																	<input type="radio" class="custom-control-input"
+																		id="invoiceDecisionApproved" value="Approved"
+																		th:field="*{invoiceDecision}"> <label
+																		class="custom-control-label"
+																		for="invoiceDecisionApproved">Approved</label>
+																</div>
+																<div
+																	class="custom-control custom-radio custom-control-inline">
+																	<input type="radio" class="custom-control-input"
+																		id="invoiceDecisionRejected" value="Rejected"
+																		th:field="*{invoiceDecision}"> <label
+																		class="custom-control-label"
+																		for="invoiceDecisionRejected">Rejected</label>
+																</div>
+															</div>
+															<span th:errors="*{invoiceDecision}" style="color: red"
+																th:errorclass="form-field-error"></span>
+														</div>
+														
+														<div class="form-group row ml-1 mr-1">
+															<div class="col-sm-12 mb-2 mb-sm-0">
+																<label class="custom-smile-form-label">Remarks
+																	By Exporter<span class="text-danger">&nbsp;*</span>
+																</label>
+																<textarea th:field="*{remarksByExporter}" rows="3"
+																	cols="3"
+																	onkeyup="remarksByExporterCountChar(this, 200)"
+																	class="form-control"
+																	placeholder="Enter the Remarks By Exporter"></textarea>
+																<span th:if="${#fields.hasErrors('remarksByExporter')}"
+																	th:errors="*{remarksByExporter}" class="text-danger"></span>
+																<div class="float-right">
+																	<small id="remarksByExporterCharNum"></small><span
+																		class="custom-smile-char-count-textarea">&nbsp;characters
+																		inserted</span> OR <br> <small
+																		id="remarksByExporterCharNumLeft"></small><span
+																		class="custom-smile-char-count-textarea">&nbsp;characters
+																		remaining</span>
+
+																</div>
+															</div>
+														</div>
+														<div class="form-group row ml-1 mr-1">
+															<div class="col-sm-12 mb-2 mb-sm-0">
+																<label class="custom-smile-form-label">Remarks
+																	by ECGC<span class="text-danger">&nbsp;*</span>
+																</label>
+																<textarea th:field="*{remarksByECGC}" rows="3" cols="3"
+																	onkeyup="remarksByECGCCountChar(this, 200)"
+																	class="form-control"
+																	placeholder="Enter the Remarks By ECGC"></textarea>
+																<span th:if="${#fields.hasErrors('remarksByECGC')}"
+																	th:errors="*{remarksByECGC}" class="text-danger"></span>
+																<div class="float-right">
+																	<small id="remarksByECGCCharNum"></small><span
+																		class="custom-smile-char-count-textarea">&nbsp;characters
+																		inserted</span> OR <br> <small
+																		id="remarksByECGCCharNumLeft"></small><span
+																		class="custom-smile-char-count-textarea">&nbsp;characters
+																		remaining</span>
+
+																</div>
+															</div>
+														</div>
+														<th:block th:if="${claimInvoice.dmsId}">
+															<div class="form-group row ml-1 mr-1">
+																<div class="col-sm-12 mb-2 mb-sm-0">
+																	<a href="#">Download Invoice</a>
+																</div>
+															</div>
+														</th:block>
+														<th:block th:unless="${claimInvoice.dmsId}">
+															<div class="form-group row ml-1 mr-1">
+																<div class="col-sm-12 mb-2 mb-sm-0">
+																	<span>Invoice Not Uploaded</span>
+																</div>
+															</div>
+														</th:block>
+														<div class="form-actions mt-2">
+															<input type="submit"
+																class="btn custom-smile-btn-success col-2 offset-0"
+																value="Save"> <input type="reset"
+																class="btn custom-smile-btn-submit col-2" value="Clear">
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+									</th:block>
+								</div>
+								<!-- End Of Process Invoice -->
+								<div class="card shadow mb-4 mt-2 border-left-primary">
+
+									<!--card header-->
+									<div class="card-header custom-smile-form-header">
+										Invoices
+
+										<!-- <button type="button"
+											class="btn btn-primary btn-icon-split float-right btn-sm"
+											id="addNewProposal">
+											<span class="icon "> <i class="fas fa-plus"></i>
+											</span> <span class="text">Add New</span>
+										</button> -->
+									</div>
+									<!--end of card header-->
+
+
+									<div class="card-body">
+										<div
+											th:if="${not #lists.isEmpty(ListOfInvoicesRaisedButNotPaid)}">
+											<table class="table table-bordered table-striped "
+												id="example1" width="100%" cellspacing="0">
+												<thead>
+													<tr>
+														<th>Invoice No</th>
+														<th>Gross Invoice Value(INR)</th>
+														<th>Invoice Date</th>
+														<th>Original Due Date</th>
+														<th>Extended Due Date</th>
+														<th>Amount Due</th>
+														<th>Status</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+
+												<!-- <tfoot>
+													<tr>
+														<th>Type</th>
+														<th>Transaction Type</th>
+														<th>Risk Type</th>
+														<th>Is Pre-shipment</th>
+														<th>Is Cross Country</th>
+														<th>View</th>
+														<th>Edit</th>
+													</tr>
+												</tfoot> -->
+
+												<tbody>
+													<tr
+														th:each="claimInvoice : ${ListOfInvoicesRaisedButNotPaid}">
+														<td><span th:text="${claimInvoice.invoiceNo}">
+														</span></td>
+														<td><span
+															th:text="${claimInvoice.grossInvoiceValueINR}"></span></td>
+														<td><span
+															th:text="${#dates.format(claimInvoice.invoiceDate, 'dd-MM-yyyy')}">
+														</span></td>
+														<td><span
+															th:text="${#dates.format(claimInvoice.originalDueDate, 'dd-MM-yyyy')}"></span></td>
+														<td><span
+															th:text="${#dates.format(claimInvoice.extendedDueDate, 'dd-MM-yyyy')}">
+														</span></td>
+														<td><span th:text="${claimInvoice.amountDue}">
+														</span></td>
+														<td><span
+															th:text="${claimInvoice.processInvoiceStatus}"> </span></td>
+														<td>
+															<!-- <a href="#"
+															th:href="@{/processInvoice/{InvoiceNo} (InvoiceNo=${claimInvoice.invoiceNo})}"
+															class="btn btn-primary">Process</a> -->
+															<form th:action="@{/claim/processInvoice}" method="post">
+																<input type="hidden" name="invoiceNo" id="invoiceNo"
+																	th:value="${claimInvoice.invoiceNo}">
+																<button type="submit" class="btn btn-primary">Process</button>
+															</form>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<span class="exportbuttons"> </span>
+										<!-- </div> -->
+										<!-- table responsive -->
+										<div
+											th:unless="${not #lists.isEmpty(ListOfInvoicesRaisedButNotPaid)}">
+											<span>Please Add Invoice In Annexure Details Section</span>
+										</div>
+									</div>
+								</div>
+								<!-- Part Payment Schedule -->
+								<div id="partPaymentScheduleDiv" style="display: none;">
+									<form action="#" th:object="${claimPartPaymentScheduleBean}"
+										method="POST">
+										<div class="card section-border-left-danger mb-4 mt-3">
+
+											<div class="card-header custom-smile-form-header">
+												Part Payment Schedule
+
+												<button type="button"
+													class="btn btn-primary float-right btn-sm"
+													id="viewDefferedPaymentSchedule">
+
+													<span class="text">View Deffered Payment Schedule</span>
+												</button>
+											</div>
+											<div class="card-body">
+												<table class="table table-bordered table-hover"
+													id="partPaymentScheduleTable">
+													<thead>
+														<tr>
+															<th class="text-center">Month-Year</th>
+															<th class="text-center">Part Claim Amount</th>
+															<th class="text-center">Part Claim Amount Approved</th>
+															<th class="text-center">Remarks</th>
+															<th><button type="button" title="Add New Row"
+																	class="btn" id="addNewRow">
+																	<img th:src="@{/svg/plus.svg}" height="30" width="30">
+																</button></th>
+														</tr>
+													</thead>
+													<tbody>
+
+														<tr class="Div"
+															th:each="partPaymentScheduleList, stat : ${claimPartPaymentScheduleBean.claimPartPaymentScheduleDetailsBeanList}">
+															<td><input type="month"
+																th:field="*{claimPartPaymentScheduleDetailsBeanList[__${stat.index}__].monthYear}"
+																placeholder='Month-Year' class="form-control" /> <span
+																th:if="${#fields.hasErrors('claimPartPaymentScheduleDetailsBeanList[__${stat.index}__].monthYear')}"
+																style="color: red" th:errorclass="form-field-error"
+																th:errors="*{reinsurerRatingList[__${ratingstat.index}__].ratingAgencyName}"></span>
+															</td>
+															<td><input type="text"
+																th:field="*{claimPartPaymentScheduleDetailsBeanList[__${stat.index}__].partClaimAmount}"
+																placeholder='Part Claim Amount' class="form-control" /></td>
+															<td><input type="text"
+																th:field="*{claimPartPaymentScheduleDetailsBeanList[__${stat.index}__].partClaimAmountApproved}"
+																placeholder='Part Claim Amount Approved'
+																class="form-control" /></td>
+															<td><input type="text" id=""
+																th:field="*{claimPartPaymentScheduleDetailsBeanList[__${stat.index}__].remarks}"
+																placeholder='Remarks' class="form-control" /></td>
+															<td></td>
+														</tr>
+													</tbody>
+												</table>
+												<!-- <div class="form-group row">
+										<div class="col">
+											<button type="button" class="btn btn-success" id="addNewRow">Add row</button>
+										</div>
+									</div> -->
+											</div>
+
+										</div>
+									</form>
+								</div>
+								<!-- End of Part Payment Schedule -->
+							</div>
+							<div class="tab-pane" id="claimDecision">
+								<!-- Claim Decision Details Success Message -->
+								<div class="form -group row"
+									th:if="${ClaimDecisionDetailsFlag == 'success'}"
+									id="divRegSuccess">
+									<div
+										class="alert alert-success scs mt-2 alert-dismissible fade show"
+										id="scs" role="alert">
+										<strong><span>Decision Details Saved
+												Successfully</span></strong>
+										<button type="button" class="close" data-dismiss="alert"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+								</div>
+								
+								<form action="#" th:action="@{/claim/saveClaimDecisionDetails}"
+									th:object="${claimProcessingBean}" method="POST">
+									<div class="card card-body">
+
+										<div class="card section-border-left-primary mb-4 mt-1">
+											<div class="card-body">
+												<div class="form-group row">
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">Claim
+															Amount Approved<span class="text-danger">&nbsp;*</span>
+														</label> <input type="text" th:field="*{claimAmountApproved}"
+															class="form-control" id="claimAmountApproved"
+															name="totalClaimApproved" readonly="readonly"> <span
+															th:errors="*{claimAmountApproved}" style="color: red"
+															th:errorclass="form-field-error"></span>
+													</div>
+													<div class="col-sm-6 mt-4 mb-sm-0">
+														<a href="#">Generate Payment Advice</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="card section-border-left-danger mb-4 mt-1">
+
+											<div class="card-header custom-smile-form-subsection-header">
+												Comments/Recommendation</div>
+
+											<div class="card-body">
+												<div class="form-group row">
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">Processing
+															Officer Comments<span class="text-danger">&nbsp;*</span>
+														</label> <input type="text"
+															th:field="*{processingOfficerComments}"
+															class="form-control" placeholder=""> <span
+															th:errors="*{processingOfficerComments}"
+															style="color: red" th:errorclass="form-field-error"></span>
+													</div>
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">Commented
+															On <span class="text-danger">&nbsp;*</span>
+														</label> <input type="date"
+															th:field="*{processingOfficerCommentedDate}"
+															class="form-control" /> <span
+															th:errors="*{processingOfficerCommentedDate}"
+															style="color: red" th:errorclass="form-field-error"></span>
+
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">Observer
+															Comments<span class="text-danger">&nbsp;*</span>
+														</label> <input type="text" th:field="*{observerComments}"
+															class="form-control"> <span
+															th:errors="*{observerComments}" style="color: red"
+															th:errorclass="form-field-error"></span>
+													</div>
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">Commented
+															On <span class="text-danger">&nbsp;*</span>
+														</label> <input type="date" th:field="*{observerCommentedDate}"
+															class="form-control" /> <span
+															th:errors="*{observerCommentedDate}" style="color: red"
+															th:errorclass="form-field-error"></span>
+
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">Recommender
+															Comments<span class="text-danger">&nbsp;*</span>
+														</label> <input type="text" th:field="*{recommenderComments}"
+															class="form-control"> <span
+															th:errors="*{recommenderComments}" style="color: red"
+															th:errorclass="form-field-error"></span>
+													</div>
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">Commented
+															On <span class="text-danger">&nbsp;*</span>
+														</label> <input type="date" th:field="*{recommenderCommentedDate}"
+															class="form-control" /> <span
+															th:errors="*{recommenderCommentedDate}"
+															style="color: red" th:errorclass="form-field-error"></span>
+
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">IA Comments<span
+															class="text-danger">&nbsp;*</span>
+														</label> <input type="text" th:field="*{iaComments}"
+															class="form-control"> <span
+															th:errors="*{iaComments}" style="color: red"
+															th:errorclass="form-field-error"></span>
+													</div>
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">Commented
+															On <span class="text-danger">&nbsp;*</span>
+														</label> <input type="date" th:field="*{iaCommentedDate}"
+															class="form-control" /> <span
+															th:errors="*{iaCommentedDate}" style="color: red"
+															th:errorclass="form-field-error"></span>
+
+													</div>
+												</div>
+
+											</div>
+										</div>
+										<div class="card section-border-left-primary mb-4 mt-1">
+
+											<div class="card-header custom-smile-form-subsection-header">
+												ECGC Decision</div>
+
+											<div class="card-body">
+												<div class="card section-border-left-danger mb-4 mt-1">
+													<div class="card-body col-sm-12">
+														<label class="custom-smile-form-label">Decision by
+															ECGC</label>&nbsp; &nbsp;
+														<div
+															class="custom-control custom-radio custom-control-inline">
+															<input type="radio" class="custom-control-input"
+																value="Approved" th:field="*{ecgcDecision}"
+																id="ecgcDecisionApproved"> <label
+																class="custom-control-label" for="ecgcDecisionApproved">Approved</label>
+														</div>
+														<div
+															class="custom-control custom-radio custom-control-inline">
+															<input type="radio" class="custom-control-input"
+																value="Rejected" th:field="*{ecgcDecision}"
+																id="ecgcDecisionRejected"> <label
+																class="custom-control-label" for="ecgcDecisionRejected">Rejected</label>
+														</div>
+														<span th:errors="*{ecgcDecision}" style="color: red"
+															th:errorclass="form-field-error"></span>
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">ECGC
+															Decision Date</label> <input type="date" class="form-control"
+															th:field=*{ecgcDecisionDate} /> <span
+															th:errors="*{ecgcDecisionDate}" style="color: red"
+															th:errorclass="form-field-error"></span>
+													</div>
+													<div class="col-sm-6 mb-2 mb-sm-0">
+														<label class="custom-smile-form-label">ECGC
+															Remarks</label>
+														<textarea rows="3" cols="3" class="form-control"
+															th:field=*{ecgcRemarks}
+															placeholder="Enter Remarks Here.."></textarea>
+														<span th:if="${#fields.hasErrors('ecgcRemarks')}"
+															th:errors="*{ecgcRemarks}" class="text-danger"></span>
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-12 mb-2 mb-sm-0">
+														<label class="custom-smile-form-label">ECGC
+															Recommendation<span class="text-danger">&nbsp;*</span>
+														</label>
+														<textarea th:field="*{ecgcRecommendation}" rows="3"
+															cols="3" onkeyup="ecgcRecommendationCountChar(this, 200)"
+															class="form-control"
+															placeholder="Enter Recommendation Here.."></textarea>
+														<span th:if="${#fields.hasErrors('ecgcRecommendation')}"
+															th:errors="*{ecgcRecommendation}" class="text-danger"></span>
+														<div class="float-right">
+															<small id="ecgcRecommendationCharNum"></small><span
+																class="custom-smile-char-count-textarea">&nbsp;characters
+																inserted</span> OR <br> <small
+																id="ecgcRecommendationCharNumLeft"></small><span
+																class="custom-smile-char-count-textarea">&nbsp;characters
+																remaining</span>
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="card section-border-left-danger mb-4 mt-1">
+
+											<div class="card-header custom-smile-form-subsection-header">
+												COD Decision</div>
+
+											<div class="card-body">
+												<div class="card section-border-left-danger mb-4 mt-1">
+													<div class="card-body col-sm-12">
+														<label class="custom-smile-form-label">Decision by
+															COD</label>&nbsp; &nbsp;
+														<div
+															class="custom-control custom-radio custom-control-inline">
+															<input type="radio" class="custom-control-input"
+																value="Approved" th:field="*{codDecision}"
+																id="codDecisionApproved"> <label
+																class="custom-control-label" for="codDecisionApproved">Approved</label>
+														</div>
+														<div
+															class="custom-control custom-radio custom-control-inline">
+															<input type="radio" class="custom-control-input"
+																value="Rejected" th:field="*{codDecision}"
+																id="codDecisionRejected"> <label
+																class="custom-control-label" for="codDecisionRejected">Rejected</label>
+														</div>
+														<div
+															class="custom-control custom-radio custom-control-inline">
+															<input type="radio" class="custom-control-input"
+																value="Clarification" th:field="*{codDecision}"
+																id="codDecisionClarification"> <label
+																class="custom-control-label"
+																for="codDecisionClarification">Clarification</label>
+														</div>
+														<span th:errors="*{codDecision}" style="color: red"
+															th:errorclass="form-field-error"></span>
+													</div>
+												</div>
+
+
+												<div class="form-group row">
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">COD
+															Decision Date</label> <input type="date" class="form-control"
+															th:field=*{codDecisionDate} /> <span
+															th:errors="*{codDecisionDate}" style="color: red"
+															th:errorclass="form-field-error"></span>
+													</div>
+													<div class="col-sm-6 mb-2 mb-sm-0">
+														<label class="custom-smile-form-label">COD Remarks</label>
+														<textarea rows="3" cols="3" class="form-control"
+															th:field=*{codRemarks} placeholder="Enter Remarks Here.."></textarea>
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-12 mb-2 mb-sm-0">
+														<label class="custom-smile-form-label">COD
+															Recommendation<span class="text-danger">&nbsp;*</span>
+														</label>
+														<textarea th:field="*{codRecommendation}" rows="3"
+															cols="3" onkeyup="codRecommendationCountChar(this, 200)"
+															class="form-control"
+															placeholder="Enter Recommendation Here.."></textarea>
+														<span th:if="${#fields.hasErrors('codRecommendation')}"
+															th:errors="*{codRecommendation}" class="text-danger"></span>
+														<div class="float-right">
+															<small id="codRecommendationCharNum"></small><span
+																class="custom-smile-char-count-textarea">&nbsp;characters
+																inserted</span> OR <br> <small
+																id="codRecommendationCharNumLeft"></small><span
+																class="custom-smile-char-count-textarea">&nbsp;characters
+																remaining</span>
+
+														</div>
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<label class="custom-smile-form-label">COD Meeting
+															Date<span class="text-danger">&nbsp;*</span>
+														</label> <input type="date" th:field="*{codMeetingDate}"
+															class="form-control"> <span
+															th:errors="*{codMeetingDate}" style="color: red"
+															th:errorclass="form-field-error"></span>
+													</div>
+													<div class="col-sm-6 mb-3 mb-sm-0">
+														<div class="form-group row">
+															<div class="col">
+																<div class="form-group">
+																	<label class="custom-smile-form-label">COD
+																		Agenda</label>
+																	<div class="custom-file">
+																		<input type="file" class=" custom-file-input"
+																			name="img[]" id="inputGroupFile04"
+																			aria-describedby="inputGroupFileAddon04"> <label
+																			class="custom-file-label" for="inputGroupFile04">Choose
+																			file</label>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- <div class="form-actions mt-1">
+											<input type="submit" class="btn btn-primary" value="Submit"></input>
+										</div> -->
+										<div class="form-actions mt-2">
+											<input type="submit"
+												class="btn custom-smile-btn-success col-2 offset-0"
+												value="Save"> <input
+												class="btn custom-smile-btn-primary col-2 offset-0"
+												data-toggle="modal" data-target="#confirmSubmitOptionModal"
+												value="Submit"> <input type="reset"
+												class="btn custom-smile-btn-submit col-2" value="Clear">
+										</div>
+									</div>
+								</form>
+							</div>
+							<!-- Modal for confirm submission -->
+							<div class="modal fade" id="confirmSubmitOptionModal"
+								tabindex="-1" role="dialog" aria-labelledby="modalLabel1"
+								aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title" id="modalLabel1">Are you sure?</h4>
+										</div>
+										<div class="modal-body">
+											<p>You have selected to submit the claim form. Please
+												make sure all the details entered by you are correct.</p>
+											<p>
+												Click <b>Confirm</b> to submit the Claim Form.
+											</p>
+										</div>
+										<div class="modal-footer">
+											<a th:href="@{/claim/submitClaimForm}" class="btn btn-primary"
+												id="confirmSubmitProposal">Confirm</a>
+											<button type="button" data-dismiss="modal" id="cancelSubmit"
+												class="btn btn-danger">Cancel</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Modal for confirm submission Ends here.. -->
+
+						</div>
+
+
+					</div>
+
+				</div>
+				<!--end of card body-->
+			</div>
+			<!-- ACTUAL BODY CONTENT -->
+		</div>
+	</div>
+
+	<th:block layout:fragment="scripts">
+		<!-- Page level custom scripts -->
+		<script type="text/javascript" th:src="@{/js/char-count-claim.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.html5.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.print.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/pdfmake.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/vfs_fonts.js}"></script>
+		<script type="text/javascript" th:src="@{/js/exporttable.js}"></script>
+		<script type="text/javascript" th:src="@{/js/buttonbootstrap4.js}"></script>
+		<script>
+			
+		</script>
+		<script th:inline="javascript">
+			$(document).ready(function() {
+				
+				var sumClaimAmountApproved=0;
+				
+				//for enabling and disabling tab based on claim no
+				/*<![CDATA[*/
+					var claimNo = [[${claimApplicationBean.claimNo}]];
+					var id = [[${id}]];
+					var ann1Error = [[${ann1Error}]];
+					var updateAnn1 = [[${updateAnn1}]];
+					
+					var ann2Error = [[${ann2Error}]];
+					var ann3Error = [[${ann3Error}]];
+							
+					/*[# th:each="n : ${ListOfInvoicesRaisedButNotPaid}"]*/
+						var decision=/*[[${n.invoiceDecision}]]*/;
+						if(decision == "Approved"){
+							sumClaimAmountApproved=sumClaimAmountApproved+/*[[${n.amountApproved}]]*/;
+							$('#claimAmountApproved').val(sumClaimAmountApproved);
+						}
+				    /*[/]*/
+					
+				/*]]>*/ 
+				
+				/* To disable the remaining div till claim no gets generated */
+				if(claimNo == null){
+				  for(var i=Number(id)+1; i<=5;i++){
+					document.getElementById(i).removeAttribute("data-toggle");
+				  }
+				}
+				document.getElementById(id).click();
+				
+				/* Set Invoice value as amount due value */
+				$("#grossInvoiceValue").change(function(){
+       				 $('#amountDue').val($('#grossInvoiceValue').val()) ;
+    			});
+				
+				/* Set Invoice value as amount due value in update Annexure 1 */
+				$("#updateGrossInvoiceValue").change(function(){
+      				 $('#updateAmountDue').val($('#updateGrossInvoiceValue').val()) ;
+   				});
+				
+				 //========for upload document name issue
+				$('input[type="file"]').change(function(e){
+			       var fileName = e.target.files[0].name;
+			       $('.custom-file-label').html(fileName);
+			   }); 
+
+
+			 	//keep modal open if error in ann1
+			 	if(ann1Error === 'yes'){
+			 		$('#ann1Form').modal('show');
+				}
+
+				//show modal for update ann1 form in modal
+			 	if(updateAnn1 === 'yes' || updateAnn1 === 'error'){
+					
+			 		$('#updateAnn1').modal('show');
+				}
+
+				//===================================
+				
+			 	//keep modal open if error in ann2
+			 	if(ann2Error === 'yes'){
+			 		$('#ann2Form').modal('show');
+				}
+
+			 	//keep modal open if error in ann3
+			 	if(ann3Error === 'yes'){
+			 		$('#ann3Form').modal('show');
+				} 
+								
+				//sanctioned by bank condition
+				$("input[name$='invoiceSanctionedByBank']").click(function(){
+					var value = $(this).val();
+					
+					if(value=='yes'){
+						$("#sanctionedYes").show();
+					 	$("#sanctionedNo").hide();
+					}else{
+						$("#sanctionedYes").hide();
+					 	$("#sanctionedNo").show();
+					}
+				});
+				
+				/* To hide and show the div based on radio button value in update Annexure 1 */
+				 $(document).on('click', 'input[type="radio"]', function(e) {
+					   var value = $(this).attr('id');
+					   if(value === 'updateInvoiceSanctionedYes'){
+						   $('#updateSanctionedYes').css("display", "block");
+						   $('#updateSanctionedNo').css("display", "none");
+					   }else{
+						   $('#updateSanctionedYes').css("display", "none");
+						   $('#updateSanctionedNo').css("display", "block");
+					   }    
+				 });
+				
+				 /* To show particular div element based on radio button value update Annexure 1  */
+				 if($('#updateInvoiceSanctionedYes').is(':checked')){
+						 $('#updateSanctionedYes').show();
+						 $('#updateSanctionedNo').hide(); 
+					 }else if($('#updateInvoiceSanctionedNo').is(':checked')){
+						 $('#updateSanctionedNo').show(); 
+						 $('#updateSanctionedYes').hide(); 
+					 } 
+				
+				//Add row dynamically in Part Payment Schedule Table 
+				let labelNames21 = ['Month-Year','Part Claim Amount','Part Claim Amount Approved','Remarks'];
+				let fieldNames21 = ['monthYear','partClaimAmount','partClaimAmountApproved','remarks'];
+				let deferred = "claimPartPaymentScheduleDetailsBeanList";
+				$(document).on('click', '#addNewRow', function(e) {
+					e.preventDefault();
+
+					//var parentDiv = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr("id");
+					//console.log(parentDiv);
+					var parentDiv = "partPaymentScheduleDiv";
+
+					var rowIndex = $('#'+parentDiv+'  #partPaymentScheduleTable tbody tr').length;
+					console.log(rowIndex);
+					
+					var partPaymentScheduleTbody = $(this).parent().parent().parent().siblings();
+					console.log(partPaymentScheduleTbody);
+					let tr = document.createElement('tr');
+					tr.classList.add('defRow');
+					
+					fieldNames21.forEach((field,index)=>{
+						let td = document.createElement('td');
+
+						let input = document.createElement('input');
+						if(index == 0){
+							input.type='month';
+						}else{
+							input.type='text';
+						}
+						input.classList.add('form-control');
+						input.id =  field;
+						input.setAttribute('name',deferred+'['+rowIndex+'].'+field);
+
+						td.appendChild(input);
+						tr.appendChild(td);
+					});
+					// remove button
+					let tdButton = document.createElement('td');
+					let button = document.createElement('button');
+					button.innerHTML = '<img src="/svg/minus.svg" height="30" width="30">';
+					button.classList.add('btn');
+					button.setAttribute('type','button');
+					button.setAttribute('title','Remove this Row');
+					button.setAttribute('id','removeThisRow');
+					tdButton.appendChild(button);
+
+					tr.appendChild(tdButton);
+					partPaymentScheduleTbody.append(tr);
+				});
+				
+				/* To remove row from Part Payment Schedule table dynamically */
+				$(document).on('click', '#removeThisRow', function(e) {
+					e.preventDefault();
+					var tr = $(this).parent().parent();
+					$(tr).remove();
+				});
+				
+				/* To close the Div of Process Invoice */
+				$("#closeProcessInvoiceScreen").click(function() {
+					$("#processInvoiceForm").css("display", "none");
+				});
+				
+				/* Restrict user to select future date  */
+				$(function(){
+				    var dtToday = new Date();
+
+				    var month = dtToday.getMonth() + 1;
+				    var day = dtToday.getDate();
+				    var year = dtToday.getFullYear();
+
+				    if(month < 10)
+				        month = '0' + month.toString();
+				    if(day < 10)
+				        day = '0' + day.toString();
+
+				    var maxDate = year + '-' + month + '-' + day;    
+				    $('#claimApplicationDate').attr('max', maxDate);
+				    $('#rodDate').attr('max',maxDate);
+				});
+
+			});
+		</script>
+	</th:block>
+</body>
+</html>

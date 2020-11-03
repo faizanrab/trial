@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{BaseLayout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>Edit Recovery</title>
+<style>
+.form-actions {
+	margin: 0;
+	text-align: center;
+}
+
+hr.broad {
+	border: 2px solid;
+}
+
+hr.solidarea {
+	border: 0.5px solid;
+}
+</style>
+
+</head>
+<body onload="ShowHideDiv();ShowHideDiv1()">
+	<div id="page-wrapper" layout:fragment="content">
+		 <nav aria-label="breadcrumb">
+            <ol class="custom-smile-breadcrumb-outer">
+                <li class="breadcrumb-item"><a href="/">
+                      Recovery form
+                    </a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="/bankview">
+                       List Recovery Details
+                    </a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Edit Recovery Details
+                </li>
+            </ol>
+        </nav>
+		<div class="card shadow mb-4 mt-2">
+			<div class="card-header custom-smile-form-header">
+	
+                Recovery System Entry
+
+					
+				
+						<button type="button"
+							class="btn  custom-smile-btn-light float-right"
+							data-toggle="modal" data-target="#myModal">
+							<i class="fas fa-question-circle"></i>
+						</button>
+					
+
+				
+			</div>
+			<div class="card-body">
+				<!-- Page Heading -->
+
+
+				<!-- Nested Row within Card Body -->
+				<div class="row">
+					<div class="col-lg-12">
+						<form action="#" th:action="@{/newRecoveryDetails}" th:object="${pebPolicyRecoveryMasterBean}"
+						method="post">
+
+							<div class="card section-border-left-primary mb-4 mt-3">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+                                    Recovery Master
+								</div>
+								<!-- Card Content - Collapse -->
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Claim No<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> <input type="text" th:field="*{claimNo}"
+                                                class="form-control" placeholder="Enter Claim No"/>
+                                            <span th:errors="*{claimNo}" style="color: red"
+                                                th:errorclass="form-field-error"></span>
+										</div>
+										
+									</div>
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Recovery Initiated Date<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> <input type="date"
+                                                th:field="*{recoveryInitiatedDate}" class="form-control" />
+                                            <span th:errors="*{recoveryInitiatedDate}" style="color: red"
+                                                th:errorclass="form-field-error"></span>
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0" hidden="hidden">
+											<label class="custom-smile-form-label">Recovery Id<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> <input type="number"
+                                                th:field="*{recoveryId}" class="form-control" />
+                                            
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Status<span
+												class="text-danger">&nbsp;&nbsp;*</span></label><select th:field="*{status}" class="form-control">
+                                                    <option value="">----Please Select------</option>
+                                                    <option value="active">Active</option>
+                                                    <option value="inactive">Inactive</option>
+                                                    <option value="partial">Partial</option>
+                                                </select>
+                                                <span th:errors="*{status}" style="color: red"
+                                                    th:errorclass="form-field-error"></span>
+										</div>
+										
+                                    </div>
+                                    <div class="form-group row ml-1 mr-1">
+                                        <div class="col-sm-6 mb-3 mb-sm-0" id="blockedfund3" style="display: block;">
+                                            <label class="custom-smile-form-label">Is Write-Off</label>
+                                            <div class="custom-radio custom-control ml-2 mr-2">
+                                                <input type="radio" th:field="*{IsWriteOff}" id="chkYes" onclick="ShowHideDiv()"
+                                                value="Yes" class="custom-control-input">
+                                                <label class="custom-control-label" for="chkYes">Yes</label>
+                                            </div>
+                                            <div class="custom-radio custom-control ml-2 mr-2">
+                                                <input type="radio" th:field="*{IsWriteOff}" id="chkNo" onclick="ShowHideDiv()"
+                                                value="No" class="custom-control-input">
+                                                <label class="custom-control-label" for="chkNo">No</label>
+                                            </div>
+                                            <span th:errors="*{global}" style="color: red"
+                                            th:errorclass="form-field-error"></span>
+                    
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0" id="writeoff3" style="display: block;">
+                                            <label class="custom-smile-form-label">Is Blocked Fund</label>
+                                            <div class="custom-radio custom-control ml-2 mr-2">
+                                                <input type="radio" th:field="*{IsBlockedFund}" id="chkYes1" onclick="ShowHideDiv1()"
+                                                value="Yes" class="custom-control-input">
+                                                <label class="custom-control-label" for="chkYes1">Yes</label>
+                                            </div>
+                                            <div class="custom-radio custom-control ml-2 mr-2">
+                                                <input type="radio"th:field="*{IsBlockedFund}" id="chkNo1" onclick="ShowHideDiv1()"
+                                                value="No" class="custom-control-input">
+                                                <label class="custom-control-label" for="chkNo1">No</label>
+                                            </div>
+                                            <span th:errors="*{global}" style="color: red"
+                                            th:errorclass="form-field-error"></span>
+                                        </div>
+                                    </div>
+                                <div class="form-group row ml-1 mr-1">
+                                    <div class="col-sm-4 mb-2 mb-sm-0" id="writeoff" style="display: none;">
+                                        <label class="custom-smile-form-label">Write-Off Date<span class="text-danger">&nbsp;*</span>
+                                        </label> <input type="date" th:field="*{writeOffDate}"
+										class="form-control">
+									<span th:errors="*{writeOffDate}" style="color: red"
+										th:errorclass="form-field-error"></span>
+                                    </div>
+                                    <div class="col-sm-4 mb-2 mb-sm-0" id="writeoff1" style="display: none;">
+                                        <label class="custom-smile-form-label">Write-Off Updated By<span class="text-danger">&nbsp;*</span>
+                                        </label> <input type="text"
+										th:field="*{writeOffUpdatedBy}" class="form-control" placeholder="Enter Write-Off Updated By">
+									<span th:errors="*{writeOffUpdatedBy}" style="color: red"
+										th:errorclass="form-field-error"></span>
+                                    </div>
+                                    <!--   th:field="&nbsp;*{licenceValidityFromDt}"   th:field="&nbsp;*{licenceValidityToDt}"-->
+                                    <div class="col-sm-4 mb-2 mb-sm-0" id="writeoff2" style="display: none;">
+                                        <label class="custom-smile-form-label">Write-Off Updated On<span class="text-danger">&nbsp;*</span>
+                                        </label> <input type="date"
+										th:field="*{writeOffUpdatedOn}" class="form-control">
+									<span th:errors="*{writeOffUpdatedOn}" style="color: red"
+										th:errorclass="form-field-error"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row ml-1 mr-1">
+                                    <div class="col-sm-4 mb-2 mb-sm-0" id="blockedfund" style="display: none;">
+                                        <label class="custom-smile-form-label">Blocked Fund Date<span class="text-danger">&nbsp;*</span>
+                                        </label> <input type="date" th:field="*{blockedfundDate}"
+										class="form-control">
+									<span th:errors="*{blockedfundDate}" style="color: red"
+										th:errorclass="form-field-error"></span>
+                                    </div>
+                                    <div class="col-sm-4 mb-2 mb-sm-0" id="blockedfund1" style="display: none;">
+                                        <label class="custom-smile-form-label">Blocked Fund Updated By<span class="text-danger">&nbsp;*</span>
+                                        </label>  <input type="text" placeholder="Enter Blocked Fund Updated By"
+										th:field="*{blockedFundUpdatedBy}" class="form-control">
+									<span th:errors="*{blockedFundUpdatedBy}" style="color: red"
+										th:errorclass="form-field-error"></span>
+                                    </div>
+                                    <!--   th:field="&nbsp;*{licenceValidityFromDt}"   th:field="&nbsp;*{licenceValidityToDt}"-->
+                                    <div class="col-sm-4 mb-2 mb-sm-0" id="blockedfund2" style="display: none;">
+                                        <label class="custom-smile-form-label">Blocked Fund Updated On<span class="text-danger">&nbsp;*</span>
+                                        </label> <input type="date"
+										th:field="*{blockedFundUpdatedOn}" class="form-control">
+									<span th:errors="*{blockedFundUpdatedOn}" style="color: red"
+										th:errorclass="form-field-error"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row ml-1 mr-1">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="custom-smile-form-label">Remarks<span
+                                            class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" th:field="*{remarks}"
+                                            class="form-control"></textarea>
+                                    </div>
+                                    
+                                </div>
+                                 
+								</div>
+
+                            </div>
+                          
+
+
+
+
+							<!-- <hr class="broad"> -->
+							
+							<!-- <hr class="broad"> -->
+							
+									
+
+							<div class="card section-border-left-danger mb-4 mt-3">
+
+								<div class="card-header custom-smile-form-subsection-header">
+                                    Recovery Details
+								</div>
+
+                                <div class="card-body">
+
+
+                                    <table class="table table-bordered table-striped " id="tab_logic"
+                                        width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Recovery Amount</th>
+                                                <th class="text-center">Date of Recovery</th>
+                                                <!-- <th class="text-center">Transaction Id</th> -->
+                                                <th class="text-center">DCA Id</th>
+                                                <th class="text-center">DCA Charge</th>
+                                                <!-- <th class="text-center">Is Recovery before Claim Settlement</th> -->
+                                                <th class="text-center">Remarks</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+        
+                                            <tr class="" th:each="RecoveryDetailsList, stat : ${pebPolicyRecoveryMasterBean.recoveryDetailsList}">
+                                                <td><input type="text"
+                                                        th:field="*{recoveryDetailsList[__${stat.index}__].recoveryAmount}"
+                                                        placeholder='Recovery Amount' class="form-control" />
+                                                    <span th:errors="*{recoveryDetailsList[__${stat.index}__].recoveryAmount}"
+                                                        style="color: red" th:errorclass="form-field-error"></span>
+                                                </td>
+                                                <td><input type="date"
+                                                        th:field="*{recoveryDetailsList[__${stat.index}__].dateOfRecovery}"
+                                                        placeholder='Date of Recovery' class="form-control" />
+                                                <span th:errors="*{recoveryDetailsList[__${stat.index}__].dateOfRecovery}"
+                                                    style="color: red" th:errorclass="form-field-error"></span></td>
+                                                <!-- <td><input type="text"
+                                                        th:field="*{recoveryDetailsList[__${stat.index}__].transactionId}"
+                                                        placeholder='Transaction Id' class="form-control" />
+                                                    <span th:errors="*{recoveryDetailsList[__${stat.index}__].transactionId}"
+                                                        style="color: red" th:errorclass="form-field-error"></span>
+        
+                                                </td> -->
+                                                <td><input type="text"
+                                                        th:field="*{recoveryDetailsList[__${stat.index}__].dcaId}"
+                                                        placeholder='DCA Id' class="form-control" />
+                                                    <span th:errors="*{recoveryDetailsList[__${stat.index}__].dcaId}"
+                                                        style="color: red" th:errorclass="form-field-error"></span>
+        
+                                                </td>
+                                                <td><input type="text"
+                                                        th:field="*{recoveryDetailsList[__${stat.index}__].dcaCharge}"
+                                                        placeholder='DCA Charge' class="form-control" />
+                                                    <span th:errors="*{recoveryDetailsList[__${stat.index}__].dcaCharge}"
+                                                        style="color: red" th:errorclass="form-field-error"></span>
+        
+                                                </td>
+                                                
+                                                <td><input type="text"
+                                                        th:field="*{recoveryDetailsList[__${stat.index}__].remarks}"
+                                                        placeholder='Remarks' class="form-control" />
+                                                </td>
+                                                <td><button type="button"   class="btn custom-smile-btn-verify mr-1 ml-1" value="Remove" onclick="removeRow(this)">Remove</button>
+											
+                                                </td> 
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="button" id="" class="btn custom-smile-btn-success ml- mr-1" onclick="addField()" >Add row</button>
+                                        </div>
+                                    </div>
+                                    <span class="exportbuttons"> </span>
+                                    <!-- </div> -->
+                                    <!-- table responsive -->
+                                </div>
+							
+							</div>
+							<div class="form-actions mt-1">
+								<input type="submit" class="btn btn-primary" value="Submit"></input>
+								<button type="button" class="btn custom-smile-btn-cancel"
+							data-dismiss="modal">Cancel</button>
+							</div>
+                        </form>
+                        <a class="btn custom-smile-btn-back " th:href="@{/back}" onclick="goBack()" type="button">
+                            <span class="icon"> <i
+                                class="fas fa-angle-double-left mr-1 ml-1"></i>
+                            </span> <span class="text">Back</span>
+                        </a>
+                    </div>
+                    
+				</div>
+			</div>
+		</div>
+
+
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header bg-light">
+						<h4 class="modal-title" style="color: black;">This is Modal
+							For help</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+
+						<div class="form-group row">
+							<div class="col-sm-12 mb-3 mb-sm-0">Content regarding Help
+								goes here</div>
+						</div>
+
+
+					</div>
+					<!--end of modal body-->
+					<div class="modal-footer">
+
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+				<!--end of modal-content-->
+
+			</div>
+		</div>
+	</div>
+			<th:block layout:fragment="scripts">
+            <script>
+                function ShowHideDiv() {
+                    var chkYes = document.getElementById("chkYes");
+                    var chkNo = document.getElementById("chkNo");
+                    var dvPassport = document.getElementById("writeoff");
+                    dvPassport.style.display = chkYes.checked ? "block" : "none";
+                    var dvPassport1 = document.getElementById("writeoff1");
+                    dvPassport1.style.display = chkYes.checked ? "block" : "none";
+                    var dvPassport2 = document.getElementById("writeoff2");
+                    dvPassport2.style.display = chkYes.checked ? "block" : "none";
+                    var chkYess = document.getElementById("chkYes1");
+                    var chkNoo = document.getElementById("chkNo1");
+                    if((chkYes.checked||chkNo.checked)==true)
+                    {
+                    chkNoo.disabled="disabled";
+                    chkYess.disabled="disabled";
+                    }
+                    // }
+                    // else
+                    // {
+                    // 	chkNoo.checked="checked";
+                    // 	chkNo.checked="checked";
+                    // }
+                    var dvPassport3 = document.getElementById("writeoff3");	
+                    dvPassport3.style.display = chkYes.checked|| chkNo.checked? "none" : "block";
+                    
+                }
+                    
+                function ShowHideDiv1() {
+                    var chkYess = document.getElementById("chkYes1");
+                    var chkNoo = document.getElementById("chkNo1");
+                    var dvPassportt = document.getElementById("blockedfund");
+                    dvPassportt.style.display = chkYess.checked ? "block" : "none";
+                    var dvPassport1 = document.getElementById("blockedfund1");
+                    dvPassport1.style.display = chkYess.checked ? "block" : "none";
+                    var dvPassport2 = document.getElementById("blockedfund2");
+                    dvPassport2.style.display = chkYess.checked ? "block" : "none";
+                     var chkNo = document.getElementById("chkNo");
+                     var chkYes = document.getElementById("chkYes");
+                    // chkNoo.setAttribute("checked","checked");
+                    // var chkYes = document.getElementById("chkYes");
+                    // var chkNo = document.getElementById("chkNo");
+                    // if((chkNoo.checked&&chkNo.checked)==false)
+                    // {
+                    // chkNo.checked=chkYess.checked?"true":""	;
+                    // chkYes.disabled=chkYess.checked?"true":""	;
+                    // }
+                    // else
+                    // {
+                    // 	chkNoo.checked="checked";
+                    // 	chkNo.checked="checked";
+                    // }
+                    if((chkYess.checked||chkNoo.checked)==true)
+                    {
+                    chkNo.disabled="disabled";
+                    chkYes.disabled="disabled";
+                    }
+                    var dvPassport3 = document.getElementById("blockedfund3");	
+                    dvPassport3.style.display = chkYess.checked|| chkNoo.checked? "none" : "block";
+                }
+                function removeRow(oButton) {
+                var empTab = document.getElementById('tab_logic');
+                empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
+            }
+        
+                
+            // 	$("Document").ready(function(){
+            // $("#btn1").live("click",function(){
+            // 	alert("kchbhi")
+            //     $(this).parent().parent().remove(); 
+            //        })
+            // 	   })
+            function addField(argument) {
+
+
+var myTable = document.getElementById("tab_logic");
+var currentIndex = myTable.rows.length;
+currentIndex--;
+var currentRow = myTable.insertRow(-1);
+
+
+var RecoveryAmountBox = document.createElement("input");
+RecoveryAmountBox.setAttribute("name", 'recoveryDetailsList[' + currentIndex + '].recoveryAmount');
+RecoveryAmountBox.setAttribute("class", 'form-control');
+RecoveryAmountBox.setAttribute("placeholder", 'Recovery Amount');
+
+
+var DateOfRecoveryBox = document.createElement("input");
+DateOfRecoveryBox.setAttribute("type", "date");
+DateOfRecoveryBox.setAttribute("name", 'recoveryDetailsList[' + currentIndex + '].dateOfRecovery');
+DateOfRecoveryBox.setAttribute("class", 'form-control');
+DateOfRecoveryBox.setAttribute("placeholder", 'Date Of Recovery');
+
+var TransactionIdBox = document.createElement("input");
+TransactionIdBox.setAttribute("name", 'recoveryDetailsList[' + currentIndex + '].transactionId');
+TransactionIdBox.setAttribute("class", 'form-control');
+TransactionIdBox.setAttribute("placeholder", 'Transaction Id');
+
+var DCAIdBox = document.createElement("input");
+DCAIdBox.setAttribute("name", 'recoveryDetailsList[' + currentIndex + '].dcaId');
+DCAIdBox.setAttribute("class", "form-control");
+DCAIdBox.setAttribute("placeholder", 'DCA Id');
+var button = document.createElement('button');
+button.setAttribute('type', 'button');
+button.setAttribute("class", "btn custom-smile-btn-verify mr-1 ml-1");
+button.setAttribute('onclick', 'removeRow(this)');
+button.innerHTML='Remove';
+
+
+
+var DCAChargeBox = document.createElement("input");
+DCAChargeBox.setAttribute("name", 'recoveryDetailsList[' + currentIndex + '].dcaCharge');
+DCAChargeBox.setAttribute("class", "form-control");
+DCAChargeBox.setAttribute("placeholder", 'DCA Charge');
+
+var YesRadiobuttonDiv = document.createElement("div");
+YesRadiobuttonDiv.setAttribute("class", "form-check-inline");
+var lableYes = document.createElement("label");
+lableYes.setAttribute("class", "form-check-label");
+var textYes = document.createTextNode("Yes");
+
+var YesIsRecoverBeforeClaimSettlementBox = document.createElement("input");
+YesIsRecoverBeforeClaimSettlementBox.setAttribute("type", "radio");
+YesIsRecoverBeforeClaimSettlementBox.setAttribute("name", 'recoveryDetailsList[' + currentIndex + '].isRecoveryBeforeClaimSettlement');
+YesIsRecoverBeforeClaimSettlementBox.setAttribute("class", "form-check-input");
+YesIsRecoverBeforeClaimSettlementBox.setAttribute("value", "Yes");
+
+lableYes.appendChild(YesIsRecoverBeforeClaimSettlementBox);
+lableYes.appendChild(textYes);
+YesRadiobuttonDiv.appendChild(lableYes);
+
+var NoRadiobuttonDiv = document.createElement("div");
+NoRadiobuttonDiv.setAttribute("class", "form-check-inline");
+var lableNo = document.createElement("label");
+lableNo.setAttribute("class", "form-check-label");
+var textNo = document.createTextNode("No");
+
+var NoIsRecoverBeforeClaimSettlementBox = document.createElement("input");
+NoIsRecoverBeforeClaimSettlementBox.setAttribute("type", "radio");
+NoIsRecoverBeforeClaimSettlementBox.setAttribute("name", 'recoveryDetailsList[' + currentIndex + '].isRecoveryBeforeClaimSettlement');
+NoIsRecoverBeforeClaimSettlementBox.setAttribute("class", "form-check-input");
+NoIsRecoverBeforeClaimSettlementBox.setAttribute("value", "No");
+
+lableNo.appendChild(NoIsRecoverBeforeClaimSettlementBox);
+lableNo.appendChild(textNo);
+NoRadiobuttonDiv.appendChild(lableNo);
+var MainRadiobuttonDiv = document.createElement("div");
+MainRadiobuttonDiv.appendChild(YesRadiobuttonDiv);
+MainRadiobuttonDiv.appendChild(NoRadiobuttonDiv);
+
+
+var RemarksBox = document.createElement("input");
+RemarksBox.setAttribute("name", 'recoveryDetailsList[' + currentIndex + '].remarks');
+RemarksBox.setAttribute("class", "form-control");
+RemarksBox.setAttribute("placeholder", 'Remarks');
+
+var currentCell = currentRow.insertCell(0);
+currentCell.appendChild(RecoveryAmountBox);
+
+currentCell = currentRow.insertCell(1);
+currentCell.appendChild(DateOfRecoveryBox);
+
+
+
+currentCell = currentRow.insertCell(2);
+currentCell.appendChild(DCAIdBox);
+
+currentCell = currentRow.insertCell(3);
+currentCell.appendChild(DCAChargeBox);
+
+
+
+currentCell = currentRow.insertCell(4);
+currentCell.appendChild(RemarksBox);
+currentCell = currentRow.insertCell(5);
+currentCell.appendChild(button);  
+
+
+
+
+}  
+function goBack() {
+  window.history.back();
+}
+        </script>
+	</th:block>
+</body>
+</html>

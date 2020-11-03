@@ -1,0 +1,509 @@
+
+
+/*
+
+This is custom css file for ECGC SMILE
+Owner:Prakash Pimple/Nimish Kadam
+Mail:prakash@cdac.in/nimish@cdac.in
+
+*/
+
+/* custom form header */
+.custom-smile-form-header{
+	  font-size: 20px;
+	  font-weight: 700 !important;
+	  color:#212230;
+	  text-transform:capitalize !important;
+}
+
+/* custom form subsection header */
+.custom-smile-form-subsection-header{
+	  font-size: 20px;
+	  text-transform:capitalize !important;
+	  justify-content: left !important;
+	      color: black !important;
+	 /* ml-2, .mx-2 */
+    margin-left: 0.5rem !important;
+/*.mt-2, .my-2 */
+    margin-top: 0.5rem !important;
+
+/*.d-sm-flex */
+    display: flex !important;
+        padding: 0.35rem 1rem !important;
+}
+/* custom FORM label*/
+.custom-smile-form-label{
+	 text-transform:capitalize !important;	
+}
+
+/* custom VIEW header */
+.custom-smile-view-header{
+	  font-size: 20px;
+	  font-weight: 700 !important;
+	  color:#212230;
+	  text-transform:capitalize !important;
+}
+
+/* custom VIEW subsection header */
+.custom-smile-view-subsection-header{
+	  font-size: 16px;
+	  text-transform:capitalize !important;
+	  justify-content: left !important;
+	      color: black !important;
+	 /* ml-2, .mx-2 */
+    margin-left: 0.5rem !important;
+/*.mt-2, .my-2 */
+    margin-top: 0.5rem !important;
+
+/*.d-sm-flex */
+    display: flex !important;
+}
+
+
+/*custom VIEW label*/
+.custom-smile-view-label{
+		 text-transform:capitalize !important;
+		 color:gray !important;	
+	
+}
+/*custom VIEW value*/
+.custom-smile-view-value{
+	
+	
+	
+}
+
+/* Custom BREADCRUMB class*/
+.custom-smile-breadcrumb-outer{
+	display: flex;
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    list-style: none;
+    background-color: #eaecf4;
+    border-radius: 0.35rem;
+
+}
+
+/*item active BREADCRUMB*/
+.custom-smile-breadcrumb-active{
+    color: #dddfeb;
+}
+
+.custom-smile-breadcrumb-anchor{
+    color: black;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+
+/* custom class for BTN-DEFAULT*/
+.btn.custom-smile-btn-default{
+    color: #666;
+    background-color: #e1e5ec !important;
+    border-color: #e1e5ed  !important;
+}
+.btn.custom-smile-btn-default:hover {
+    color: #666;
+    background-color: #c2cad8;
+    border-color: #bcc5d4;
+}
+/* UPLOAD*/
+.btn.custom-smile-btn-upload{
+    color: #666;
+    background-color: #e1e5ec !important;
+    border-color: #e1e5ed  !important;
+}
+.btn.custom-smile-btn-upload:hover {
+    color: #666;
+    background-color: #c2cad8;
+    border-color: #bcc5d4;
+}
+/* DOWNLOAD*/
+.btn.custom-smile-btn-download{
+    color: #666;
+    background-color: #e1e5ec !important;
+    border-color: #e1e5ed  !important;
+}
+.btn.custom-smile-btn-download:hover {
+    color: #666;
+    background-color: #c2cad8;
+    border-color: #bcc5d4;
+}
+/*custom class for BTN-DANGER*/
+.custom-smile-btn-danger {
+    color: #fff;
+    background-color: #d92550 !important;
+    border-color: #d92550 !important;
+}
+/*custom class for Cancel*/
+.custom-smile-btn-cancel{
+    color: #fff;
+    background-color: #d92550 !important;
+    border-color: #d92550 !important;
+}
+/*custom class for REJECT*/
+.custom-smile-btn-reject{
+    color: #fff;
+    background-color: #d92550 !important;
+    border-color: #d92550 !important;
+}
+/*custom class for Drop*/
+.custom-smile-btn-drop{
+     color: #fff;
+    background-color: #d92550 !important;
+    border-color: #d92550 !important;
+}
+
+/*custom class for BTN-PRIMARY*/
+.custom-smile-btn-primary{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+
+/*custom class for SEARCH*/
+.custom-smile-btn-search{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+
+/*custom class for SUBMIT*/
+.custom-smile-btn-submit{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+
+/*custom class for RECOMMEND*/
+.custom-smile-btn-recommend{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+
+/*custom class for APPROVE*/
+.custom-smile-btn-approve{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+/*custom class for APPROVE*/
+.custom-smile-btn-approve{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+
+/*custom class for CLEAR*/
+.custom-smile-btn-clear{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+
+/*custom class for RESET*/
+.custom-smile-btn-reset{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+
+/*custom class for UPDATE*/
+.custom-smile-btn-update{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+
+/*custom class for SELECT*/
+.custom-smile-btn-select{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+/*custom class for OTP*/
+.custom-smile-btn-otp{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+/*custom class for verify*/
+.custom-smile-btn-verify{
+    color: #fff;
+    font-family:nunitosans-regular !important;
+    background-color: #3f6ad8 !important;
+    border-color: #3f6ad8 !important;
+}
+
+/*custom class for BTN-LIGHT*/
+.custom-smile-btn-light{
+    color: #212529;
+    background-color: #eee;
+    border-color: #eee;
+}
+/*custom class for BACK*/
+.custom-smile-btn-back{
+    color: #212529;
+    background-color: #eee;
+    border-color: #eee;
+}
+/*custom class for NEXT*/
+.custom-smile-btn-next{
+    color: #212529;
+    background-color: #eee;
+    border-color: #eee;
+}
+/*custom class for PREVIOUS*/
+.custom-smile-btn-previous{
+    color: #212529;
+    background-color: #eee;
+    border-color: #eee;
+}
+
+/*custom class for BTN-WARNING*/
+.custom-smile-btn-warning {
+    color: #fff;
+    background-color: #f7b924 !important;
+    border-color: #f7b924 !important;
+}
+
+/*custom class for BTN-SUCCESS*/
+.custom-smile-btn-success{
+    color: #fff;
+    background-color: #3ac47d;
+    border-color: #3ac47d;
+}
+/*custom class for SAVE Buttom*/
+.custom-smile-btn-save{
+    color: #fff;
+    background-color: #3ac47d;
+    border-color: #3ac47d;
+}
+
+
+/*checkbox css*/
+/* The container */
+.custom-smile-checkbox-label {
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.custom-smile-checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 12px;
+  width: 12px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.custom-smile-checkbox-label:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.custom-smile-checkbox-label input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.custom-smile-checkbox-label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.custom-smile-checkbox-label .checkmark:after {
+  left: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+
+/*custom radio*/
+.custom-smile-radio {
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.custom-smile-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.radioselect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 12px;
+  width: 12px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.custom-smile-radio:hover input ~ .radiodselect {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.custom-smile-radio input:checked ~ .radioselect {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radioselect:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.custom-smile-radio input:checked ~ .radioselect:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.custom-smile-radio .radioselect:after {
+ 	top: 3px;
+	left: 4px;
+	width: 4px;
+	height: 5px;
+	border-radius: 50%;
+	background: white;
+}
+
+
+
+/*custom class for NAV-PILLS*/
+.custom-smile-nav-pill {
+    color: #fff !important;
+    background-color: #2e23d9 !important;
+}
+.custom-smile-nav-pill-with-restriction {
+    /* color: #fff !important;
+    background-color: #2e23d9 !important; */
+}
+
+/*custom class for character count below textarea*/
+.custom-smile-char-count-textarea{
+	color:gray;
+	font-size: 10px;
+	
+}
+
+.card-subhedaer{
+	  font-size: 20px;
+}
+.card-content{
+	  font-size: 16px;
+}
+.ux-topbar
+{
+	height:1.0rem;
+}
+ .topbarbgcolor{
+ background-color:#284cb5;
+ 
+ }
+ 
+ /*Font for SMILE logo*/
+@font-face
+{
+    font-family: NosiferCaps-Regular;
+    src: url('/fonts/riesling.ttf');
+} 
+.sidebarcolor{
+	background-color: #EEEEEE;
+}
+
+/* for left border of card*/
+.section-border-left-primary{
+  border-left: 0.15rem solid #4e73df !important;
+    border-left-width: 0.15rem !important;
+    border-left-style: solid !important;
+    border-left-color: rgb(78, 115, 223) !important;
+}
+.section-border-left-danger {
+    border-left: 0.15rem solid #e74a3b !important;
+    border-left-width: 0.15rem !important;
+    border-left-style: solid !important;
+    border-left-color: rgb(231, 74, 59) !important;
+}
+
+.
+/**************** CSS customized at other places ***************************************
+1.sb-admin-2.css
+   @font-face
+{
+    font-family:nunitosans-regular ;
+    src: url('/fonts/NunitoSans-Regular.ttf');
+}
+body {
+  margin: 0;
+  font-family:nunitosans-regular,-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: black;
+  text-align: left;
+  background-color: #fff;
+}
+
+  2.similarly
+
+
+**********/

@@ -1,0 +1,2620 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{BaseLayout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>PEB Policy</title>
+<style>
+.form-actions {
+	margin: 0;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div id="page-wrapper" layout:fragment="content">
+
+		<nav aria-label="breadcrumb" class="mt-2">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="indexwithsm">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Add New Proposal</li>
+			</ol>
+		</nav>
+		<div class="card shadow mb-4 mt-2 bkg-color">
+
+			<!--card header-->
+			<div class="card-header">
+				<span class="custom-smile-form-header" id="datatables">Add New Proposal</span>
+			</div>
+			<!--end of card header-->
+			<div class="card-body">
+				<div class="row my-2">
+					<div class="col-lg-12 order-lg-2">
+						<ul class="nav nav-pills">
+							<li class="nav-item"><a id="1" data-toggle="tab" href="#BasicProposalDetails"
+							 class="nav-link active">Basic
+									Proposal Details</a></li>
+
+							<li class="nav-item"><a data-toggle="tab" id="2" href="#ScrutinyVerification1"
+								class="nav-link">Scrutiny/Verification</a></li>
+							<li class="nav-item"><a data-toggle="tab" id="3" href="#Assessment2"
+								class="nav-link">Assessment</a></li>
+							<li class="nav-item"><a id="4" data-toggle="tab" href="#Miscllaneous3"
+								class="nav-link">Miscelleneous</a></li>
+							<li class="nav-item"><a id="5" data-toggle="tab" href="#Decision4"
+								class="nav-link">Decision</a></li>
+						</ul>
+						<div class="tab-content py-4">
+							<div class="tab-pane active" id="BasicProposalDetails">
+								<!-- Basic Proposal Success Message -->
+									<div class="form -group row" th:if="${BasicProposalDetailsFlag == 'success'}"
+										id="divRegSuccess">
+										<div class="col-sm-5 mb-sm-0">
+											<div class="alert alert-success">
+												Basic Proposal Details Saved Successfully</div>
+										</div>
+									</div>
+								<form action="#" th:action="@{/saveProposalDetails}"
+									th:object="${pebPolicyProposalBean}" method="POST">
+									<div class="card card-body">
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Inward Number<span
+												class="text-danger">&nbsp;*</span></label> <input type="text"
+												th:field="*{inwardNumber}" class="form-control"> <span
+												th:errors="*{inwardNumber}" style="color: red"
+												th:errorclass="form-field-error"></span>
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Inward Item
+												Number<span class="text-danger">&nbsp;*</span>
+											</label> <input type="text" th:field="*{inwardItemNumber}"
+												class="form-control" /> <span
+												th:errors="*{inwardItemNumber}" style="color: red"
+												th:errorclass="form-field-error"></span>
+
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Project Id<span
+												class="text-danger">&nbsp;*</span></label> <input type="text"
+												th:field="*{projectId}" class="form-control" /> <span
+												th:errors="*{projectId}" style="color: red"
+												th:errorclass="form-field-error"></span>
+
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Proposal Date<span
+												class="text-danger">&nbsp;*</span></label> <input type="date"
+												th:field="*{proposalDate}" class="form-control" /> <span
+												th:errors="*{proposalDate}" style="color: red"
+												th:errorclass="form-field-error"></span>
+
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Contract Value<span
+												class="text-danger">&nbsp;*</span></label> <input type="text"
+												th:field="*{contractValue}" class="form-control" /> <span
+												th:errors="*{contractValue}" style="color: red"
+												th:errorclass="form-field-error"></span>
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Product type<span
+												class="text-danger">&nbsp;*</span></label> <select
+												th:field="*{productId}" class="form-control">
+												<option value="">----Please Select------</option>
+												<option th:each="ptype : ${productTypes}"
+													th:value="${ptype.key}" th:text="${ptype.value}"
+													th:selected="${ptype.key==productId}"></option>
+
+											</select> <span th:errors="*{productId}" style="color: red"
+												th:errorclass="form-field-error"></span>
+
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-3 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Mode Of
+												Payment<span class="text-danger">&nbsp;*</span>
+											</label> <select th:field="*{modeOfPayment}" class="form-control">
+												<option value="">----Please Select------</option>
+												<option th:each="mtype : ${modeOfPayment}"
+													th:value="${mtype.value}" th:text="${mtype.value}"
+													th:selected="${mtype.value==modeOfPayment}"></option>
+											</select> <span th:errors="*{modeOfPayment}" style="color: red"
+												th:errorclass="form-field-error"></span>
+
+										</div>
+										<div class="col-sm-3 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Instrument
+												Number<span class="text-danger">&nbsp;*</span>
+											</label> <input type="text" th:field="*{instrumentNumber}"
+												class="form-control" /> <span
+												th:errors="*{instrumentNumber}" style="color: red"
+												th:errorclass="form-field-error"></span>
+										</div>
+										<div class="col-sm-3 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Instrument
+												Date<span class="text-danger">&nbsp;*</span>
+											</label> <input type="date" th:field="*{instrumentDate}"
+												class="form-control" /> <span th:errors="*{instrumentDate}"
+												style="color: red" th:errorclass="form-field-error"></span>
+										</div>
+										<div class="col-sm-3 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Instrument
+												Amount<span class="text-danger">&nbsp;*</span>
+											</label> <input type="text" th:field="*{instrumentAmount}"
+												class="form-control" /> <span
+												th:errors="*{instrumentAmount}" style="color: red"
+												th:errorclass="form-field-error"></span>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Processing Fee
+												Paid Date<span class="text-danger">&nbsp;*</span>
+											</label> <input type="date" th:field="*{processingFeePaidDate}"
+												class="form-control" /> <span
+												th:errors="*{processingFeePaidDate}" style="color: red"
+												th:errorclass="form-field-error"></span>
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Processing Fee
+												Amount<span class="text-danger">&nbsp;*</span>
+											</label> <input type="text" th:field="*{processingFeePaidAmount}"
+												class="form-control" /> <span
+												th:errors="*{processingFeePaidAmount}" style="color: red"
+												th:errorclass="form-field-error"></span>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Proposal
+												Status<span class="text-danger">&nbsp;*</span>
+											</label> <select th:field="*{proposalStatus}" class="form-control">
+												<option value="">----Please Select------</option>
+												<option value="Pending">Pending/In-Progress</option>
+												<option value="ABNP">Approved But Not Paid</option>
+												<option value="AAP">Approved And Paid</option>
+												<option value="Rejected">Rejected</option>
+												<option value="Closed">Closed</option>
+											</select> <span th:errors="*{proposalStatus}" style="color: red"
+												th:errorclass="form-field-error"></span>
+										</div>
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Receipt No<span
+												class="text-danger">&nbsp;*</span></label> <input type="text"
+												th:field="*{receiptNumber}" class="form-control" /> <span
+												th:errors="*{receiptNumber}" style="color: red"
+												th:errorclass="form-field-error"></span>
+										</div>
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Bank Name<span
+												class="text-danger">&nbsp;*</span></label> <input type="text"
+												th:field="*{bankName}" class="form-control" /> <span
+												th:errors="*{bankName}" style="color: red"
+												th:errorclass="form-field-error"></span>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Tags<span
+												class="text-danger">&nbsp;*</span></label>
+											<textarea class="form-control" th:field="*{tags}"> </textarea>
+											<span th:errors="*{tags}" style="color: red"
+												th:errorclass="form-field-error"></span>
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Remarks<span
+												class="text-danger">&nbsp;*</span></label>
+											<textarea th:field="*{remarks}" onkeyup="countChar(this, 200)" class="form-control"></textarea>
+											<div class="float-right">
+											<small id="charNum"></small><span class="custom-smile-char-count-textarea">&nbsp;characters inserted</span> OR
+											<br>
+											<small id="charNumLeft"></small><span class="custom-smile-char-count-textarea">&nbsp;characters remaining</span>
+											
+											</div>
+										</div>
+									</div>
+									<div class="form-actions mt-1">
+										<input type="submit" class="btn custom-smile-btn-success mt-4"
+											value="Save"></input>
+									</div>
+									<br>
+									<div class="form-group">
+										<button class="btn custom-smile-btn-next float-right"
+											onclick="nextTabOne()" type="button">
+											<span class="text">Next</span> <span class="icon"> <i
+												class="fas fa-angle-double-right"></i>
+											</span>
+										</button>
+									</div>
+									</div>
+								</form>
+								<!--/row-->
+							</div>
+							<div class="tab-pane" id="ScrutinyVerification1">
+								<form action="#" th:action="@{/saveScrutinyDetails}"
+									th:object="${pebPolicyProposalBean}" method="POST">
+									<div class="card card-body mb-3">
+										<th:block th:each="document : ${documentChecklist}">
+											<div
+												class="custom-control custom-form-control-lg custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="customCheck1"
+													th:field="*{documentCheckList}" th:value="${document.id}">
+												<label class="custom-control-label" for="customCheck1"
+													th:text="${document.documentName}"></label>
+											</div>
+										</th:block>
+										<span th:errors="*{documentCheckList}" style="color: red"
+											th:errorclass="form-field-error"></span>
+									</div>
+									<div class="form-group card">
+										<div class="col-sm-6 card-body">
+											<label class="custom-smile-form-label">Is Exporter in
+												SAL?</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" id="isExporterInSALYes" value="Yes"
+													th:field="*{isExporterInSAL}"> <label
+													class="custom-control-label" for="isExporterInSALYes">Yes</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" id="isExporterInSALNo" value="No"
+													th:field="*{isExporterInSAL}"> <label
+													class="custom-control-label" for="isExporterInSALNo">No</label>
+											</div>
+										</div>
+										<span th:errors="*{isExporterInSAL}" style="color: red"
+											th:errorclass="form-field-error"></span>
+									</div>
+									<div class="form-group card">
+										<div class="col-sm-6 card-body">
+											<label class="custom-smile-form-label">Is Buyer in
+												BSAL?</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" id="isBuyerInBSALYes"  value="Yes"
+													th:field="*{isBuyerInBSAL}"> <label
+													class="custom-control-label" for="isBuyerInBSALYes">Yes</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" id="isBuyerInBSALNo" value="No"
+													th:field="*{isBuyerInBSAL}"> <label
+													class="custom-control-label" for="isBuyerInBSALNo">No</label>
+											</div>
+										</div>
+										<span th:errors="*{isBuyerInBSAL}" style="color: red"
+											th:errorclass="form-field-error"></span>
+									</div>
+									<div class="form-group card">
+										<a class="card-body " href="#">Seek Buyer's Report</a>
+									</div>
+									<div class="form-actions mt-1">
+										<input type="submit" class="btn custom-smile-btn-success mt-4"
+											value="Save"></input>
+									</div>
+									<div class="form-group">
+										<button class="btn custom-smile-btn-back float-left"
+											type="button">
+											<span class="icon"> <i
+												class="fas fa-angle-double-left"></i>
+											</span> <span class="text">Back</span>
+										</button>
+										<button class="btn custom-smile-btn-next float-right"
+											onclick="nextTabSec()" type="button">
+											<span class="text">Next</span> <span class="icon"> <i
+												class="fas fa-angle-double-right"></i>
+											</span>
+										</button>
+									</div>
+
+								</form>
+							</div>
+							<div class="tab-pane" id="Assessment2">
+							<div class="card shadow mb-4 mt-2 border-left-danger">
+
+			<!--card header-->
+			<div class="card-header custom-smile-form-header">
+      		List Of Policy
+	
+						<button type="button"
+							class="btn btn-primary btn-icon-split float-right btn-sm"
+							data-toggle="modal" data-target="#dummyPolicyDiv">
+							<span class="icon "> <i class="fas fa-plus"></i>
+							</span> <span class="text">Add New</span>
+						</button>
+						<button type="button"
+							class="btn btn-primary float-right view btn-sm mr-1"
+							id="proposalViewButton" data-toggle="modal"
+							data-target="#vieweditmodel">Edit/View</button>
+						<!-- <button class="btn text-warning float-right mr-1" id="idAddOption"  data-toggle="modal" data-target="#vieweditmodel">
+								<i class="fas fa-edit fa-lg"></i>Edit
+							</button> -->
+			</div>
+			<!--end of card header-->
+
+
+			<div class="card-body">
+
+
+				<table class="table table-bordered table-striped " id="example1"
+					width="100%" cellspacing="0">
+					<thead>
+						<tr>
+
+							<th>Name</th>
+							<th>Position</th>
+							<th>Office</th>
+							<th>Age</th>
+							<th>Start date</th>
+							<th>Salary</th>
+							<th>Select Row</th>
+
+						</tr>
+					</thead>
+
+					<tfoot>
+						<tr>
+							<th>Name</th>
+							<th>Position</th>
+							<th>Office</th>
+							<th>Age</th>
+							<th>Start date</th>
+							<th>Salary</th>
+							<th>Select Row</th>
+
+						</tr>
+					</tfoot>
+
+					<tbody>
+						<th:block th:each="map:${myObjects}">
+							<tr>
+								<th:block th:each="entry:${map}">
+									<td th:text="${entry.value}"></td>
+								</th:block>
+								<td>
+									<center>
+										<input class="check" name="is_verified" type="radio"
+											id="radioinstant" />
+									</center>
+								</td>
+							</tr>
+
+						</th:block>
+
+					</tbody>
+				</table>
+				<span class="exportbuttons"> </span>
+				<!-- </div> -->
+				<!-- table responsive -->
+			</div>
+		</div>
+		<div class="modal fade" id="dummyPolicyDiv" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header bg-light">
+						<h4 class="modal-title" style="color: black;">Add New Policy</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+
+						<form th:action="@{/saveDummyPolicy}" th:object="${proposal}" method="post">
+							<div th:fragment="dummyPolicy" class="card p-3" id="dummyPolicy" >
+							<div class="card section-border-left-primary mb-4 mt-3">
+								<div class="card-body">
+									<div class="form-group row">
+									<div class="col-sm-4 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Select Type<span
+											class="text-danger">&nbsp;*</span></label>
+										<select th:field="*{isSupplyOrServiceOrBoth}" class="form-control" id="isSupplyOrServiceOrBoth">
+										<option value="">--Please Select--</option>
+										<option th:each="entry : ${typeOfWork}" th:value="${entry.key}" th:text="${entry.value}"></option>
+									</select>
+									<span th:if="${#fields.hasErrors('isSupplyOrServiceOrBoth')}" th:errors="*{isSupplyOrServiceOrBoth}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-4 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Transaction Type<span
+											class="text-danger">&nbsp;*</span></label> 
+										<select th:field="*{transactionTypeId}" class="form-control" id="transactionTypeId">
+										<option value="">--Please Select--</option>
+										<option th:each="entry : ${transactionType}" th:value="${entry.key}" th:text="${entry.value}"></option>
+									</select>
+									<span th:if="${#fields.hasErrors('transactionTypeId')}" th:errors="*{transactionTypeId}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-4 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Risk type<span
+											class="text-danger">&nbsp;*</span></label> 
+										<select th:field="*{riskTypeId}" class="form-control" id="riskTypeId">
+										<option value="">--Please Select--</option>
+										<option th:each="entry : ${riskType}" th:value="${entry.key}" th:text="${entry.value}"></option>
+									</select>
+									<span th:if="${#fields.hasErrors('riskTypeId')}" th:errors="*{riskTypeId}" class="text-danger"></span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Loading Percentage<span
+											class="text-danger">&nbsp;*</span></label> <input type="text" th:field="*{loadingPercentage}" class="form-control" id="loadingPercentage">
+									<span th:if="${#fields.hasErrors('loadingPercentage')}" th:errors="*{loadingPercentage}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Advance Weightage<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="text" th:field="*{advancePaidAmount}" class="form-control" id="advancePaidAmount">
+									<span th:if="${#fields.hasErrors('advancePaidAmount')}" th:errors="*{advancePaidAmount}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Advance Paid Amount<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="text" th:field="*{advanceWeightage}" class="form-control" id="advanceWeightage">
+									<span th:if="${#fields.hasErrors('advanceWeightage')}" th:errors="*{advanceWeightage}" class="text-danger"></span> 
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Advance Paid Date<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="date" th:field="*{advancePaidDate}" class="form-control" id="advancePaidDate">
+									<span th:if="${#fields.hasErrors('advancePaidDate')}" th:errors="*{advancePaidDate}" class="text-danger"></span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Maximum Liability<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="text" th:field="*{maximumLiability}" class="form-control" id="maximumLiability">
+									<span th:if="${#fields.hasErrors('maximumLiability')}" th:errors="*{maximumLiability}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Cover Percenatge<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="text" th:field="*{coverPercentage}" class="form-control" id="coverPercentage">
+									<span th:if="${#fields.hasErrors('coverPercentage')}" th:errors="*{coverPercentage}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Cover Value<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="text" th:field="*{coverValue}" class="form-control" id="coverValue">
+									<span th:if="${#fields.hasErrors('coverValue')}" th:errors="*{coverValue}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">NEIA Share Percentage<span
+											class="text-danger">&nbsp;*</span></label>
+										<input type="text" th:field="*{neiaSharePercentage}" class="form-control" id="neiaSharePercentage">
+									<span th:if="${#fields.hasErrors('neiaSharePercentage')}" th:errors="*{neiaSharePercentage}" class="text-danger"></span>
+									</div>
+								</div>
+								</div>
+
+
+							</div>
+								<div class="card section-border-left-danger mb-4 mt-3">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Post Shipment Details
+								</div>
+								<!-- Card Content - Collapse -->
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Post Shipment Start Date<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="date" th:field="*{postShipmentStartDate}" class="form-control" id="postShipmentStartDate">
+											<span th:if="${#fields.hasErrors('postShipmentStartDate')}" th:errors="*{postShipmentStartDate}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-6 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Post Shipment End Date<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="date" th:field="*{postShipmentEndDate}" class="form-control" id="postShipmentEndDate">
+											<span th:if="${#fields.hasErrors('postShipmentEndDate')}" th:errors="*{postShipmentEndDate}" class="text-danger"></span>
+										</div>
+									</div>
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-6 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Post Shipment Premium Rate<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{postShipmentPremiumRate}" class="form-control" id="postShipmentPremiumRate">
+											<span th:if="${#fields.hasErrors('postShipmentPremiumRate')}" th:errors="*{postShipmentPremiumRate}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-6 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Post Shipment Premium Amount<span class="text-danger">&nbsp;*</span>
+											</label><input type="text" th:field="*{postShipmentPremiumAmount}" class="form-control" id="postShipmentPremiumAmount">
+											<span th:if="${#fields.hasErrors('postShipmentPremiumAmount')}" th:errors="*{postShipmentPremiumAmount}" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+							<div class="card section-border-left-primary mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Contract Value
+								</div>
+								<!-- Card Content - Collapse -->
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Local Contract Value<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{contractValueLocal}" class="form-control" id="contractValueLocal">
+											<span th:if="${#fields.hasErrors('contractValueLocal')}" th:errors="*{contractValueLocal}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Foreign Contract Value<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{contractValueForeign}" class="form-control" id="contractValueForeign">
+											<span th:if="${#fields.hasErrors('contractValueForeign')}" th:errors="*{contractValueForeign}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Third Party Contract Value<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{contractValueThirdParty}" class="form-control" id="contractValueThirdParty">
+											<span th:if="${#fields.hasErrors('contractValueThirdParty')}" th:errors="*{contractValueThirdParty}" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4 mt-1">
+								<div class="card-body col-sm-12">
+								
+											<label class="custom-smile-form-label">Is Pre-Shipment Cover needed?</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="yes"
+													th:field="*{isPreshipmentRider}" name="isPreshipmentRider" id="yes"> <label
+													class="custom-control-label" for="yes">Yes</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="No"
+													th:field="*{isPreshipmentRider}" name="isPreshipmentRider" id="no"> <label
+													class="custom-control-label" for="no">No</label>
+											</div>
+											<span th:errors="*{isPreshipmentRider}" style="color: red"
+											th:errorclass="form-field-error"></span>
+										
+								</div>
+							</div>
+							<div class="card section-border-left-primary mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Preshipment Details
+								</div>
+								<!-- Card Content - Collapse -->
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Total Supply Value<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{totalSupplyValue}" class="form-control" id="totalSupplyValue">
+											<span th:if="${#fields.hasErrors('totalSupplyValue')}" th:errors="*{totalSupplyValue}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Pre-shipment Start Date<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="date" th:field="*{preShipmentStartDate}" class="form-control" id="preShipmentStartDate">
+											<span th:if="${#fields.hasErrors('preShipmentStartDate')}" th:errors="*{preShipmentStartDate}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Pre-shipment End Date<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="date" th:field="*{preShipmentEndDate}" class="form-control" id="preShipmentEndDate">
+											<span th:if="${#fields.hasErrors('preShipmentEndDate')}" th:errors="*{preShipmentEndDate}" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Pre-shipment Premium Rate<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{preShipmentPremiumRate}" class="form-control" id="preShipmentPremiumRate">
+											<span th:if="${#fields.hasErrors('preShipmentPremiumRate')}" th:errors="*{preShipmentPremiumRate}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Pre-shipment Premium Amount<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{preShipmentPremiumAmount}" class="form-control" id="preShipmentPremiumAmount">
+											<span th:if="${#fields.hasErrors('preShipmentPremiumAmount')}" th:errors="*{preShipmentPremiumAmount}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Pre-shipment Discount<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{preShipmentDiscount}" class="form-control" id="preShipmentDiscount">
+											<span th:if="${#fields.hasErrors('preShipmentDiscount')}" th:errors="*{preShipmentDiscount}" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="card section-border-left-danger mb-2 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Pre-shipment Contract Value
+								</div>
+								<!-- Card Content - Collapse -->
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Local Contract Value<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{preShipmentContractValueLocal}" class="form-control" id="preShipmentContractValueLocal">
+													<span th:if="${#fields.hasErrors('preShipmentContractValueLocal')}" th:errors="*{preShipmentContractValueLocal}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Foreign Contract Value<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{preShipmentContractValueForeign}" class="form-control" id="preShipmentContractValueForeign">
+													<span th:if="${#fields.hasErrors('preShipmentContractValueForeign')}" th:errors="*{preShipmentContractValueForeign}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Third Party Contract Value<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{preShipmentContractValueThirdParty}" class="form-control" id="preShipmentContractValueThirdParty">
+											<span th:if="${#fields.hasErrors('preShipmentContractValueThirdParty')}" th:errors="*{preShipmentContractValueThirdParty}" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+								</div>
+							</div>
+							<div class="card section-border-left-primary mb-4 mt-1">
+								<div class="card-body col-sm-12">
+								
+											<label class="custom-smile-form-label">Is Cross Country?</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="Yes"
+													th:field="*{isCrossCountry}" id="yes"> <label
+													class="custom-control-label" for="yes">Yes</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="No"
+													th:field="*{isCrossCountry}" id="no"> <label
+													class="custom-control-label" for="no">No</label>
+											</div>
+											<span th:errors="*{isCrossCountry}" style="color: red"
+											th:errorclass="form-field-error"></span>
+										
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Cross Country Details
+								</div>
+								<!-- Card Content - Collapse -->
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-3 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Payment Country<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<select th:field="*{paymentCountry}" class="form-control" id="paymentCountry">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${countryMap}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('paymentCountry')}" th:errors="*{paymentCountry}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-3 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Payment Country Rating<span
+												class="text-danger">&nbsp;*</span></label> 
+											<select th:field="*{paymentCountryRating}" class="form-control" id="paymentCountryRating">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${countryRating}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('paymentCountryRating')}" th:errors="*{paymentCountryRating}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-3 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Funding Arrengement<span class="text-danger">&nbsp;*</span>
+											</label>
+											<select th:field="*{fundingArrangement}" class="form-control" id="fundingArrangement">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${fundingArrangement}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('fundingArrangement')}" th:errors="*{fundingArrangement}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-3 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Funding Agency<span class="text-danger">&nbsp;*</span>
+											</label>
+											<select th:field="*{fundingAgencyName}" class="form-control" id="fundingAgencyName">
+												<option value="">--Please Select--</option>
+												<option value="1">UniLateral</option>
+												<option value="2">MultiLateral</option>
+											</select>
+											<span th:if="${#fields.hasErrors('fundingAgencyName')}" th:errors="*{fundingAgencyName}" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card section-border-left-primary mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Currency Details
+								</div>
+								<!-- Card Content - Collapse -->
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Local Currency Code<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<select th:field="*{pebPolicyDummyCurrencyDetails.currencyCodeLocal}" class="form-control" id="currencyCodeLocal">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${currencyCode}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.currencyCodeLocal')}" th:errors="*{pebPolicyDummyCurrencyDetails.currencyCodeLocal}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Local Exchange Rate<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.exchangeRateLocal}" class="form-control" id="exchangeRateLocal">
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.exchangeRateLocal')}" th:errors="*{pebPolicyDummyCurrencyDetails.exchangeRateLocal}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Local Currency Value<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.localValue}"  class="form-control" id="localValue">
+										</div>
+									</div>
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Foreign Currency Code<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<select th:field="*{pebPolicyDummyCurrencyDetails.currencyCodeForeign}" class="form-control" id="currencyCodeForeign">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${currencyCode}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.currencyCodeForeign')}" th:errors="*{pebPolicyDummyCurrencyDetails.currencyCodeForeign}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Foreign Exchange Rate<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.exchangeRateForeign}" class="form-control" id="exchangeRateForeign">
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.exchangeRateForeign')}" th:errors="*{pebPolicyDummyCurrencyDetails.exchangeRateForeign}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Foreign Currency Value<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.foreignValue}"  class="form-control" id="foreignValue">
+										</div>
+									</div>
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Third Party Currency Code<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<select th:field="*{pebPolicyDummyCurrencyDetails.currencyCodeThirdParty}" class="form-control" id="currencyCodeThirdParty">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${currencyCode}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.currencyCodeThirdParty')}" th:errors="*{pebPolicyDummyCurrencyDetails.currencyCodeThirdParty}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Third Party Exchange Rate<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.exchangeRateThirdParty}" class="form-control" id="exchangeRateThirdParty">
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.exchangeRateThirdParty')}" th:errors="*{pebPolicyDummyCurrencyDetails.exchangeRateThirdParty}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Third Party Currency Value<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.thirdPartyValue}"  class="form-control" id="thirdPartyValue">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Terms Of Payment
+								</div>
+								<!-- Card Content - Collapse -->
+
+								<div class="card-body">
+									<table class="table table-bordered">
+									<thead class="thead-light">
+										<tr>
+											<th>TOP</th>
+											<th>Duration</th>
+											<th>Weightage</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th>Down (in Days)</th>
+											<td>
+												<input type="text" th:field="*{paymentTenureDetails.downTenureValue}"  class="form-control" id="downTenureValue">
+												<span th:if="${#fields.hasErrors('paymentTenureDetails.downTenureValue')}" th:errors="*{paymentTenureDetails.downTenureValue}" class="text-danger"></span>
+											</td>
+											<td>
+												<input type="text" th:field="*{paymentWeightageDetails.downWeightageValue}"   class="form-control" id="downWeightageValue">
+												<span th:if="${#fields.hasErrors('paymentWeightageDetails.downWeightageValue')}" th:errors="*{paymentWeightageDetails.downWeightageValue}" class="text-danger"></span>
+											</td>
+										</tr>
+										<tr>
+											<th>Progress (in Days)</th>
+											<td>
+												<input type="text" th:field="*{paymentTenureDetails.progressTenureValue}"  class="form-control" id="progressTenureValue">
+												<span th:if="${#fields.hasErrors('paymentTenureDetails.progressTenureValue')}" th:errors="*{paymentTenureDetails.progressTenureValue}" class="text-danger"></span>
+											</td>
+											<td>
+												<input type="text" th:field="*{paymentWeightageDetails.progressWeightageValue}"   class="form-control" id="progressWeightageValue">
+												<span th:if="${#fields.hasErrors('paymentWeightageDetails.progressWeightageValue')}" th:errors="*{paymentWeightageDetails.progressWeightageValue}" class="text-danger"></span>
+											</td>
+										</tr>
+										<tr>
+											<th>PAC (in Months)</th>
+											<td>
+												<input type="text" th:field="*{paymentTenureDetails.pacTenureValue}"  class="form-control" id="pacTenureValue">
+												<span th:if="${#fields.hasErrors('paymentTenureDetails.pacTenureValue')}" th:errors="*{paymentTenureDetails.pacTenureValue}" class="text-danger"></span>
+											</td>
+											<td>
+												<input type="text" th:field="*{paymentWeightageDetails.pacWeightageValue}"   class="form-control" id="pacWeightageValue">
+												<span th:if="${#fields.hasErrors('paymentWeightageDetails.pacWeightageValue')}" th:errors="*{paymentWeightageDetails.pacWeightageValue}" class="text-danger"></span>
+											</td>
+										</tr>
+										<tr>
+											<th>FAC (in Months)</th>
+											<td>
+												<input type="text" th:field="*{paymentTenureDetails.facTenureValue}"  class="form-control" id="facTenureValue">
+												<span th:if="${#fields.hasErrors('paymentTenureDetails.facTenureValue')}" th:errors="*{paymentTenureDetails.facTenureValue}" class="text-danger"></span>
+											</td>
+											<td>
+												<input type="text" th:field="*{paymentWeightageDetails.facWeightageValue}"   class="form-control" id="facWeightageValue">
+												<span th:if="${#fields.hasErrors('paymentWeightageDetails.facWeightageValue')}" th:errors="*{paymentWeightageDetails.facWeightageValue}" class="text-danger"></span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+									
+								</div>
+							</div>
+							
+							<div class="card section-border-left-primary mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Moratorium Details
+								</div>
+								<!-- Card Content - Collapse -->
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Moratorium Period<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{moratoriumPeriod}"  class="form-control" id="moratoriumPeriod">
+											<span th:if="${#fields.hasErrors('moratoriumPeriod')}" th:errors="*{moratoriumPeriod}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Number Of Installment<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{moratoriumNumberOfInstallment}"  class="form-control" id="moratoriumNumberOfInstallment">
+											 <span th:if="${#fields.hasErrors('moratoriumNumberOfInstallment')}" th:errors="*{moratoriumNumberOfInstallment}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Frequency Of Installment<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{moratoriumFreqOfInstallment}"  class="form-control" id="moratoriumFreqOfInstallment">
+											<span th:if="${#fields.hasErrors('moratoriumFreqOfInstallment')}" th:errors="*{moratoriumFreqOfInstallment}" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4 mt-1">
+								<div class="card-body col-sm-12">
+											<label class="custom-smile-form-label">Is Installment Facility?</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="Yes"
+													th:field="*{isInstallmentFacility}" id="yes"> <label
+													class="custom-control-label" for="yes">Yes</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="No"
+													th:field="*{isInstallmentFacility}" id="no"> <label
+													class="custom-control-label" for="no">No</label>
+											</div>
+											<span th:errors="*{isInstallmentFacility}" style="color: red"
+											th:errorclass="form-field-error"></span>
+										
+								</div>
+							</div>
+							<div class="card section-border-left-primary mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Deffered Payment Schedule
+								</div>
+								<!-- Card Content - Collapse -->
+
+								<div class="card-body">
+									<table class="table table-striped deferredPaymentSchedule" id="defTable">
+									<thead class="thead-light">
+										<tr>
+											<th>Date of Payment</th>
+											<th>Amount to be Paid</th>
+											<th>Remarks</th>
+											<th><button type="button" title="Add New Row" class="btn" id="addNewDef"><img th:src="@{/svg/plus.svg}" height="30" width="30"></button></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="item, stat : ${proposal.policyDeferredPaymentScheduleDetails}">
+											<td>
+												<input type="date" class="form-control" id="dateOfPaymentToBeDone" th:field="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].dateOfPaymentToBeDone}">
+												<span
+													th:if="${#fields.hasErrors('policyDeferredPaymentScheduleDetails[__${stat.index}__].dateOfPaymentToBeDone')}"
+													style="color: red" th:errorclass="form-field-error"
+													th:errors="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].dateOfPaymentToBeDone}">
+												</span>
+											</td>
+											<td>
+												<input type="text" class="form-control" id="amountToBePaid" th:field="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].amountToBePaid}">
+												<span
+													th:if="${#fields.hasErrors('policyDeferredPaymentScheduleDetails[__${stat.index}__].amountToBePaid')}"
+													style="color: red" th:errorclass="form-field-error"
+													th:errors="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].amountToBePaid}">
+												</span>
+											</td>
+											<td>
+												<input type="text" class="form-control" id="remarks" th:field="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].remarks}">
+												<span
+													th:if="${#fields.hasErrors('policyDeferredPaymentScheduleDetails[__${stat.index}__].remarks')}"
+													style="color: red" th:errorclass="form-field-error"
+													th:errors="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].remarks}">
+												</span>
+											</td>
+											<td>
+												<button class="btn" type="button" title="Remove this Row" id="removeThisRow" ><img src="/svg/minus.svg" height="30" width="30"></button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+									
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4 mt-1">
+								<div class="card-body">
+								<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Tags<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{tags}" class="form-control" id="tags">
+										</div>
+										<div class="col-sm-6 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Remarks<span
+												class="text-danger">&nbsp;*</span></label> 
+											<textarea th:field="*{remarks}" onkeyup="countChar(this, 200)" class="form-control" id="remarks"></textarea>
+											<div class="float-right">
+											<small id="charNum"></small><span class="custom-smile-char-count-textarea">&nbsp;characters inserted</span> OR
+											<br>
+											<small id="charNumLeft"></small><span class="custom-smile-char-count-textarea">&nbsp;characters remaining</span>
+											
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-actions mt-1">
+										<input type="submit" class="btn custom-smile-btn-success"
+											value="Save"></input>
+									</div>
+							</div>
+							</form>
+
+
+					</div>
+					<!--end of modal body-->
+					<div class="modal-footer">
+
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+				<!--end of modal-content-->
+
+			</div>
+		</div>
+							<!-- <div id="dummyPolicyDiv" style="display: none;">
+							<form th:action="@{/saveDummyPolicy}" th:object="${proposal}" method="post">
+							<div th:fragment="dummyPolicy" class="card p-3 mb-5" id="dummyPolicy" >
+							<div class="card section-border-left-primary mb-4 mt-3">
+								<div class="card-body">
+									<div class="form-group row">
+									<div class="col-sm-4 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Select Type<span
+											class="text-danger">&nbsp;*</span></label>
+										<select th:field="*{isSupplyOrServiceOrBoth}" class="form-control" id="isSupplyOrServiceOrBoth">
+										<option value="">--Please Select--</option>
+										<option th:each="entry : ${typeOfWork}" th:value="${entry.key}" th:text="${entry.value}"></option>
+									</select>
+									<span th:if="${#fields.hasErrors('isSupplyOrServiceOrBoth')}" th:errors="*{isSupplyOrServiceOrBoth}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-4 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Transaction Type<span
+											class="text-danger">&nbsp;*</span></label> 
+										<select th:field="*{transactionTypeId}" class="form-control" id="transactionTypeId">
+										<option value="">--Please Select--</option>
+										<option th:each="entry : ${transactionType}" th:value="${entry.key}" th:text="${entry.value}"></option>
+									</select>
+									<span th:if="${#fields.hasErrors('transactionTypeId')}" th:errors="*{transactionTypeId}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-4 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Risk type<span
+											class="text-danger">&nbsp;*</span></label> 
+										<select th:field="*{riskTypeId}" class="form-control" id="riskTypeId">
+										<option value="">--Please Select--</option>
+										<option th:each="entry : ${riskType}" th:value="${entry.key}" th:text="${entry.value}"></option>
+									</select>
+									<span th:if="${#fields.hasErrors('riskTypeId')}" th:errors="*{riskTypeId}" class="text-danger"></span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Loading Percentage<span
+											class="text-danger">&nbsp;*</span></label> <input type="text" th:field="*{loadingPercentage}" class="form-control" id="loadingPercentage">
+									<span th:if="${#fields.hasErrors('loadingPercentage')}" th:errors="*{loadingPercentage}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Advance Weightage<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="text" th:field="*{advancePaidAmount}" class="form-control" id="advancePaidAmount">
+									<span th:if="${#fields.hasErrors('advancePaidAmount')}" th:errors="*{advancePaidAmount}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Advance Paid Amount<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="text" th:field="*{advanceWeightage}" class="form-control" id="advanceWeightage">
+									<span th:if="${#fields.hasErrors('advanceWeightage')}" th:errors="*{advanceWeightage}" class="text-danger"></span> 
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Advance Paid Date<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="date" th:field="*{advancePaidDate}" class="form-control" id="advancePaidDate">
+									<span th:if="${#fields.hasErrors('advancePaidDate')}" th:errors="*{advancePaidDate}" class="text-danger"></span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Maximum Liability<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="text" th:field="*{maximumLiability}" class="form-control" id="maximumLiability">
+									<span th:if="${#fields.hasErrors('maximumLiability')}" th:errors="*{maximumLiability}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Cover Percenatge<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="text" th:field="*{coverPercentage}" class="form-control" id="coverPercentage">
+									<span th:if="${#fields.hasErrors('coverPercentage')}" th:errors="*{coverPercentage}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Cover Value<span
+											class="text-danger">&nbsp;*</span></label> 
+										<input type="text" th:field="*{coverValue}" class="form-control" id="coverValue">
+									<span th:if="${#fields.hasErrors('coverValue')}" th:errors="*{coverValue}" class="text-danger"></span>
+									</div>
+									<div class="col-sm-3 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">NEIA Share Percentage<span
+											class="text-danger">&nbsp;*</span></label>
+										<input type="text" th:field="*{neiaSharePercentage}" class="form-control" id="neiaSharePercentage">
+									<span th:if="${#fields.hasErrors('neiaSharePercentage')}" th:errors="*{neiaSharePercentage}" class="text-danger"></span>
+									</div>
+								</div>
+								</div>
+
+
+							</div>
+								<div class="card section-border-left-danger mb-4 mt-3">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Post Shipment Details
+								</div>
+								Card Content - Collapse
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Post Shipment Start Date<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="date" th:field="*{postShipmentStartDate}" class="form-control" id="postShipmentStartDate">
+											<span th:if="${#fields.hasErrors('postShipmentStartDate')}" th:errors="*{postShipmentStartDate}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-6 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Post Shipment End Date<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="date" th:field="*{postShipmentEndDate}" class="form-control" id="postShipmentEndDate">
+											<span th:if="${#fields.hasErrors('postShipmentEndDate')}" th:errors="*{postShipmentEndDate}" class="text-danger"></span>
+										</div>
+									</div>
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-6 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Post Shipment Premium Rate<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{postShipmentPremiumRate}" class="form-control" id="postShipmentPremiumRate">
+											<span th:if="${#fields.hasErrors('postShipmentPremiumRate')}" th:errors="*{postShipmentPremiumRate}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-6 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Post Shipment Premium Amount<span class="text-danger">&nbsp;*</span>
+											</label><input type="text" th:field="*{postShipmentPremiumAmount}" class="form-control" id="postShipmentPremiumAmount">
+											<span th:if="${#fields.hasErrors('postShipmentPremiumAmount')}" th:errors="*{postShipmentPremiumAmount}" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+							<div class="card section-border-left-primary mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Contract Value
+								</div>
+								Card Content - Collapse
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Local Contract Value<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{contractValueLocal}" class="form-control" id="contractValueLocal">
+											<span th:if="${#fields.hasErrors('contractValueLocal')}" th:errors="*{contractValueLocal}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Foreign Contract Value<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{contractValueForeign}" class="form-control" id="contractValueForeign">
+											<span th:if="${#fields.hasErrors('contractValueForeign')}" th:errors="*{contractValueForeign}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Third Party Contract Value<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{contractValueThirdParty}" class="form-control" id="contractValueThirdParty">
+											<span th:if="${#fields.hasErrors('contractValueThirdParty')}" th:errors="*{contractValueThirdParty}" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4 mt-1">
+								<div class="card-body col-sm-12">
+								
+											<label class="custom-smile-form-label">Is Pre-Shipment Cover needed?</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="yes"
+													th:field="*{isPreshipmentRider}" name="isPreshipmentRider" id="yes"> <label
+													class="custom-control-label" for="yes">Yes</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="No"
+													th:field="*{isPreshipmentRider}" name="isPreshipmentRider" id="no"> <label
+													class="custom-control-label" for="no">No</label>
+											</div>
+											<span th:errors="*{isPreshipmentRider}" style="color: red"
+											th:errorclass="form-field-error"></span>
+										
+								</div>
+							</div>
+							<div class="card section-border-left-primary mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Preshipment Details
+								</div>
+								Card Content - Collapse
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Total Supply Value<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{totalSupplyValue}" class="form-control" id="totalSupplyValue">
+											<span th:if="${#fields.hasErrors('totalSupplyValue')}" th:errors="*{totalSupplyValue}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Pre-shipment Start Date<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="date" th:field="*{preShipmentStartDate}" class="form-control" id="preShipmentStartDate">
+											<span th:if="${#fields.hasErrors('preShipmentStartDate')}" th:errors="*{preShipmentStartDate}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Pre-shipment End Date<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="date" th:field="*{preShipmentEndDate}" class="form-control" id="preShipmentEndDate">
+											<span th:if="${#fields.hasErrors('preShipmentEndDate')}" th:errors="*{preShipmentEndDate}" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Pre-shipment Premium Rate<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{preShipmentPremiumRate}" class="form-control" id="preShipmentPremiumRate">
+											<span th:if="${#fields.hasErrors('preShipmentPremiumRate')}" th:errors="*{preShipmentPremiumRate}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Pre-shipment Premium Amount<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{preShipmentPremiumAmount}" class="form-control" id="preShipmentPremiumAmount">
+											<span th:if="${#fields.hasErrors('preShipmentPremiumAmount')}" th:errors="*{preShipmentPremiumAmount}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Pre-shipment Discount<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{preShipmentDiscount}" class="form-control" id="preShipmentDiscount">
+											<span th:if="${#fields.hasErrors('preShipmentDiscount')}" th:errors="*{preShipmentDiscount}" class="text-danger"></span>
+										</div>
+									</div>
+									<div class="card section-border-left-danger mb-2 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Pre-shipment Contract Value
+								</div>
+								Card Content - Collapse
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Local Contract Value<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{preShipmentContractValueLocal}" class="form-control" id="preShipmentContractValueLocal">
+													<span th:if="${#fields.hasErrors('preShipmentContractValueLocal')}" th:errors="*{preShipmentContractValueLocal}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Foreign Contract Value<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{preShipmentContractValueForeign}" class="form-control" id="preShipmentContractValueForeign">
+													<span th:if="${#fields.hasErrors('preShipmentContractValueForeign')}" th:errors="*{preShipmentContractValueForeign}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Third Party Contract Value<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{preShipmentContractValueThirdParty}" class="form-control" id="preShipmentContractValueThirdParty">
+											<span th:if="${#fields.hasErrors('preShipmentContractValueThirdParty')}" th:errors="*{preShipmentContractValueThirdParty}" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+								</div>
+							</div>
+							<div class="card section-border-left-primary mb-4 mt-1">
+								<div class="card-body col-sm-12">
+								
+											<label class="custom-smile-form-label">Is Cross Country?</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="Yes"
+													th:field="*{isCrossCountry}" id="yes"> <label
+													class="custom-control-label" for="yes">Yes</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="No"
+													th:field="*{isCrossCountry}" id="no"> <label
+													class="custom-control-label" for="no">No</label>
+											</div>
+											<span th:errors="*{isCrossCountry}" style="color: red"
+											th:errorclass="form-field-error"></span>
+										
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Cross Country Details
+								</div>
+								Card Content - Collapse
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-3 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Payment Country<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<select th:field="*{paymentCountry}" class="form-control" id="paymentCountry">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${countryMap}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('paymentCountry')}" th:errors="*{paymentCountry}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-3 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Payment Country Rating<span
+												class="text-danger">&nbsp;*</span></label> 
+											<select th:field="*{paymentCountryRating}" class="form-control" id="paymentCountryRating">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${countryRating}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('paymentCountryRating')}" th:errors="*{paymentCountryRating}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-3 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Funding Arrengement<span class="text-danger">&nbsp;*</span>
+											</label>
+											<select th:field="*{fundingArrangement}" class="form-control" id="fundingArrangement">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${fundingArrangement}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('fundingArrangement')}" th:errors="*{fundingArrangement}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-3 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Funding Agency<span class="text-danger">&nbsp;*</span>
+											</label>
+											<select th:field="*{fundingAgencyName}" class="form-control" id="fundingAgencyName">
+												<option value="">--Please Select--</option>
+												<option value="1">UniLateral</option>
+												<option value="2">MultiLateral</option>
+											</select>
+											<span th:if="${#fields.hasErrors('fundingAgencyName')}" th:errors="*{fundingAgencyName}" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card section-border-left-primary mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Currency Details
+								</div>
+								Card Content - Collapse
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Local Currency Code<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<select th:field="*{pebPolicyDummyCurrencyDetails.currencyCodeLocal}" class="form-control" id="currencyCodeLocal">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${currencyCode}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.currencyCodeLocal')}" th:errors="*{pebPolicyDummyCurrencyDetails.currencyCodeLocal}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Local Exchange Rate<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.exchangeRateLocal}" class="form-control" id="exchangeRateLocal">
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.exchangeRateLocal')}" th:errors="*{pebPolicyDummyCurrencyDetails.exchangeRateLocal}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Local Currency Value<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.localValue}"  class="form-control" id="localValue">
+										</div>
+									</div>
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Foreign Currency Code<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<select th:field="*{pebPolicyDummyCurrencyDetails.currencyCodeForeign}" class="form-control" id="currencyCodeForeign">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${currencyCode}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.currencyCodeForeign')}" th:errors="*{pebPolicyDummyCurrencyDetails.currencyCodeForeign}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Foreign Exchange Rate<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.exchangeRateForeign}" class="form-control" id="exchangeRateForeign">
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.exchangeRateForeign')}" th:errors="*{pebPolicyDummyCurrencyDetails.exchangeRateForeign}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Foreign Currency Value<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.foreignValue}"  class="form-control" id="foreignValue">
+										</div>
+									</div>
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Third Party Currency Code<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<select th:field="*{pebPolicyDummyCurrencyDetails.currencyCodeThirdParty}" class="form-control" id="currencyCodeThirdParty">
+												<option value="">--Please Select--</option>
+												<option th:each="entry : ${currencyCode}" th:value="${entry.key}" th:text="${entry.value}"></option>
+											</select>
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.currencyCodeThirdParty')}" th:errors="*{pebPolicyDummyCurrencyDetails.currencyCodeThirdParty}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Third Party Exchange Rate<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.exchangeRateThirdParty}" class="form-control" id="exchangeRateThirdParty">
+											<span th:if="${#fields.hasErrors('pebPolicyDummyCurrencyDetails.exchangeRateThirdParty')}" th:errors="*{pebPolicyDummyCurrencyDetails.exchangeRateThirdParty}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Third Party Currency Value<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{pebPolicyDummyCurrencyDetails.thirdPartyValue}"  class="form-control" id="thirdPartyValue">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Terms Of Payment
+								</div>
+								Card Content - Collapse
+
+								<div class="card-body">
+									<table class="table table-bordered">
+									<thead class="thead-light">
+										<tr>
+											<th>TOP</th>
+											<th>Duration</th>
+											<th>Weightage</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th>Down (in Days)</th>
+											<td>
+												<input type="text" th:field="*{paymentTenureDetails.downTenureValue}"  class="form-control" id="downTenureValue">
+												<span th:if="${#fields.hasErrors('paymentTenureDetails.downTenureValue')}" th:errors="*{paymentTenureDetails.downTenureValue}" class="text-danger"></span>
+											</td>
+											<td>
+												<input type="text" th:field="*{paymentWeightageDetails.downWeightageValue}"   class="form-control" id="downWeightageValue">
+												<span th:if="${#fields.hasErrors('paymentWeightageDetails.downWeightageValue')}" th:errors="*{paymentWeightageDetails.downWeightageValue}" class="text-danger"></span>
+											</td>
+										</tr>
+										<tr>
+											<th>Progress (in Days)</th>
+											<td>
+												<input type="text" th:field="*{paymentTenureDetails.progressTenureValue}"  class="form-control" id="progressTenureValue">
+												<span th:if="${#fields.hasErrors('paymentTenureDetails.progressTenureValue')}" th:errors="*{paymentTenureDetails.progressTenureValue}" class="text-danger"></span>
+											</td>
+											<td>
+												<input type="text" th:field="*{paymentWeightageDetails.progressWeightageValue}"   class="form-control" id="progressWeightageValue">
+												<span th:if="${#fields.hasErrors('paymentWeightageDetails.progressWeightageValue')}" th:errors="*{paymentWeightageDetails.progressWeightageValue}" class="text-danger"></span>
+											</td>
+										</tr>
+										<tr>
+											<th>PAC (in Months)</th>
+											<td>
+												<input type="text" th:field="*{paymentTenureDetails.pacTenureValue}"  class="form-control" id="pacTenureValue">
+												<span th:if="${#fields.hasErrors('paymentTenureDetails.pacTenureValue')}" th:errors="*{paymentTenureDetails.pacTenureValue}" class="text-danger"></span>
+											</td>
+											<td>
+												<input type="text" th:field="*{paymentWeightageDetails.pacWeightageValue}"   class="form-control" id="pacWeightageValue">
+												<span th:if="${#fields.hasErrors('paymentWeightageDetails.pacWeightageValue')}" th:errors="*{paymentWeightageDetails.pacWeightageValue}" class="text-danger"></span>
+											</td>
+										</tr>
+										<tr>
+											<th>FAC (in Months)</th>
+											<td>
+												<input type="text" th:field="*{paymentTenureDetails.facTenureValue}"  class="form-control" id="facTenureValue">
+												<span th:if="${#fields.hasErrors('paymentTenureDetails.facTenureValue')}" th:errors="*{paymentTenureDetails.facTenureValue}" class="text-danger"></span>
+											</td>
+											<td>
+												<input type="text" th:field="*{paymentWeightageDetails.facWeightageValue}"   class="form-control" id="facWeightageValue">
+												<span th:if="${#fields.hasErrors('paymentWeightageDetails.facWeightageValue')}" th:errors="*{paymentWeightageDetails.facWeightageValue}" class="text-danger"></span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+									
+								</div>
+							</div>
+							
+							<div class="card section-border-left-primary mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Moratorium Details
+								</div>
+								Card Content - Collapse
+
+								<div class="card-body">
+
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Moratorium Period<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{moratoriumPeriod}"  class="form-control" id="moratoriumPeriod">
+											<span th:if="${#fields.hasErrors('moratoriumPeriod')}" th:errors="*{moratoriumPeriod}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Number Of Installment<span
+												class="text-danger">&nbsp;*</span></label> 
+											<input type="text" th:field="*{moratoriumNumberOfInstallment}"  class="form-control" id="moratoriumNumberOfInstallment">
+											 <span th:if="${#fields.hasErrors('moratoriumNumberOfInstallment')}" th:errors="*{moratoriumNumberOfInstallment}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Frequency Of Installment<span class="text-danger">&nbsp;*</span>
+											</label>
+											<input type="text" th:field="*{moratoriumFreqOfInstallment}"  class="form-control" id="moratoriumFreqOfInstallment">
+											<span th:if="${#fields.hasErrors('moratoriumFreqOfInstallment')}" th:errors="*{moratoriumFreqOfInstallment}" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4 mt-1">
+								<div class="card-body col-sm-12">
+											<label class="custom-smile-form-label">Is Installment Facility?</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="Yes"
+													th:field="*{isInstallmentFacility}" id="yes"> <label
+													class="custom-control-label" for="yes">Yes</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="No"
+													th:field="*{isInstallmentFacility}" id="no"> <label
+													class="custom-control-label" for="no">No</label>
+											</div>
+											<span th:errors="*{isInstallmentFacility}" style="color: red"
+											th:errorclass="form-field-error"></span>
+										
+								</div>
+							</div>
+							<div class="card section-border-left-primary mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										Deffered Payment Schedule
+								</div>
+								Card Content - Collapse
+
+								<div class="card-body">
+									<table class="table table-striped deferredPaymentSchedule" id="defTable">
+									<thead class="thead-light">
+										<tr>
+											<th>Date of Payment</th>
+											<th>Amount to be Paid</th>
+											<th>Remarks</th>
+											<th><button type="button" title="Add New Row" class="btn" id="addNewDef"><img th:src="@{/svg/plus.svg}" height="30" width="30"></button></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="item, stat : ${proposal.policyDeferredPaymentScheduleDetails}">
+											<td>
+												<input type="date" class="form-control" id="dateOfPaymentToBeDone" th:field="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].dateOfPaymentToBeDone}">
+												<span
+													th:if="${#fields.hasErrors('policyDeferredPaymentScheduleDetails[__${stat.index}__].dateOfPaymentToBeDone')}"
+													style="color: red" th:errorclass="form-field-error"
+													th:errors="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].dateOfPaymentToBeDone}">
+												</span>
+											</td>
+											<td>
+												<input type="text" class="form-control" id="amountToBePaid" th:field="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].amountToBePaid}">
+												<span
+													th:if="${#fields.hasErrors('policyDeferredPaymentScheduleDetails[__${stat.index}__].amountToBePaid')}"
+													style="color: red" th:errorclass="form-field-error"
+													th:errors="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].amountToBePaid}">
+												</span>
+											</td>
+											<td>
+												<input type="text" class="form-control" id="remarks" th:field="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].remarks}">
+												<span
+													th:if="${#fields.hasErrors('policyDeferredPaymentScheduleDetails[__${stat.index}__].remarks')}"
+													style="color: red" th:errorclass="form-field-error"
+													th:errors="*{policyDeferredPaymentScheduleDetails[__${stat.index}__].remarks}">
+												</span>
+											</td>
+											<td>
+												<button class="btn" type="button" title="Remove this Row" id="removeThisRow" ><img src="/svg/minus.svg" height="30" width="30"></button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+									
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4 mt-1">
+								<div class="card-body">
+								<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Tags<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{tags}" class="form-control" id="tags">
+										</div>
+										<div class="col-sm-6 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">Remarks<span
+												class="text-danger">&nbsp;*</span></label> 
+											<textarea th:field="*{remarks}" onkeyup="countChar(this, 200)" class="form-control" id="remarks"></textarea>
+											<div class="float-right">
+											<small id="charNum"></small><span class="custom-smile-char-count-textarea">&nbsp;characters inserted</span> OR
+											<br>
+											<small id="charNumLeft"></small><span class="custom-smile-char-count-textarea">&nbsp;characters remaining</span>
+											
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-actions mt-1">
+										<input type="submit" class="btn custom-smile-btn-success mt-4"
+											value="Save"></input>
+									</div>
+								<div class="form-group">
+									<button class="btn custom-smile-btn-back float-left"
+										type="button">
+										<span class="icon"> <i class="fas fa-angle-double-left"></i>
+										</span> <span class="text">Back</span>
+									</button>
+									<button class="btn custom-smile-btn-next float-right"
+										onclick="nextTabThree()" type="button">
+										<span class="text">Next</span> <span class="icon"> <i
+											class="fas fa-angle-double-right"></i>
+										</span>
+									</button>
+								</div>
+							</div>
+							</form>
+							</div> -->
+							</div>
+							<div class="tab-pane" id="Miscllaneous3">
+							<form action="#" th:action="@{/saveMiscDetails}" th:object="${pebPolicyProposalBean}" method="POST">
+							<div class="card card-body">
+								<div class="form-group row">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Total Premium Amount<span class="text-danger">&nbsp;*</span>
+										</label> <input type="text"
+										class="form-control" th:field=*{totalPremiumAmount} />
+									<span th:errors= "*{totalPremiumAmount}" style="color: red" th:errorclass="form-field-error"></span>
+									</div>
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label" for="inputGroup">Discount Score</label>
+											<div class="input-group input-group-unstyled">
+												<input type="text" class="form-control" placeholder=""
+													th:field=*{discountScore}> <span class="input-group-addon">
+													<button type="button" class="btn btn-link"  
+										title="" data-toggle="modal" data-target="#discountDetails">
+										<img th:src="@{/svg/search.svg}" height="26" width="26"></button>
+												</span>
+											</div>
+										</div>
+									<div class="col-sm-4 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Discount Percentage<span class="text-danger">&nbsp;*</span>
+										</label> <input type="text"
+										class="form-control" th:field=*{discountPercentage} />
+										<span th:errors= "*{discountPercentage}" style="color: red" th:errorclass="form-field-error"></span>
+									</div>
+								</div>
+								
+									
+									<div class="form-actions mt-1">
+										<input type="submit" class="btn custom-smile-btn-submit mt-4"
+											value="Submit"></input>
+									</div>
+								<div class="form-group">
+									<button class="btn custom-smile-btn-back float-left"
+										type="button">
+										<span class="icon"> <i class="fas fa-angle-double-left"></i>
+										</span> <span class="text">Back</span>
+									</button>
+								</div>
+								</div>
+							</form>
+							
+							<div class="modal fade" id="discountDetails" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-lg" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Criteria
+											for offering Discount under Policy Products of MLT</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<table class="table table-bordered">
+											<thead class="thead-dark">
+												<tr>
+													<th>1</th>
+													<th>Business Experience with Exporter (in last
+														10-years)</th>
+													<th width="16%">Marks</th>
+												<tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td></td>
+													<td>Claim premium ratio < 50</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 25</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Claim premium ratio 50 and above but < 100</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 25</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Claim premium ratio 100 and above but < 300</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 25</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Claim premium ratio 300 and above but < 500</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 25</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Claim premium ratio 500 and above</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 25</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+											<thead class="thead-dark">
+												<tr>
+													<th>2</th>
+													<th>Percentage of Indian Component</th>
+													<th width="16%">Marks</th>
+												<tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td></td>
+													<td>Above 90 upto 100</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 15</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Above 80 upto 90</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 15</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Above 70 upto 80</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 15</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Above 60 upto 70</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 15</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Above 50 upto 60</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 15</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Above 40 upto 50</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 15</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Above 30 upto 40</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 15</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Above 20 upto 30</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 15</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Above 10 upto 20</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 15</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Upto 10</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 15</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+											<thead class="thead-dark">
+												<tr>
+													<th>3</th>
+													<th>Premium Payable (Rs. in Crore) under the project
+														for which insurance cover is sought</th>
+													<th width="16%">Marks</th>
+												<tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td></td>
+													<td>More than 3 cr</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>More than 2.25 cr upto 3 cr</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>More than 1.50 cr upto 2.25 cr</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>More than 75 lakhs upto 1.50 cr</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>More than 25 lakhs upto 75 lakhs</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Upto 25 lakhs</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+											<thead class="thead-dark">
+												<tr>
+													<th>4</th>
+													<th>Ratio of number of covers issued by ECGC to number
+														of Overseas Projects for which contract is awarded to
+														exporter, in the last 36 months from the date of receipt
+														of proposal for which cover is sought(expressed in
+														percent)</th>
+													<th width="16%">Marks</th>
+												<tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td></td>
+													<td>100% (All contracts awarded are covered by ECGC)</td>
+													<td>
+														<div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>80% and above but less than 100%</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>60% and above but less than 80%</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>40% and above but less than 60%</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>20% and above but less than 40%</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Selective Projects</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+											</tbody>
+											<thead class="thead-dark">
+												<tr>
+													<th>5</th>
+													<th>Buyer Employer Risk Profile</th>
+													<th width="16%">Marks</th>
+												<tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td></td>
+													<td>Private Buyer with rating Low Risks based on Buyer
+														Report or Government Buyer in A1,A2,B1,B2 and C1</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 20</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Government Buyer in C2 and D</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 20</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Private Buyer with rating of Moderate Risks based
+														on Buyer Report</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 20</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Private Buyer with rating of High Risks based on
+														Buyer Report</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 20</span>
+														</div>
+														</div></td>
+												</tr>
+											</tbody>
+											<thead class="thead-dark">
+												<tr>
+													<th>6</th>
+													<th>Risk Perception</th>
+													<th width="16%">Marks</th>
+												<tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td></td>
+													<td>
+														<table class="table table-bordered">
+															<thead class="thead-light">
+																<tr>
+																	<th>Country</th>
+																	<th>Tenor of project upto 5 years</th>
+																	<th>Tenor of projects more than 5 years and upto
+																		10 years</th>
+																	<th>Tenor of projects more than 10 years</th>
+																<tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>A1</td>
+																	<td>Low</td>
+																	<td>Moderate</td>
+																	<td>High</td>
+																</tr>
+																<tr>
+																	<td>A2</td>
+																	<td>Low</td>
+																	<td>Moderate</td>
+																	<td>High</td>
+																</tr>
+																<tr>
+																	<td>B1</td>
+																	<td>Low</td>
+																	<td>Moderate</td>
+																	<td>High</td>
+																</tr>
+																<tr>
+																	<td>B2</td>
+																	<td>Moderate</td>
+																	<td>Moderate</td>
+																	<td>High</td>
+																</tr>
+																<tr>
+																	<td>C1</td>
+																	<td>Moderate</td>
+																	<td>High</td>
+																	<td>High</td>
+																</tr>
+																<tr>
+																	<td>C2</td>
+																	<td>Moderate</td>
+																	<td>High</td>
+																	<td>High</td>
+																</tr>
+																<tr>
+																	<td>D</td>
+																	<td>High</td>
+																	<td>High</td>
+																	<td>High</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+													<td></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Low Risks</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Moderate Risks</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>High Risks</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+											</tbody>
+											<thead class="thead-dark">
+												<tr>
+													<th>7</th>
+													<th>(a)Manner of Payment</th>
+													<th width="16%">Marks</th>
+												<tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td></td>
+													<td>Payment through escrow account</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Payments under LC</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>OR</td>
+													<td></td>
+												</tr>
+											</tbody>
+											<thead class="thead-dark">
+												<tr>
+													<th>7</th>
+													<th>(b)Project Funding</th>
+													<th width="16%">Marks</th>
+												<tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td></td>
+													<td>Funded by Multilateral Agency and payment coming
+														directly to exporter's account</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Funded by Unilateral Agency/Govt. funds from A1
+														country and payment coming directly to exporter's account
+													</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td>Funded by Multilateral Agency and payment coming
+														directly through buyer</td>
+													<td><div class="input-group">
+																	<input type="text" class="form-control">
+																	<div class="input-group-append">
+																		<span class="input-group-text">/ 10</span>
+														</div>
+														</div></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="col-6 offset-3">
+										<table class="table table-bordered">
+											<thead class="thead-dark">
+												<tr>
+													<th>Overall Score</th>
+													<th>Discount</th>
+												<tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Above 90 upto 100</td>
+													<td>30</td>
+												</tr>
+												<tr>
+													<td>Above 80 upto 90</td>
+													<td>25</td>
+												</tr>
+												<tr>
+													<td>Above 70 upto 80</td>
+													<td>20</td>
+												</tr>
+												<tr>
+													<td>Above 60 upto 70</td>
+													<td>15</td>
+												</tr>
+												<tr>
+													<td>50 and above upto 60</td>
+													<td>10</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+							</div>
+							<div class="tab-pane" id="Decision4">
+							<form action="#" th:action="@{/saveDecisionDetails}" th:object="${pebPolicyProposalBean}" method="POST">
+								<div class="card section-border-left-primary mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										ECGC Decision
+								</div>
+
+								<div class="card-body">
+									<div class="card section-border-left-danger mb-4 mt-1">
+								<div class="card-body col-sm-12">
+											<label class="custom-smile-form-label">Decision by ECGC</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="Approved"
+													th:field="*{ecgcDecision}" id="ecgcDecisionApproved"> <label
+													class="custom-control-label" for="customRadio1">Approved</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="Rejected"
+													th:field="*{ecgcDecision}" id="ecgcDecisionRejected"> <label
+													class="custom-control-label" for="customRadio1">Rejected</label>
+											</div>
+											<span th:errors="*{ecgcDecision}" style="color: red"
+											th:errorclass="form-field-error"></span>			
+								</div>
+							</div>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+												<label class="custom-smile-form-label">ECGC Decision Date</label> <input type="date"
+													class="form-control" th:field=*{ecgcDecisionDate} />
+													<span th:errors= "*{ecgcDecisionDate}" style="color: red" th:errorclass="form-field-error"></span>
+										</div>
+										<div class="col-sm-6 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">ECGC Remarks</label>
+											<textarea rows="3" cols="3" class="form-control"
+												th:field=*{ecgcRemarks}></textarea>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-12 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">ECGC Recommendation<span class="text-danger">&nbsp;*</span>
+											</label>
+											<textarea th:field="*{ecgcRecommendation}" rows="3" cols="3" onkeyup="countChar(this, 200)" class="form-control"></textarea>
+											<span th:if="${#fields.hasErrors('ecgcRecommendation')}" th:errors="*{ecgcRecommendation}" class="text-danger"></span>
+											<div class="float-right">
+											<small id="charNum"></small><span class="custom-smile-char-count-textarea">&nbsp;characters inserted</span> OR
+											<br>
+											<small id="charNumLeft"></small><span class="custom-smile-char-count-textarea">&nbsp;characters remaining</span>
+											
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4 mt-1">
+
+								<div class="card-header custom-smile-form-subsection-header">		
+										COD Decision
+								</div>
+
+								<div class="card-body">
+									<div class="card section-border-left-danger mb-4 mt-1">
+								<div class="card-body col-sm-12">
+									<label class="custom-smile-form-label">Decision by COD</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="Approved"
+													th:field="*{codDecision}" id="codDecisionApproved"> <label
+													class="custom-control-label" for="customRadio1">Approved</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="Rejected"
+													th:field="*{codDecision}" id="codDecisionRejected"> <label
+													class="custom-control-label" for="customRadio1">Rejected</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input" value="Clarification"
+													th:field="*{codDecision}" id="codDecisionClarification"> <label
+													class="custom-control-label" for="customRadio1">Clarification</label>
+											</div>
+											<span th:errors="*{codDecision}" style="color: red"
+											th:errorclass="form-field-error"></span>			
+								</div>
+							</div>
+								
+								
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+												<label class="custom-smile-form-label">COD Decision Date</label> 
+												<input type="date" class="form-control" th:field=*{codDecisionDate} />
+												<span th:errors= "*{codDecisionDate}" style="color: red" th:errorclass="form-field-error"></span>
+										</div>
+										<div class="col-sm-6 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">COD Remarks</label>
+											<textarea rows="3" cols="3" class="form-control"
+												th:field=*{codRemarks}></textarea>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-12 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label">COD Recommendation<span class="text-danger">&nbsp;*</span>
+											</label>
+											<textarea th:field="*{codRecommendation}" rows="3" cols="3" onkeyup="countChar(this, 200)" class="form-control"></textarea>
+											<span th:if="${#fields.hasErrors('codRecommendation')}" th:errors="*{codRecommendation}" class="text-danger"></span>
+											<div class="float-right">
+											<small id="charNum"></small><span class="custom-smile-char-count-textarea">&nbsp;characters inserted</span> OR
+											<br>
+											<small id="charNumLeft"></small><span class="custom-smile-char-count-textarea">&nbsp;characters remaining</span>
+											
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+									</form>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+				<!--end of card body-->
+			</div>
+			<!-- ACTUAL BODY CONTENT -->
+		</div>
+	</div>
+
+	<th:block layout:fragment="scripts">
+		<!-- Page level custom scripts -->
+		<script type="text/javascript" th:src="@{/js/char-count.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.html5.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.print.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/pdfmake.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/vfs_fonts.js}"></script>
+		<script type="text/javascript" th:src="@{/js/exporttable.js}"></script>
+		<script type="text/javascript" th:src="@{/js/buttonbootstrap4.js}"></script>
+		<script th:inline="javascript">
+		$(document).ready(function(){
+		//var a = /*[[${pebPolicyProposalBean.ProposalId}]]*/ "test";
+		//alert(a);
+		//var b= /*[[${checkId}]]*/ "test";
+		//alert(b);				
+		//var name = /*[[${id}]]*/ "test"; 
+		// var ab="#"+name;
+		//alert(name+1);
+		/* if(a ==null){
+			if(b == null){
+		 for(var i=Number(name)+1; i<=5;i++){
+			//alert("in for:"+i);
+			document.getElementById(i).removeAttribute("data-toggle");
+			}
+		  }
+		}
+		document.getElementById(name).click();  */
+		
+		$(document).on('click', 'input[type="radio"]', function(e) {
+			   var value = $(this).attr('id');
+			   var div = $(this).parent().parent().parent().parent().next().attr('id');
+			   //console.log($(this).parent().parent().parent().parent().next());
+		       var parent = $(this).parent().parent().parent().parent().parent().parent().attr("id");
+		       if(value === 'yes'){
+			   	   $('#'+div).css("display", "block");
+			   }else{
+				   $('#'+div).css("display", "none");
+			   }
+		 });
+		
+		let labelNames21 = ['Date Of Payment','Amount To Be Paid','Remarks'];
+		let fieldNames21 = ['dateOfPaymentToBeDone','amountToBePaid','remarks'];
+		let deferred = "policyDeferredPaymentScheduleDetails";
+		
+		$(document).on('click', '#addNewDef', function(e) {
+			e.preventDefault();
+
+			//var parentDiv = $(this).parent().parent().parent().parent().parent().parent().parent().parent().attr("id");
+			//console.log(parentDiv);
+			var parentDiv = "dummyPolicy";
+
+			var rowIndex = $('#'+parentDiv+'  #defTable tbody tr').length;
+			
+			var defTbody = $(this).parent().parent().parent().siblings();
+			console.log(defTbody);
+			let tr = document.createElement('tr');
+			tr.classList.add('defRow');
+			
+			fieldNames21.forEach((field,index)=>{
+				let td = document.createElement('td');
+
+				let input = document.createElement('input');
+				if(index == 0){
+					input.type='date';
+				}else{
+					input.type='text';
+				}
+				input.classList.add('form-control');
+				input.id =  field;
+				input.setAttribute('name',deferred+'['+rowIndex+'].'+field);
+
+				td.appendChild(input);
+				tr.appendChild(td);
+			});
+			// remove button
+			let tdButton = document.createElement('td');
+			let button = document.createElement('button');
+			button.innerHTML = '<img src="/svg/minus.svg" height="30" width="30">';
+			button.classList.add('btn');
+			button.setAttribute('type','button');
+			button.setAttribute('title','Remove this Row');
+			button.setAttribute('id','removeThisRow');
+			tdButton.appendChild(button);
+
+			tr.appendChild(tdButton);
+			defTbody.append(tr);
+		});
+		
+		$(document).on('click', '#removeThisRow', function(e) {
+			e.preventDefault();
+			var tr = $(this).parent().parent();
+			$(tr).remove();
+		});
+		
+		let pre = $("input[name='isPreshipmentRider']:checked").val();
+		let preValue = (pre === 'yes') ? $("#isPreshipmentRider").css("display", "block") : $("#isPreshipmentRider").css("display", "none");
+		
+		$(document).on('click', '#addNewProposal', function(e) {
+			$("#dummyPolicyDiv").css("display", "block");
+			/* $("#showSaveButton").prop('disabled', false);
+			$("#addNewProposal").attr('disabled',true);
+			$("#showSaveButton").removeClass("notAllowed");
+			$("#addNewProposal").addClass("notAllowed"); */
+		});
+		
+			function nextTabOne() {
+				$("#basicdetails").removeClass("active");
+				$("#headofcaddrdetails").addClass("active");
+				$("#headofc").addClass("nav-link active");
+				$("#basicdetail").removeClass("active");
+			}
+			function nextTabSec() {
+				$("#headofcaddrdetails").removeClass("active");
+				$("#correspondenceaddrdetails").addClass("active");
+				$("#headofc").removeClass("active");
+				$("#correspond").addClass("nav-link active");
+			}
+			function nextTabThree() {
+				$("#correspondenceaddrdetails").removeClass("active");
+				$("#addrdetailshindi").addClass("active");
+				$("#correspond").removeClass("active");
+				$("#addhindi").addClass("nav-link active");
+			}
+			function nextTabFour() {
+				$("#addrdetailshindi").removeClass("active");
+				$("#contactdetails").addClass("active");
+				$("#addhindi").removeClass("active");
+				$("#contact").addClass("nav-link active");
+
+			}
+		});
+		</script>
+	</th:block>
+</body>
+</html>

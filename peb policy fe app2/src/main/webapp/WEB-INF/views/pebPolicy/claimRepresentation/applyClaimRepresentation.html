@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{BaseLayout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>PEB Policy</title>
+<style>
+.form-actions {
+	margin: 0;
+	text-align: center;
+}
+</style>
+
+</head>
+<body>
+
+	<div id="page-wrapper" layout:fragment="content">
+		<div class="loader"></div>
+
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="indexwithsm">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Apply
+					For Claim Representation</li>
+			</ol>
+		</nav>
+
+		<div class="card shadow mb-4 mt-2 border-left-primary">
+
+			<div class="card-body">
+				<form th:action="@{/claimRepresentation/getClaimRepresentationForm}"
+					th:object="${claimApplicationBean}" method="post">
+					<div class="row">
+						<div class="form-group col-6">
+							<label class="custom-smile-form-label" for="policyNo">Policy
+								Number</label> <input type="text" name="policyNo" class="form-control"
+								id="policyNo" placeholder="Enter Policy Number Here.."> <span
+								th:if="${#fields.hasErrors('policyNo')}" th:errors="*{policyNo}"
+								class="text-danger"></span>
+						</div>
+						<div class="form-group col-6">
+							<label class="custom-smile-form-label" for="claimNo">Claim
+								Number</label> <input type="text" name="claimNo" class="form-control"
+								id="claimNo" placeholder="Enter Claim Number Here.."> <span
+								th:if="${#fields.hasErrors('claimNo')}" th:errors="*{claimNo}"
+								class="text-danger"></span>
+						</div>
+
+					</div>
+					<div class="form-actions mt-2">
+						<input type="submit"
+							class="btn custom-smile-btn-success col-2 offset-0" value="Apply">
+						<input type="reset" class="btn custom-smile-btn-submit col-2"
+							value="Clear">
+					</div>
+				</form>
+			</div>
+		</div>
+		<!--end of card-->
+	</div>
+	<!-- /.container-fluid -->
+
+	<!-- End of Main Content -->
+
+
+
+
+	<!-- End of Content Wrapper -->
+
+
+	<!-- End of Page Wrapper -->
+
+
+
+
+
+	<!--export table js-->
+	<th:block layout:fragment="scripts">
+
+		<!-- Page level custom scripts -->
+
+		<script>
+    $(window).ready(function() {
+      $('.loader').fadeOut(1000);
+    });
+     $(document).ready(function() {
+
+   	  $(".view").on('click', function() {
+   		 
+   		  
+     	    $('.case:checkbox:checked').parents("tr").remove();
+     	  });
+   	 $(".view").on('click', function() {
+   		 
+  	    $('.check:radio:checked').parents("tr").remove();
+  	  });
+          
+    	 
+    	  $(".edit").on('click', function() {
+      	    $('.case:checkbox:checked').parents("tr").edit();
+      	  });
+     });  
+    	  
+    	  /*  $("body").on("click", ".btn-edit", function(){
+    	        var name = $(this).parents("tr").attr('data-name');
+    	        var email = $(this).parents("tr").attr('data-email');
+    	    
+    	        $(this).parents("tr").find("td:eq(0)").html('<input name="edit_name" value="'+name+'">');
+    	        $(this).parents("tr").find("td:eq(1)").html('<input name="edit_email" value="'+email+'">');
+    	    
+    	        $(this).parents("tr").find("td:eq(2)").prepend("<button class='btn btn-info btn-xs btn-update'>Update</button><button class='btn btn-warning btn-xs btn-cancel'>Cancel</button>")
+    	        $(this).hide();
+    	    });
+    	  
+
+     $(document).ready(function() {
+  	   var myTable = $('#example1').DataTable();
+                $('#example1').on( 'click', 'tbody tr', function () {
+      	      myTable.row( this ).edit();
+      	  });
+     }); */
+  </script>
+
+		<!-- Data Tables -->
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.html5.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.print.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/pdfmake.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/vfs_fonts.js}"></script>
+		<script type="text/javascript" th:src="@{/js/exporttable.js}"></script>
+		<script type="text/javascript" th:src="@{/js/buttonbootstrap4.js}"></script>
+
+
+	</th:block>
+
+
+
+	<!--js for loader--->
+
+
+
+</body>
+</html>

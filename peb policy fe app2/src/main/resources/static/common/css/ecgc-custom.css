@@ -1,0 +1,59 @@
+
+
+/*
+
+This is custom css file for ECGC SMILE
+
+
+
+*/
+.card-hedaer{
+	  font-size: 24px;
+}
+.card-subhedaer{
+	  font-size: 20px;
+}
+.card-content{
+	  font-size: 16px;
+}
+.ux-topbar
+{
+	height:1.0rem;
+}
+ .topbarbgcolor{
+ background-color:#284cb5;
+ 
+ }
+ 
+@font-face
+{
+    font-family: NosiferCaps-Regular;
+    src: url('/fonts/riesling.ttf');
+} 
+.sidebarcolor{
+	background-color: #EEEEEE;
+}
+
+/* for left border of card*/
+.section-border-left-primary{
+  border-left: 0.15rem solid #4e73df !important;
+    border-left-width: 0.15rem !important;
+    border-left-style: solid !important;
+    border-left-color: rgb(78, 115, 223) !important;
+}
+.section-border-left-danger {
+    border-left: 0.15rem solid #e74a3b !important;
+    border-left-width: 0.15rem !important;
+    border-left-style: solid !important;
+    border-left-color: rgb(231, 74, 59) !important;
+}
+
+.ml-2, .mx-2 {
+    margin-left: 0.5rem !important;
+}
+.mt-2, .my-2 {
+    margin-top: 0.5rem !important;
+}
+.d-sm-flex {
+    display: flex !important;
+}

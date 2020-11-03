@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{BaseLayout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>PEB Policy</title>
+<style>
+.form-actions {
+	margin: 0;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div id="page-wrapper" layout:fragment="content">
+
+		<nav aria-label="breadcrumb" class="mt-2">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="indexwithsm">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">View Policy Details</li>
+			</ol>
+		</nav>
+		<div class="card shadow mb-4 mt-2 bkg-color">
+
+			<!--card header-->
+			<div class="card-header">
+				<span class="custom-smile-form-header" id="datatables">View Policy Details</span>
+			</div>
+			<!--end of card header-->
+			<div class="card-body">
+				<form 
+						th:action="@{/}" 
+						th:object="${dummyPolicyDetailsBean}" 
+						th:method="post" id="dummyPolicy">
+						<div class="card">
+							<!--/*/<th:block th:include="viewProposal :: dummyPolicy"></th:block> /*/-->
+						</div>
+						<div class="row mt-3 mb-3" id="showAddButton">
+							<a href="javascript:javascript:history.go(-1)" class="btn btn-lg btn-secondary col-2 offset-5 mr-3">Back</a>
+						</div>
+					</form>
+				
+				<!--end of card body-->
+			</div>
+			<!-- ACTUAL BODY CONTENT -->
+		</div>
+	</div>
+
+	<th:block layout:fragment="scripts">
+		<!-- Page level custom scripts -->
+		<script type="text/javascript" th:src="@{/js/char-count.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.html5.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.print.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/pdfmake.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/vfs_fonts.js}"></script>
+		<script type="text/javascript" th:src="@{/js/exporttable.js}"></script>
+		<script type="text/javascript" th:src="@{/js/buttonbootstrap4.js}"></script>
+		<script th:inline="javascript" type="text/javascript">
+		$(document).ready(function(){
+		
+		
+		});
+		</script>
+	</th:block>
+</body>
+</html>

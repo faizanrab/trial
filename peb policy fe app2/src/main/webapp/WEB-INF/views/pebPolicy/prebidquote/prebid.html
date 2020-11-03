@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{BaseLayout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>Pre-bid Quote Interface</title>
+</head>
+<body>
+<div id="page-wrapper" layout:fragment="content">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="#">Pre-Bid Quote</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Form</li>
+			</ol>
+		</nav>
+		<div th:if="${msg}">
+			<div class="alert alert-success scs mt-3 alert-dismissible fade show" id="scs" role="alert">
+			  Prebid-Quote Entry Saved Successfully -Refer PreBid Id : <strong><span th:text="${msg}"></span></strong> 
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		</div>
+		<div class="card shadow mb-4 mt-2">
+			<!--card header-->
+			<div class="card-header py-3 custom-smile-form-header">
+				
+				Pre-bid Quotation Form
+				<button type="button" class="btn custom-smile-btn-light float-right" data-toggle="modal" data-target="#helpModal">
+					<i class="fas fa-question-circle"></i>
+				</button>
+			</div>
+			<!--end of card header-->
+			
+			<div class="card-body">
+				<form  method="post" th:object="${prebidquote}" th:action="@{/pebpolicy/submitPrebid}">
+					<div th:fragment="basicForm">
+							<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Inward Number<!-- <span
+											class="text-danger">&nbsp;*</span> -->
+										</label> <input type="text" 
+											class="form-control"><!-- <span
+											th:errors="*{inwardNumber}" style="color: red"
+											th:errorclass="form-field-error"></span> -->
+									</div>
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<label class="custom-smile-form-label">Inward Item
+											Number<!-- <span class="text-danger">&nbsp;*</span> -->
+										</label> <input type="text" th:field="*{inwardItemNumber}"
+											class="form-control" /> <!-- <span
+											th:errors="*{inwardItemNumber}" style="color: red"
+											th:errorclass="form-field-error"></span> -->
+
+									</div>
+									
+								</div>
+							<div class="row">
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label" for="exporterName">Exporter Name<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<input type="text" th:field="*{exporterName}"  class="form-control" id="exporterName" placeholder="Enter Exporter Name">
+									<span th:if="${#fields.hasErrors('exporterName')}" th:errors="*{exporterName}" class="text-danger"></span>
+								</div>
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label" for="exporterCode">Exporter Code<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<input type="text" th:field="*{exporterCode}"  class="form-control" id="exporterCode" placeholder="Enter Exporter Code">
+								
+								</div>
+								<!-- <div class="form-group col-4">
+									<label class="custom-smile-form-label" for="coverValue">Cover value<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<input type="text" th:field="*{coverValue}"  class="form-control" id="coverValue" placeholder="Enter Cover Value">
+									<span th:if="${#fields.hasErrors('coverValue')}" th:errors="*{coverValue}" class="text-danger"></span>
+								</div> -->
+							</div>
+							<div class="row">
+								
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label" for="contractValue">Contract value<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<input type="text" th:field="*{contractValue}"  class="form-control" id="contractValue" placeholder="Enter Contract Value" onkeyup="countContractDigit(this, 15)">
+									<div class="float-right">
+											<small id="contractDigit"></small><span class="custom-smile-char-count-textarea">&nbsp;characters inserted</span> OR
+											<br>
+											<small id="contractDigitLeft"></small><span class="custom-smile-char-count-textarea">&nbsp;characters remaining</span>
+											
+											</div>
+									
+									<span th:if="${#fields.hasErrors('contractValue')}" th:errors="*{contractValue}" class="text-danger"></span>
+								</div>
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label pr-1" for="advancePaidDate">Advance Paid Date</label><!-- <span class="text-danger">&nbsp;&nbsp;*</span> -->
+									<input type="date" th:field="*{advancePaidDate}"  class="form-control" id="advancePaidDate" >
+									<span th:if="${#fields.hasErrors('advancePaidDate')}" th:errors="*{advancePaidDate}" class="text-danger"></span>																																												
+								</div>
+								
+							</div>
+							<div class="row">
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label" for="supplyValue">Supply Portion %<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<input type="text" th:field="*{supplyValue}"  class="form-control" id="supplyValue" placeholder="Enter Contract Value" onkeyup="countSupplyDigit(this, 15)">
+									<div class="float-right">
+											<small id="supplyDigit"></small><span class="custom-smile-char-count-textarea">&nbsp;characters inserted</span> OR
+											<br>
+											<small id="supplyDigitLeft"></small><span class="custom-smile-char-count-textarea">&nbsp;characters remaining</span>
+											
+											</div>
+									
+									<span th:if="${#fields.hasErrors('supplyValue')}" th:errors="*{supplyValue}" class="text-danger"></span>
+								</div>
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label" for="serviceValue">Service Portion %<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<input type="text"  th:field="*{serviceValue}" class="form-control" id="serviceValue" placeholder="Enter Contract Value" onkeyup="countServiceDigit(this, 15)">
+									<div class="float-right">
+											<small id="serviceDigit"></small><span class="custom-smile-char-count-textarea">&nbsp;characters inserted</span> OR
+											<br>
+											<small id="serviceDigitLeft"></small><span class="custom-smile-char-count-textarea">&nbsp;characters remaining</span>
+											
+											</div>
+									
+									<span th:if="${#fields.hasErrors('serviceValue')}" th:errors="*{serviceValue}" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label" for="buyerName">Buyer Name<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<input type="text" th:field="*{buyerName}"  class="form-control" id="buyerName" placeholder="Enter Buyer Name">
+									<span th:if="${#fields.hasErrors('buyerName')}" th:errors="*{buyerName}" class="text-danger"></span>																																						
+								</div>
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label" for="buyerType">Buyer Type<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<select th:field="*{buyerType}" class="form-control" id="buyerType">
+										<option value="">--Please Select--</option>
+										<option value="Government">Government</option>
+										<option value="Private">Private</option>
+									</select>
+									<span th:if="${#fields.hasErrors('buyerType')}" th:errors="*{buyerType}" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label" for="riskType">Risk Type<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<select th:field="*{riskType}" class="form-control" id="riskType">
+										<option value="">--Please Select--</option>
+										<option value="1">Political</option>
+										<option value="2">Comprehensive</option>
+									</select>
+									<span th:if="${#fields.hasErrors('riskType')}" th:errors="*{riskType}" class="text-danger"></span>
+								</div>
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label" for="transactionType">Transaction Type<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<select th:field="*{transactionType}" class="form-control" id="transactionType">
+										<option value="">--Please Select--</option>
+										<option value="1">LC</option>
+										<option value="2">NON-LC</option>
+									</select>
+									<span th:if="${#fields.hasErrors('transactionType')}" th:errors="*{transactionType}" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-3">
+									<label class="custom-smile-form-label" for="projectCountry">Project Country<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<select th:field="*{projectCountry}" class="form-control" id="projectCountry">
+										<option value="">--Please Select--</option>
+										<option th:each="entry : ${countryMap}" th:value="${entry.key}" th:text="${entry.value}"></option>
+									</select>
+									<span th:if="${#fields.hasErrors('projectCountry')}" th:errors="*{projectCountry}" class="text-danger"></span>														
+								</div>
+								<div class="form-group col-3">
+									<label class="custom-smile-form-label pr-2" for="projectCountryRating">Project Country Rating<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<input type="text" th:field="*{projectCountryRating}"  class="form-control" id="projectCountryRating" placeholder="Enter Project Country Rating" readonly>
+									<span th:if="${#fields.hasErrors('projectCountryRating')}" th:errors="*{projectCountryRating}" class="text-danger"></span>																																												
+								</div>
+								<div class="form-group col-3">
+									<label class="custom-smile-form-label" for="paymentCountry">Payment Country<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<select th:field="*{paymentCountry}" class="form-control" id="paymentCountry">
+										<option value="">--Please Select--</option>
+										<option th:each="entry : ${countryMap}" th:value="${entry.key}" th:text="${entry.value}"></option>
+									</select>
+									<span th:if="${#fields.hasErrors('paymentCountry')}" th:errors="*{paymentCountry}" class="text-danger"></span>																						
+								</div>
+								<div class="form-group col-3">
+									<label class="custom-smile-form-label pr-2" for="paymentCountryRating">Payment Country Rating<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<input type="text" th:field="*{paymentCountryRating}"  class="form-control" id="paymentCountryRating" placeholder="Enter Payment Country Rating" readonly>
+									<span th:if="${#fields.hasErrors('paymentCountryRating')}" th:errors="*{paymentCountryRating}" class="text-danger"></span>																																												
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="form-group col-4">
+									<label class="custom-smile-form-label" for="fundingArrangement">Funding Arrangement<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<select th:field="*{fundingArrangement}" class="form-control">
+													<option value="">----Please Select------</option>
+													<option value="Self">Self</option>
+													<option value="Partial">Partial</option>
+													<option value="Full">Full</option>
+									</select>
+									<span th:if="${#fields.hasErrors('fundingArrangement')}" th:errors="*{fundingArrangement}" class="text-danger"></span>																														
+								</div>
+								<div class="form-group col-4">
+									<label class="custom-smile-form-label pr-1" for="fundingAgencyType">Funding Agency Type</label><span class="text-danger">&nbsp;&nbsp;*</span>
+									<select th:field="*{fundingAgencyType}" class="form-control">
+													<option value="">----Please Select------</option>
+													<option value="Unilateral">Unilateral</option>
+													<option value="Multilateral">Multilateral</option>
+									</select>
+									<span th:if="${#fields.hasErrors('fundingAgencyType')}" th:errors="*{fundingAgencyType}" class="text-danger"></span>																																												
+								</div>
+								<div class="form-group col-4">
+									<label class="custom-smile-form-label" for="fundedBy">Funding Agency Name<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<input type="text" th:field="*{fundedBy}"  class="form-control" id="fundedBy" placeholder="Enter Funding Agency Name.">
+									<span th:if="${#fields.hasErrors('fundedBy')}" th:errors="*{fundedBy}" class="text-danger"></span>																														
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label pr-1" for="duration">Period of Contract Execution</label>(months)<span class="text-danger">&nbsp;&nbsp;*</span>
+									<input type="text" th:field="*{duration}"  class="form-control" id="duration" placeholder="Enter Duration in months">
+									<span th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="text-danger"></span>																																												
+								</div>
+								<div class="form-group card col-6">
+									<div class="col-sm-6 card-body">
+									<label class="custom-smile-form-label">Is PostBid?</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input"
+													id="isPostBidFlagYes" value="Yes"
+													th:field="*{isPostBidFlag}"> <label
+													class="custom-control-label" for="isPostBidFlagYes">Yes</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input"
+													id="isPostBidFlagNo" value="No"
+													th:field="*{isPostBidFlag}"> <label
+													class="custom-control-label" for="isPostBidFlagNo">No</label>
+											</div>
+										</div>
+										<span th:errors="*{isPostBidFlag}" style="color: red"
+											th:errorclass="form-field-error"></span>
+								</div>
+							
+							<div class="row">
+							<div class="card-body ">
+								<div class="form-group card  ">
+									<div class=" card-body">
+									<label class="custom-smile-form-label">For?</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" name="isSupplyFlagYes" class="custom-control-input"
+													id="isSupplyFlagYes" value="1" th:field="*{termsOfPayment[0].isSupplyFlag}"> 
+												
+													<label class="custom-control-label" for="isSupplyFlagYes">Supply</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio"  name="isSupplyFlagNo" class="custom-control-input"
+													id="isSupplyFlagNo" value="2"	th:field="*{termsOfPayment[0].isSupplyFlag}"> <label
+													class="custom-control-label" for="isSupplyFlagNo">Service</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" name="isSupplyFlagBoth" class="custom-control-input"
+													id="isSupplyFlagBoth" value="3"	th:field="*{termsOfPayment[0].isSupplyFlag}"> <label
+													class="custom-control-label" for="isSupplyFlagBoth">Both</label>
+											</div>
+										</div>
+										<span th:errors="*{termsOfPayment[0].isSupplyFlag}" style="color: red"
+											th:errorclass="form-field-error"></span>
+								</div>
+								
+							</div>
+						</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label pr-1" for="security">Security</label><span class="text-danger">&nbsp;&nbsp;*</span>
+									<textarea th:field="*{security}" class="form-control" id="security" placeholder="Enter Security Details" onkeyup="securityCountChar(this, 200)"></textarea>
+									<div class="float-right">
+										<small id="securityCharNum"></small><span class="custom-smile-char-count-textarea">&nbsp;characters inserted</span> OR
+										<br>
+										<small id="securityCharNumLeft"></small><span class="custom-smile-char-count-textarea">&nbsp;characters remaining</span>
+									</div>
+									<span th:if="${#fields.hasErrors('security')}" th:errors="*{security}" class="text-danger"></span>																																												
+								</div>
+								<div class="form-group col-6">
+									<label class="custom-smile-form-label" for="projectDetails">Project Details<span class="text-danger">&nbsp;&nbsp;*</span></label>
+									<!-- <textarea th:field="*{projectDetails}"  placeholder="Enter Project Details" class="form-control" rows="2" id="projectDetails" onkeyup="projectDetailsCountChar(this, 200)" cols="58" style="margin-top: 0px; margin-bottom: 0px; height: 55px;"></textarea> -->
+									<textarea th:field="*{projectDetails}"  placeholder="Enter Project Details" class="form-control" id="projectDetails" onkeyup="projectDetailsCountChar(this, 200)" cols="58" style="margin-top: 0px; margin-bottom: 0px;"></textarea>
+									<div class="float-right">
+										<small id="projectDetailsCharNum"></small><span class="custom-smile-char-count-textarea">&nbsp;characters inserted</span> OR
+										<br>
+										<small id="projectDetailsCharNumLeft"></small><span class="custom-smile-char-count-textarea">&nbsp;characters remaining</span>
+									</div>
+									<span th:if="${#fields.hasErrors('projectDetails')}" th:errors="*{projectDetails}" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="card section-border-left-primary mb-4">
+								<div class="card-header custom-smile-form-subsection-header" style="margin: 0 !important;">		
+										Pre-Shipment Details
+								</div>
+								<div class="card-body">
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label" for="">Is Pre-shipment Cover required ?<span class="text-danger">&nbsp;&nbsp;*</span></label>
+											<div class="row col-sm-6 mb-3 mb-sm-0 form-check">
+												<div class="custom-radio custom-control">
+												  <input class="custom-control-input" th:field="*{isPreshipmentCoverRequired}" type="radio" name="isPreshipmentCoverRequired" id="yes" th:value="yes">
+												  <label class="custom-control-label" for="yes">Yes</label>
+												</div>
+												<div class="custom-radio custom-control">
+												  <input class="custom-control-input" th:field="*{isPreshipmentCoverRequired}" type="radio" name="isPreshipmentCoverRequired" id="no" th:value="no">
+												  <label class="custom-control-label" for="no">No</label>
+												</div>
+											</div>
+											<span th:if="${#fields.hasErrors('isPreshipmentCoverRequired')}" th:errors="*{isPreshipmentCoverRequired}" class="text-danger"></span>
+										</div>
+										<div class="col-sm-6 mb-2 mb-sm-0" id="preshipmentTenure" style="display: none;">
+											<label class="custom-smile-form-label pr-1" for="preshipmentCoverTenure">Pre-shipment Tenure</label>(months)<span class="text-danger">&nbsp;&nbsp;*</span>
+											<input type="text" th:field="*{preshipmentCoverTenure}"  class="form-control" id="preshipmentCoverTenure" placeholder="Enter Pre-shipment Tenure in months">
+											<span th:if="${#fields.hasErrors('preshipmentCoverTenure')}" th:errors="*{preshipmentCoverTenure}" class="text-danger"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card section-border-left-danger mb-4">
+								<div class="card-header custom-smile-form-subsection-header" style="margin: 0 !important;">		
+										Moratorium Details
+								</div>
+								<div class="card-body">
+									<div class="form-group card">
+										<div class="col-sm-6 card-body">
+											<label class="custom-smile-form-label">For Which Portion?</label>&nbsp; &nbsp;
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input"
+													id="isSupply" value="Supply" th:field="*{isSupplyServiceBoth}"
+													> <label
+													class="custom-control-label" for="isSupply">Supply</label>
+													
+												
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input"
+													id="isService" value="Service" th:field="*{isSupplyServiceBoth}"
+													> <label
+													class="custom-control-label" for="isService">Service</label>
+											</div>
+											<div
+												class="custom-control custom-radio custom-control-inline">
+												<input type="radio" class="custom-control-input"
+													id="isBoth" value="Both" th:field="*{isSupplyServiceBoth}"
+													> <label
+													class="custom-control-label" for="isBoth">Both</label>
+											</div>
+											<div><span th:errors="*{isSupplyServiceBoth}" style="color: red"
+											th:errorclass="form-field-error"></span></div>
+										</div>
+										<!-- <span th:errors="*{isSupplyServiceBoth}" style="color: red"
+											th:errorclass="form-field-error"></span> -->
+									</div>
+									<!-- For supply portion -->
+								<div id="supplyMoratorium" class="card card-body">
+								 <h5 id="supplyHeading">Supply:</h5>
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label" for="supplyMoratoriumPeriod">Moratorium Period(in Months)<span class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{supplyMoratoriumPeriod}"  class="form-control" id="supplyMoratoriumPeriod" placeholder="Enter Moratorium Period">
+											<span th:if="${#fields.hasErrors('supplyMoratoriumPeriod')}" th:errors="*{supplyMoratoriumPeriod}" class="text-danger"></span>	
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											 <label class="custom-smile-form-label" for="supplyMoratoriumNoOfInstallments">Moratorium Number of Installment<span class="text-danger">&nbsp;&nbsp;*</span></label>
+											 <input type="text" th:field="*{supplyMoratoriumNoOfInstallments}"  class="form-control" id="supplyMoratoriumNoOfInstallments" placeholder="Enter Moratorium No. of Installments">
+											 <span th:if="${#fields.hasErrors('supplyMoratoriumNoOfInstallments')}" th:errors="*{supplyMoratoriumNoOfInstallments}" class="text-danger"></span>	
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label" for="supplyMoratoriumFreqOfInstallments">Moratorium Frequency of Installment(Months)<span class="text-danger">&nbsp;&nbsp;*</span></label>
+											<input type="text" th:field="*{supplyMoratoriumFreqOfInstallments}"  class="form-control" id="supplyMoratoriumFreqOfInstallments" placeholder="Enter months between 1-12 here..">
+											<span th:if="${#fields.hasErrors('supplyMoratoriumFreqOfInstallments')}" th:errors="*{supplyMoratoriumFreqOfInstallments}" class="text-danger"></span>	
+										</div>
+									</div>
+								</div>
+									<!-- For service portion -->
+								<div id="serviceMoratorium" class="card card-body">
+								 <h5 id="serviceHeading">Service:</h5>
+									<div class="form-group row ml-1 mr-1">
+										<div class="col-sm-4 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label" for="serviceMoratoriumPeriod">Moratorium Period(in Months)<span class="text-danger">&nbsp;&nbsp;*</span></label> 
+											<input type="text" th:field="*{serviceMoratoriumPeriod}"  class="form-control" id="serviceMoratoriumPeriod" placeholder="Enter Moratorium Period">
+											<span th:if="${#fields.hasErrors('serviceMoratoriumPeriod')}" th:errors="*{serviceMoratoriumPeriod}" class="text-danger"></span>	
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											 <label class="custom-smile-form-label" for="serviceMoratoriumNoOfInstallments">Moratorium Number of Installment<span class="text-danger">&nbsp;&nbsp;*</span></label>
+											 <input type="text" th:field="*{serviceMoratoriumNoOfInstallments}"  class="form-control" id="serviceMoratoriumNoOfInstallments" placeholder="Enter Moratorium No. of Installments">
+											 <span th:if="${#fields.hasErrors('serviceMoratoriumNoOfInstallments')}" th:errors="*{serviceMoratoriumNoOfInstallments}" class="text-danger"></span>	
+										</div>
+										<div class="col-sm-4 mb-2 mb-sm-0">
+											<label class="custom-smile-form-label" for="serviceMoratoriumFreqOfInstallments">Moratorium Frequency of Installment(Months)<span class="text-danger">&nbsp;&nbsp;*</span></label>
+											<input type="text" th:field="*{serviceMoratoriumFreqOfInstallments}"  class="form-control" id="serviceMoratoriumFreqOfInstallments" placeholder="Enter months between 1-12 here..">
+											<span th:if="${#fields.hasErrors('serviceMoratoriumFreqOfInstallments')}" th:errors="*{serviceMoratoriumFreqOfInstallments}" class="text-danger"></span>	
+										</div>
+									</div>
+								</div>
+									<!-- For Both portion -->
+								
+									
+								</div>
+							</div>
+							
+							<div id="supplyTopWeightage" class="mt-3">
+							<h5 class="text-left">Terms of Payment Weightage<span class="text-danger">&nbsp;&nbsp;*</span></h5>
+ 							 <table class="table table-bordered terms_of_payment">
+								<tr class="thead-light">
+									<th></th>
+									<th colspan="2">Supply</th>
+								</tr>
+								<tr>
+									<th></th>
+									<th>Percentage</th>
+									<th>Amount</th>
+								</tr>
+								<tr >
+									<th>Advance</th>
+									<td>
+									<input type="text" class="form-control" value=0.0 th:name="|termsOfPayment[0].advancePercentage|"
+										id="supplyAdvancePercentage" >
+										<!-- <span th:if="${#fields.hasErrors('termsOfPayment.advancePercentage')}" th:errors="*{termsOfPayment.advancePercentage}" class="text-danger"></span>	 -->
+									</td>
+									<td>
+										<input type="text" class="form-control"  
+										id="supplyAdvanceAmount" placeholder="Enter Advance Amount " readonly value=0.0 th:name="|termsOfPayment[0].advanceAmount|"></td>
+										<!-- <input type="text" class="form-control"  readonly th:name="termsOfPayment.supplyAdvanceAmount"
+										id="supplyAdvanceAmount" placeholder="Enter Advance Amount "> -->
+								</tr>
+								<tr>
+									<th>Down</th>
+									<td><input type="text" class="form-control" value=0.0 th:name="|termsOfPayment[0].downPercentage|"
+										id="supplyDownPercentage" placeholder="Enter Down % ">
+									</td>
+									<td><input type="text" class="form-control" readonly value=0.0 th:name="|termsOfPayment[0].downAmount|"
+										id="supplyDownAmount" placeholder="Enter Down Amount ">
+									</td>
+								</tr>
+								<tr>
+									<th>Progress</th>
+									<td><input type="text" class="form-control" value=0.0 th:name="|termsOfPayment[0].progressPercentage|"
+										id="supplyProgressPercentage" placeholder="Enter Progress % ">
+										
+									</td>
+									<td><input type="text" class="form-control" readonly value=0.0 th:name="|termsOfPayment[0].progressAmount|"
+										id="supplyProgressAmount" placeholder="Enter Progress Amount ">
+									</td>
+								</tr>
+								<tr>
+									<th>PAC</th>
+									<td><input type="text" class="form-control" value=0.0 th:name="|termsOfPayment[0].pacPercentage|"
+										id="supplyPacPercentage" placeholder="Enter PAC % ">
+									</td>
+									<td><input type="text" class="form-control" readonly value=0.0 th:name="|termsOfPayment[0].pacAmount|"
+										id="supplyPacAmount" placeholder="Enter PAC Amount">
+									</td>
+								</tr>
+								<tr>
+									<th>FAC</th>
+									<td><input type="text" class="form-control" value=0.0 th:name="|termsOfPayment[0].facPercentage|"
+										id="supplyFacPercentage" placeholder="Enter FAC % ">
+									</td>
+									<td><input type="text" class="form-control" readonly value=0.0 th:name="|termsOfPayment[0].facAmount|"
+										id="supplyFacAmount" placeholder="Enter FAC Amount ">
+									</td>
+								</tr>
+							</table>
+ 							 <input type="hidden" th:attr="name='termsOfPayment[0].isSupplyService'" th:value= 1 > 
+						</div>
+						
+						<div id="serviceTopWeightage" class="mt-3">
+							<h5 class="text-left">Terms of Payment Weightage<span class="text-danger">&nbsp;&nbsp;*</span></h5>
+							<table class="table table-bordered terms_of_payment">
+								<tr class="thead-light">
+									<th></th>
+									<th colspan="2">Service</th>
+								</tr>
+								<tr>
+									<th></th>
+									<th>Percentage</th>
+									<th>Amount</th>
+								</tr>
+								<tr >
+									<th>Advance</th>
+									<td>
+									<input type="text" class="form-control" value=0.0 th:name="|termsOfPayment[1].advancePercentage|"
+										id="serviceAdvancePercentage" >
+										<!-- <span th:if="${#fields.hasErrors('termsOfPayment.advancePercentage')}" th:errors="*{termsOfPayment.advancePercentage}" class="text-danger"></span>	 -->
+									</td>
+									<td>
+										<input type="text" class="form-control"  
+										id="serviceAdvanceAmount" placeholder="Enter Advance Amount " readonly value=0.0 th:name="|termsOfPayment[1].advanceAmount|">
+										</td>
+										<!-- <input type="text" class="form-control"  readonly th:name="termsOfPayment.supplyAdvanceAmount"
+										id="supplyAdvanceAmount" placeholder="Enter Advance Amount "> -->
+								</tr>
+								<tr>
+									<th>Down</th>
+									<td><input type="text" class="form-control" value=0.0 th:name="|termsOfPayment[1].downPercentage|"
+										id="serviceDownPercentage" placeholder="Enter Down % ">
+									</td>
+									<td><input type="text" class="form-control" readonly value=0.0 th:name="|termsOfPayment[1].downAmount|"
+										id="serviceDownAmount" placeholder="Enter Down Amount ">
+									</td>
+								</tr>
+								<tr>
+									<th>Progress</th>
+									<td><input type="text" class="form-control" value=0.0 th:name="|termsOfPayment[1].progressPercentage|"
+										id="serviceProgressPercentage" placeholder="Enter Progress % ">
+									</td>
+									<td><input type="text" class="form-control" readonly value=0.0 th:name="|termsOfPayment[1].progressAmount|"
+										id="serviceProgressAmount" placeholder="Enter Progress Amount ">
+									</td>
+								</tr>
+								<tr>
+									<th>PAC</th>
+									<td><input type="text" class="form-control" value=0.0 th:name="|termsOfPayment[1].pacPercentage|"
+										id="servicePacPercentage" placeholder="Enter PAC % ">
+									</td>
+									<td><input type="text" class="form-control" readonly value=0.0 th:name="|termsOfPayment[1].pacAmount|"
+										id="servicePacAmount" placeholder="Enter PAC Amount">
+									</td>
+								</tr>
+								<tr>
+									<th>FAC</th>
+									<td><input type="text" class="form-control" value=0.0 th:name="|termsOfPayment[1].facPercentage|"
+										id="serviceFacPercentage" placeholder="Enter FAC % ">
+									</td>
+									<td><input type="text" class="form-control" readonly value=0.0 th:name="|termsOfPayment[1].facAmount|"
+										id="serviceFacAmount" placeholder="Enter FAC Amount ">
+									</td>
+								</tr>
+							</table>
+							<input type="hidden" th:attr="name='termsOfPayment[1].isSupplyService'" th:value= 2 >
+						</div>
+						
+						<div id="supplyTopDuration" class="mt-3">
+							<h5 class="text-left">Terms of Payment Duration <span class="text-danger">&nbsp;&nbsp;*</span></h5>
+							<table class="table table-bordered terms_of_payment">
+								<thead class="thead-light">
+									<tr>
+										<th></th>
+										<th>Supply</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>Down (in days)</th>
+										<td>
+											<input type="text" th:field="*{termsOfPayment[0].downDuration}"  class="form-control" id="supplyDownDuration" placeholder="Enter Down Duration for Supply Portion">
+											<span th:if="${#fields.hasErrors('termsOfPayment[0].downDuration')}" th:errors="*{termsOfPayment[0].downDuration}" class="text-danger"></span>
+										</td>
+									</tr>
+									<tr>
+										<th>Progress (in days)</th>
+										<td>		
+											<input type="text" th:field="*{termsOfPayment[0].progressDuration}"  class="form-control" id="supplyProgressDuration" placeholder="Enter Progress Duration for Supply Portion">
+											<span th:if="${#fields.hasErrors('termsOfPayment[0].progressDuration')}" th:errors="*{termsOfPayment[0].progressDuration}" class="text-danger"></span>
+										</td>
+									</tr>
+									<tr>
+										<th>PAC (in months)</th>
+										<td>
+											<input type="text" th:field="*{termsOfPayment[0].pacDuration}"  class="form-control" id="supplyPacDuration" placeholder="Enter PAC Duration for Supply Portion">
+											<span th:if="${#fields.hasErrors('termsOfPayment[0].pacDuration')}" th:errors="*{termsOfPayment[0].pacDuration}" class="text-danger"></span>
+										</td>
+									</tr>
+									<tr>
+										<th>FAC (in months)</th>
+										<td>
+											<input type="text" th:field="*{termsOfPayment[0].facDuration}"  class="form-control" id="supplyFacDuration" placeholder="Enter FAC Duration for Supply Portion">
+											<span th:if="${#fields.hasErrors('termsOfPayment[0].facDuration')}" th:errors="*{termsOfPayment[0].facDuration}" class="text-danger"></span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+						<div id="serviceTopDuration" class="mt-3">
+							<h5 class="text-left">Terms of Payment Duration <span class="text-danger">&nbsp;&nbsp;*</span></h5>
+							<table class="table table-bordered terms_of_payment">
+								<thead class="thead-light">
+									<tr>
+										<th></th>
+										<th>Service</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th>Down (in days)</th>
+										<td>
+											<input type="text" th:field="*{termsOfPayment[1].downDuration}"  class="form-control" id="serviceDownDuration" placeholder="Enter Down Duration for Supply Portion">
+											<span th:if="${#fields.hasErrors('termsOfPayment[1].downDuration')}" th:errors="*{termsOfPayment[1].downDuration}" class="text-danger"></span>
+										</td>
+									</tr>
+									<tr>
+										<th>Progress (in days)</th>
+										<td>
+											<input type="text" th:field="*{termsOfPayment[1].progressDuration}"  class="form-control" id="serviceProgressDuration" placeholder="Enter Progress Duration for Supply Portion">
+											<span th:if="${#fields.hasErrors('termsOfPayment[1].progressDuration')}" th:errors="*{termsOfPayment[1].progressDuration}" class="text-danger"></span>
+										</td>
+									</tr>
+									<tr>
+										<th>PAC (in months)</th>
+										<td>
+											<input type="text" th:field="*{termsOfPayment[1].pacDuration}"  class="form-control" id="servicePacDuration" placeholder="Enter PAC Duration for Supply Portion">
+											<span th:if="${#fields.hasErrors('termsOfPayment[1].pacDuration')}" th:errors="*{termsOfPayment[1].pacDuration}" class="text-danger"></span>
+										</td>
+									</tr>
+									<tr>
+										<th>FAC (in months)</th>
+										<td>
+											<input type="text" th:field="*{termsOfPayment[1].facDuration}"  class="form-control" id="serviceFacDuration" placeholder="Enter FAC Duration for Supply Portion">
+											<span th:if="${#fields.hasErrors('termsOfPayment[1].facDuration')}" th:errors="*{termsOfPayment[1].facDuration}" class="text-danger"></span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<input type="hidden" th:attr="name='termsOfPayment[1].isSupplyService'" th:value= 2 >
+						</div>
+					
+					<div class="row mt-3 mb-3" id="showAddButton">
+						<input type="submit" class="btn custom-smile-btn-success col-2 offset-4 mr-3" value="Submit">							
+						<input type="reset" class="btn custom-smile-btn-submit col-2"  value="Clear">
+					</div>
+				</div>
+			</form>
+
+				<div class="modal fade" id="helpModal" role="dialog">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header bg-light">
+								<h4 class="modal-title" style="color: black;">This is Modal For help</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							<div class="modal-body">
+								<div class="form-group row">
+									<div class="col-sm-12 mb-3 mb-sm-0">Content regarding Help goes here</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+
+<th:block layout:fragment="scripts">
+	<!-- Data Tables -->
+	<script type="text/javascript" th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/jquery.dataTables.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/datatables-buttons/js/buttons.html5.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/datatables-buttons/js/buttons.print.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/datatablejs/pdfmake.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/datatablejs/vfs_fonts.js}"></script>
+	<script type="text/javascript" th:src="@{/js/exporttable.js}"></script>
+	<script type="text/javascript" th:src="@{/js/buttonbootstrap4.js}"></script>
+	<script type="text/javascript" th:src="@{/js/char-count.js}"></script>
+	<!-- add this script to page for getting to character count in textarea -->
+	<script type="text/javascript" th:src="@{/js/char-count.js}"></script>
+	<script type="text/javascript">	
+	
+		$(document).ready(function(){
+			
+			
+			 document.getElementById("supplyHeading").style.display = 'none';
+			 document.getElementById("serviceHeading").style.display = 'none';
+			 document.getElementById("supplyMoratorium").style.display = 'none';
+			 document.getElementById("serviceMoratorium").style.display = 'none';
+			 document.getElementById("supplyTopWeightage").style.display = 'none';
+			 document.getElementById("serviceTopWeightage").style.display = 'none';
+			 document.getElementById("supplyTopDuration").style.display  = 'none';
+			 document.getElementById("serviceTopDuration").style.display = 'none';
+			 document.getElementById("supplyValue").oninput = function() {validateSupplyValue()};
+			 document.getElementById("serviceValue").oninput = function() {validateServiceValue()};
+			 document.getElementById("contractValue").oninput = function() {validateContractvalue()};
+			 
+			 function validateSupplyValue() {
+				 
+				 var supplyValue = Number(document.getElementById("supplyValue").value);
+				 if(!/^\d{1,15}$/.test(supplyValue))
+				 {
+					    alert(" Please enter only numeric value !")
+					    document.getElementById("supplyValue").value = "";
+				 }
+			 }
+			 
+			function validateServiceValue() {
+				 
+				 var serviceValue = Number(document.getElementById("serviceValue").value);
+				 var supplyValue = Number(document.getElementById("supplyValue").value);
+				 if(!/^\d{1,15}$/.test(serviceValue))
+				 {
+					    alert(" Please enter only numeric value !")
+					    document.getElementById("serviceValue").value = "";
+					    
+				 }
+				
+				 if((serviceValue + supplyValue) > 100)
+					 {
+						 alert(" Sum of Supply Portion % & Service Portion % should not exceed 100..Please check value yoy have entered...!")
+						 document.getElementById("serviceValue").value = "";
+					 }
+			 }
+			
+			function validateContractvalue() {
+				 
+				 var contractValue = document.getElementById("contractValue").value;
+				 if(!/^\d{1,15}$/.test(contractValue)){
+					    alert(" Please enter only numeric value !")
+					    document.getElementById("contractValue").value = "";
+				 }
+			 }			
+			
+			$('#projectCountry').change(function(){
+				var e = document.getElementById("projectCountry");
+				var strUser = e.options[e.selectedIndex].value;
+				//alert(strUser);
+				if(strUser=="ET")
+					{
+						document.getElementById("projectCountryRating").value="A1";
+					}
+				if(strUser=="NI")
+				{
+					document.getElementById("projectCountryRating").value="A2";
+				}
+				if(strUser=="GH")
+				{
+					document.getElementById("projectCountryRating").value="B1";
+				}
+				if(strUser=="ML")
+				{
+					document.getElementById("projectCountryRating").value="B2";
+				}
+				if(strUser=="TH")
+				{
+					document.getElementById("projectCountryRating").value="C1";
+				}
+				if(strUser=="SL")
+				{
+					document.getElementById("projectCountryRating").value="C2";
+				}
+				if(strUser=="NPL")
+				{
+					document.getElementById("projectCountryRating").value="D";
+				}
+			});
+			$('#paymentCountry').change(function(){
+				var e = document.getElementById("paymentCountry");
+				var strUser = e.options[e.selectedIndex].value;
+				//alert(strUser);
+				if(strUser=="ET")
+					{
+						document.getElementById("paymentCountryRating").value="A1";
+					}
+				if(strUser=="NI")
+				{
+					document.getElementById("paymentCountryRating").value="A2";
+				}
+				if(strUser=="GH")
+				{
+					document.getElementById("paymentCountryRating").value="B1";
+				}
+				if(strUser=="ML")
+				{
+					document.getElementById("paymentCountryRating").value="B2";
+				}
+				if(strUser=="TH")
+				{
+					document.getElementById("paymentCountryRating").value="C1";
+				}
+				if(strUser=="SL")
+				{
+					document.getElementById("paymentCountryRating").value="C2";
+				}
+				if(strUser=="NPL")
+				{
+					document.getElementById("paymentCountryRating").value="D";
+				}
+		 });
+			/* $(".terms_of_payment").DataTable({
+				"searching":false,
+				"lengthChange":false,
+				"bPaginate":false,
+				"bInfo":false
+			}); */
+			$(document).on('click', 'input[type="radio"]', function(e) {
+				  var value = $(this).attr('id');
+				  
+				  if(value === 'yes')
+				  {
+			    	   $('#preshipmentTenure').css("display", "block");
+				  }
+				  else
+				  {
+					   $('#preshipmentTenure').css("display", "none");
+				  } 
+			       
+			      if(value === 'isSupply')
+			      {
+			    	   document.getElementById("serviceMoratorium").style.display = 'none';
+			    	   document.getElementById("supplyMoratorium").style.display = 'block';
+			       }
+			       if(value === 'isService'){
+			    	   document.getElementById("supplyMoratorium").style.display = 'none';
+			    	   document.getElementById("serviceMoratorium").style.display = 'block';
+			       }
+			       if(value === 'isBoth'){
+			    	   document.getElementById("supplyHeading").style.display = 'block';
+			    	   document.getElementById("serviceHeading").style.display = 'block';
+					   document.getElementById("supplyMoratorium").style.display = 'block';
+			    	   document.getElementById("serviceMoratorium").style.display = 'block';
+			       }
+			       
+	       			if(value === 'isSupplyFlagYes')
+	       			{
+				    	document.getElementById("supplyTopWeightage").style.display = 'block';
+						document.getElementById("serviceTopWeightage").style.display = 'none';
+						document.getElementById("supplyTopDuration").style.display  = 'block';
+						document.getElementById("serviceTopDuration").style.display = 'none';
+					
+					 	$("#myTable").empty();
+						var counter=0;
+						var table = document.getElementById('myTable'); 
+						if(table==null)
+						{
+							table = document.createElement('table');
+							table.setAttribute('class',"table table-striped table-hover");
+							table.setAttribute('border',1);
+							table.setAttribute('id',"myTable");
+						}
+							 
+						  var header = table.createTHead();
+						  var row = header.insertRow(0);
+						  var cell0 = row.insertCell(0);
+						  var cell1 = row.insertCell(1);
+						  var cell2 = row.insertCell(2);
+						  cell0.innerHTML = "";
+						  cell1.innerHTML = "<b>Supply</b>";
+						  cell2.innerHTML = "";
+						  var row = header.insertRow(1);
+						  var cell0 = row.insertCell(0);
+						  var cell1 = row.insertCell(1);
+						  var cell2 = row.insertCell(2);
+						  cell0.innerHTML = "";
+						  cell1.innerHTML = "<b>Percentage</b>";
+						  cell2.innerHTML = "<b>Amount</b>";
+						  var arrHead = new Array();
+						  var arrHead1 = new Array();
+						  arrHead = ['supplyAdvancePercentage', 'supplyAdvanceAmount', 'supplyDownPercentage', 'supplyDownAmount','supplyProgressPercentage', 'supplyProgressAmount','supplyPacPercentage', 'supplyPacAmount','supplyFacPercentage', 'supplyFacAmount'];
+						  arrHead1 = ['advancePercentage', 'advanceAmount', 'downPercentage', 'downAmount','progressPercentage', 'progressAmount','pacPercentage', 'pacAmount','facPercentage', 'facAmount'];
+						  for (var i = 0; i < 5; i++)
+						  {
+							    var tr = document.createElement('tr');   
+							   	var th = document.createElement('th'); 
+							    tr.appendChild(th);
+							    
+								    for(var j=0; j<2; j++)
+								    {
+								    	var td = document.createElement('td');
+								    	var text1 = document.createElement('input');
+								 	    text1.setAttribute('type', 'text');
+								 	    text1.setAttribute('value', 0.0);
+								 	    
+											if(j==1)
+												{text1.setAttribute('readonly', true); }
+											
+											var idtxt= arrHead[j+i+counter];
+											var nametxt="termsOfPayment[0]."+arrHead1[j+i+counter];
+											text1.setAttribute('id', idtxt);
+								 			text1.setAttribute('name', nametxt);
+								 			td.appendChild(text1);
+								 	  		tr.appendChild(td);
+								 	}	 
+								   		counter++;
+								    	table.appendChild(tr);
+							}
+								document.getElementById("myTable").appendChild(table);
+								
+								var hh=document.getElementById("supplyWeightageDiv");
+								var supplyHidden = document.createElement('input');
+						    	supplyHidden.setAttribute('type', 'hidden');
+						    	text1.setAttribute('value',1);
+						    	var nametxt="termsOfPayment[0]."+isSupplyService;
+						    	supplyHidden.setAttribute('name', nametxt);
+						    	document.getElementById("supplyWeightageDiv").appendChild(supplyHidden);
+						    	document.getElementById("myTable").appendChild(supplyHidden);
+				
+			       }
+			       
+				   if(value === 'isSupplyFlagNo'){
+			    	   	document.getElementById("supplyTopWeightage").style.display = 'none';
+					 	document.getElementById("serviceTopWeightage").style.display = 'block';
+					 	document.getElementById("supplyTopDuration").style.display  = 'none';
+					 	document.getElementById("serviceTopDuration").style.display = 'block';
+						
+			       }
+				   
+				    if(value === 'isSupplyFlagBoth')
+				    {
+			    	 	 document.getElementById("supplyTopWeightage").style.display = 'none';
+						 document.getElementById("serviceTopWeightage").style.display = 'none';
+						 document.getElementById("supplyTopDuration").style.display  = 'none';
+						 document.getElementById("serviceTopDuration").style.display = 'none';				
+						 document.getElementById("supplyTopWeightage").style.display = 'block';
+						 document.getElementById("serviceTopWeightage").style.display = 'block';
+						 document.getElementById("supplyTopDuration").style.display  = 'block';
+						 document.getElementById("serviceTopDuration").style.display = 'block';
+				 	} 
+				    
+				    var test =document.getElementById("supplyAdvancePercentage");
+				  	document.getElementById("supplyAdvancePercentage").oninput = function() {
+					validateSupplyAdvance()};
+
+				 	function validateSupplyAdvance() {
+					
+					 var advancePercentage = document.getElementById("supplyAdvancePercentage").value;
+					 var contractValue = document.getElementById("contractValue").value;
+					 if(!/^\d{1,2}$/.test(advancePercentage))
+						 {
+						    alert(" Please enter only numeric value between 0-100 !")
+						    document.getElementById("supplyAdvancePercentage").value = "";
+						    document.getElementById("supplyAdvanceAmount").value = 0.0;
+						  }
+					 else
+						 {
+						 	var contractValue = document.getElementById("contractValue").value;
+						 	var supplyPortion= document.getElementById("supplyValue").value;
+						 	var supplyValue= (contractValue*supplyPortion)/100;
+						 	var advanceAmount= (supplyValue*advancePercentage)/100;
+						 	document.getElementById("supplyAdvanceAmount").value=advanceAmount;
+						 }
+				 }
+				
+					document.getElementById("supplyDownPercentage").oninput = function() {
+					validateSupplyDown()};
+				 
+					function validateSupplyDown() {
+					
+					 var downPercentage = document.getElementById("supplyDownPercentage").value;
+					 var contractValue = document.getElementById("contractValue").value;
+					 var supplyPortion= document.getElementById("supplyValue").value;
+					 if(!/^\d{1,2}$/.test(downPercentage))
+					 	{
+						    alert(" Please enter only numeric value between 0-100 !")
+						    document.getElementById("supplyDownPercentage").value = "";
+						    document.getElementById("supplyDownAmount").value = "";
+						 }
+					 else
+						 {
+						 	var supplyValue= (contractValue*supplyPortion)/100;
+						 	var downAmount= (supplyValue*downPercentage)/100;
+						 	document.getElementById("supplyDownAmount").value=downAmount;
+						 }
+				 }
+				 
+					document.getElementById("supplyProgressPercentage").oninput = function() {
+					validateSupplyProgress()};
+				 
+				 	function validateSupplyProgress() {
+					 
+				 	 var progressPercentage = document.getElementById("supplyProgressPercentage").value;
+					 var contractValue = document.getElementById("contractValue").value;
+					 var supplyPortion= document.getElementById("supplyValue").value;
+					 if(!/^\d{1,2}$/.test(progressPercentage))
+					 	{
+						    alert(" Please enter only numeric value between 0-100 !")
+						    document.getElementById("supplyProgressPercentage").value = "";
+						    document.getElementById("supplyProgressAmount").value = "";
+						 }
+					 else
+						 {
+						 	var supplyValue= (contractValue*supplyPortion)/100;
+						 	var progressAmount= (supplyValue*progressPercentage)/100;
+						 	document.getElementById("supplyProgressAmount").value=progressAmount;
+						 }
+				 }
+				
+					document.getElementById("supplyPacPercentage").oninput = function() {
+					validateSupplyPac()};
+				 
+				 	function validateSupplyPac() {
+					 
+				 	 var pacPercentage = document.getElementById("supplyPacPercentage").value;
+					 var contractValue = document.getElementById("contractValue").value;
+					 var supplyPortion= document.getElementById("supplyValue").value;
+					 if(!/^\d{1,2}$/.test(pacPercentage))
+					 	{
+						    alert(" Please enter only numeric value between 0-100 !")
+						    document.getElementById("supplyPacPercentage").value = "";
+						    document.getElementById("supplyPacAmount").value = "";
+						 }
+					 else
+						 {
+						 	var supplyValue= (contractValue*supplyPortion)/100;
+						 	var pacAmount= (supplyValue*pacPercentage)/100;
+						 	document.getElementById("supplyPacAmount").value=pacAmount;
+						 }
+				 }
+				
+			 		document.getElementById("supplyFacPercentage").oninput = function() {
+			 		validateSupplyFac()};
+				 
+				 	function validateSupplyFac() {
+					 
+				 	 var facPercentage = document.getElementById("supplyFacPercentage").value;
+					 var contractValue = document.getElementById("contractValue").value;
+					 var supplyPortion= document.getElementById("supplyValue").value;
+					 if(!/^\d{1,2}$/.test(facPercentage))
+					 	{
+						    alert(" Please enter only numeric value between 0-100 !")
+						    document.getElementById("supplyFacPercentage").value = "";
+						    document.getElementById("supplyFacAmount").value = "";
+						 }
+					 else
+						 {
+						 	var supplyValue= (contractValue*supplyPortion)/100;
+						 	var facAmount= (supplyValue*facPercentage)/100;
+						 	document.getElementById("supplyFacAmount").value=facAmount;
+						 }
+				 }   
+				 
+				 	document.getElementById("serviceAdvancePercentage").oninput = function() {
+					validateServiceAdvance()};
+
+				 	function validateServiceAdvance() {
+					 
+					 var advancePercentage = document.getElementById("serviceAdvancePercentage").value;
+					 var contractValue = document.getElementById("contractValue").value;
+					 var servicePortion= document.getElementById("serviceValue").value;
+					 if(!/^\d{1,2}$/.test(advancePercentage))
+					 	{
+						    alert(" Please enter only numeric value between 0-100 !")
+						    document.getElementById("serviceAdvancePercentage").value = "";
+						    document.getElementById("serviceAdvanceAmount").value = "";
+						 }
+					 else
+						 {
+						 	var serviceValue= (contractValue*servicePortion)/100;
+						 	var advanceAmount= (serviceValue*advancePercentage)/100;
+						 	document.getElementById("serviceAdvanceAmount").value=advanceAmount;
+						 }
+				 }
+				 
+				 	document.getElementById("serviceDownPercentage").oninput = function() {
+				 	validateServiceDown()};
+
+				 	function validateServiceDown() {
+					
+					 var downPercentage = document.getElementById("serviceDownPercentage").value;
+					 var contractValue = document.getElementById("contractValue").value;
+					 var servicePortion= document.getElementById("serviceValue").value;
+					 if(!/^\d{1,2}$/.test(downPercentage))
+					 	{
+						    alert(" Please enter only numeric value between 0-100 !")
+						    document.getElementById("serviceDownPercentage").value = "";
+						    document.getElementById("serviceDownAmount").value = "";
+						 }
+					 else
+						 {
+						 	var serviceValue= (contractValue*servicePortion)/100;
+						 	var downAmount= (serviceValue*downPercentage)/100;
+						 	document.getElementById("serviceDownAmount").value=downAmount;
+						 }
+				 } 
+				 
+				 	document.getElementById("serviceProgressPercentage").oninput = function() {
+				 	validateServiceProgress()};
+
+				 	function validateServiceProgress() {
+					 
+					 var progressPercentage = document.getElementById("serviceProgressPercentage").value;
+					 var contractValue = document.getElementById("contractValue").value;
+					 var servicePortion= document.getElementById("serviceValue").value;
+					 if(!/^\d{1,2}$/.test(progressPercentage))
+					 	{
+						    alert(" Please enter only numeric value between 0-100 !")
+						    document.getElementById("serviceProgressPercentage").value = "";
+						    document.getElementById("serviceProgressAmount").value = "";
+						 }
+					 else
+						 {
+						 	var serviceValue=  (contractValue*servicePortion)/100;
+						 	var progressAmount= (serviceValue*progressPercentage)/100;
+						 	document.getElementById("serviceProgressAmount").value=progressAmount;
+						 }
+				 } 
+				 
+				 	document.getElementById("servicePacPercentage").oninput = function() {
+				 	validateServicePac()};
+
+				 	function validateServicePac() {
+					 
+					 var pacPercentage = document.getElementById("servicePacPercentage").value;
+					 var contractValue = document.getElementById("contractValue").value;
+					 var servicePortion= document.getElementById("serviceValue").value;
+					 if(!/^\d{1,2}$/.test(pacPercentage))
+					 	{
+						    alert(" Please enter only numeric value between 0-100 !")
+						    document.getElementById("servicePacPercentage").value = "";
+						    document.getElementById("servicePacAmount").value = "";
+						 }
+					 else
+						 {
+						 	var serviceValue= (contractValue*servicePortion)/100;
+						 	var pacAmount= (serviceValue*pacPercentage)/100;
+						 	document.getElementById("servicePacAmount").value=pacAmount;
+						 }
+				 } 
+				 
+				 	document.getElementById("serviceFacPercentage").oninput = function() {
+				 	validateServiceFac()};
+
+				 	function validateServiceFac() {
+					
+					 var facPercentage = document.getElementById("serviceFacPercentage").value;
+					 var contractValue = document.getElementById("contractValue").value;
+					 var servicePortion= document.getElementById("serviceValue").value;
+					 if(!/^\d{1,2}$/.test(facPercentage))
+					 	{
+						    alert(" Please enter only numeric value between 0-100 !")
+						    document.getElementById("serviceFacPercentage").value = "";
+						    document.getElementById("serviceFacAmount").value = "";
+						 }
+					 else
+						 {
+						 	var serviceValue= (contractValue*servicePortion)/100;
+						 	var facAmount= (serviceValue*facPercentage)/100;
+						 	document.getElementById("serviceFacAmount").value=facAmount;
+						 }
+				 	} 
+
+			 	});
+			
+			});
+		</script>
+	
+	</th:block>
+</body>
+</html>

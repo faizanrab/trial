@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{BaseLayout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>PEB Policy</title>
+<style>
+.form-actions {
+	margin: 0;
+	text-align: center;
+}
+
+.close {
+	float: right;
+	display: inline-block;
+	padding: 2px 5px;
+	background: #ccc;
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+	<div id="page-wrapper" layout:fragment="content">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="indexwithsm">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Recovery Entry</li>
+				</ol>
+			</nav>
+			<div class="card shadow mb-4 mt-2 bkg-color">
+
+				<!--card header-->
+				<div class="card-header">
+					<span class="custom-smile-form-header" id="datatables">Recovery Entry</span>
+				</div>
+				<!--end of card header-->
+				<div class="card-body">
+					<div class="row my-2">
+						<div class="col-lg-12 order-lg-2">
+						<ul class="nav nav-pills">
+							<li class="nav-item"><a id="1" data-toggle="tab"
+								href="#RecoveryMaster" class="nav-link active">Recovery Master</a></li>
+
+							<li class="nav-item"><a data-toggle="tab" id="2"
+								href="#BlockedFundDetails" class="nav-link">BlockedFund Details</a></li>
+								<li class="nav-item"><a data-toggle="tab" id="3"
+								href="#WriteOffDetails" class="nav-link">Write-Off Details</a></li>
+							
+							
+							
+						</ul>
+						<div class="tab-content py-4">
+							<div class="tab-pane active" id="RecoveryMaster">
+								<!-- Basic Proposal Success Message -->
+								<div class="form -group row"
+									th:if="${RecoveryMaster == 'success'}"
+									id="divRegSuccess">
+									<div class="col-sm-5 mb-sm-0">
+										<div class="alert alert-success">Recovery Master Details
+											Saved Successfully</div>
+									</div>
+								</div>
+						<form action="#" id="f"  th:object="${pebPolicyRecoveryMasterBean}"
+						method="post">
+
+						<div class="card card-body">
+
+							
+								<!-- Card Content - Collapse -->
+
+
+									<div class="form-group row ">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Claim No<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> <input type="text"id="claimno" th:field="*{claimNo}"
+                                                class="form-control" placeholder="Enter Claim No"/>
+                                            <span th:errors="*{claimNo}" style="color: red"
+                                                th:errorclass="form-field-error"></span>
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">DCA Id<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> <input type="text" th:field="*{dcaId}"
+                                                class="form-control" placeholder="Enter DCA Id"/>
+                                            <span th:errors="*{dcaId}" style="color: red"
+                                                th:errorclass="form-field-error"></span>
+										</div>
+										
+									</div>
+
+									<div class="form-group row ">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Recovery Initiated Date<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> <input type="date"
+                                                th:field="*{recoveryInitiatedDate}" class="form-control" />
+                                            <span th:errors="*{recoveryInitiatedDate}" style="color: red"
+                                                th:errorclass="form-field-error"></span>
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Status<span
+												class="text-danger">&nbsp;&nbsp;*</span></label><select th:field="*{status}" class="form-control">
+                                                    <option value="">----Please Select------</option>
+                                                    <option value="active">Active</option>
+                                                    <option value="inactive">Inactive</option>
+                                                    <option value="partial">Partial</option>
+                                                </select>
+                                                <span th:errors="*{status}" style="color: red"
+                                                    th:errorclass="form-field-error"></span>
+										</div>
+										
+                                    </div>
+                                     <div class="form-group row">
+                                      <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="custom-smile-form-label">Recovery Documents<span
+                                            class="text-danger">&nbsp;&nbsp;*</span></label>
+                                         <input type="file"  th:field="*{recoveryDocument}"  class="form-control"/>
+                                            
+                                
+                                    </div>
+                                      </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="custom-smile-form-label">Remarks<span
+                                            class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" th:field="*{remarks}"
+                                            class="form-control"></textarea>
+                                             <span th:errors="*{remarks}" style="color: red"
+                                                    th:errorclass="form-field-error"></span>
+                                    </div>
+                                     
+                                </div>
+                                  <div class="form-actions mt-1">
+                                  
+								<input type="submit" class="btn custom-smile-btn-success ml-2 mr-2" formaction="/addRecoveryDetailsList" value="Save"></input>
+							</div>
+							
+								<div class="form-group row">
+					</div>
+<div class="form-actions mt-1">
+								
+					
+					</div>
+					 
+					</div>
+                         
+                        </form>
+                        </br>
+                         <div class="form-actions mt-1">
+                      	<button type="submit" formaction="/addRecovery" class="btn custom-smile-btn-download ml-1 mr-1" form="f" id="addButton" value="add recovery details">
+						add recovery details</button >	
+						</div>												
+		<div class="card shadow mb-4 mt-2 border-left-danger" id="table1" style="display: none;">
+						<div class="card-body">
+									
+				<table class="table table-bordered table-striped " id="example1"
+					width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							
+								   <th class="text-center">Recovery Amount</th>
+                                            <th class="text-center">Date of Recovery</th>
+                                            <!-- <th class="text-center">Transaction Id</th> -->
+                                      
+                                            <th class="text-center">DCA Charge</th>
+                                            <!-- <th class="text-center">Is Recovery before Claim Settlement</th> -->
+                                            <th class="text-center">Remarks</th>
+								<th class="text-center">Operations</th>
+							
+							
+
+						</tr>
+					</thead>
+
+					 <tfoot>
+						<tr>
+							
+							 <th class="text-center">Recovery Amount</th>
+                                            <th class="text-center">Date of Recovery</th>
+                                            <!-- <th class="text-center">Transaction Id</th> -->
+                                            
+                                            <th class="text-center">DCA Charge</th>
+                                            <!-- <th class="text-center">Is Recovery before Claim Settlement</th> -->
+                                            <th class="text-center">Remarks</th>
+								<th class="text-center">Operations</th>
+							
+						
+
+						</tr>
+					</tfoot> 
+
+					<tbody>
+						
+							 <tr class="" th:each="recoveryDetailsList:${recoveryDetailsLists}">
+								  <td><center><span th:text="${recoveryDetailsList.recoveryAmount}"> Title </span>
+                                            </center> </td>
+                                            <td><center><span th:text="${#dates.format(recoveryDetailsList.dateOfRecovery, 'dd/MM/yyyy')}"> Title </span></center>
+                                            </td>
+                                           
+                                            <td><center><span th:text="${recoveryDetailsList.dcaCharge}"> Title </span></center>
+                                            </td>
+
+                                            <td><center><span th:text="${recoveryDetailsList.remarks}"> Title </span></center>
+							<td ><center>
+							
+									<a th:href="@{/edit/{id1}/{id}(id=${recoveryDetailsList.recoveryInstance},id1=${recoveryDetailsList.recoveryId})}" id="editButton"
+												data-toggle="modal" class="btn custom-smile-btn-verify mr-1 ml-1">
+												<i class="fas fa-edit "></i>
+											</a>
+											<a th:href="@{/view/{id1}/{id}(id=${recoveryDetailsList.recoveryInstance},id1=${recoveryDetailsList.recoveryId})}" id="viewButton"
+												data-toggle="modal" class="btn custom-smile-btn-verify mr-1 ml-1">
+												<i class="fas fa-eye "></i>
+											</a>
+											
+										
+							</center>
+							</td>
+							</tr>
+
+						
+
+					</tbody>
+				</table>
+				
+							</div>
+						
+							</div>
+							<!--start of modal related to add new record-->
+								<div class="modal fade" id="updateModal" role="dialog">
+			<form action="#" th:action="@{/newRecoveryDetails1}" th:object="${pebPolicyRecoveryDetailsBean}"
+						method="post">
+			<div class="modal-dialog modal-lg">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header bg-light">
+						<h4 class="modal-title custom-smile-form-header"
+							style="color: black;">Edit Recovery</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+										<div class="card card-body">
+									<div class="form-group row ml-1 mr-1">
+										
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Recovery Amount<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> <input id="RecoveryAmount" type="number" th:field="*{recoveryAmount}"
+                                                class="form-control" placeholder="Enter Recovery Amount"/>
+                                            <span th:errors="*{recoveryAmount}" style="color: red"
+                                                th:errorclass="form-field-error"></span>
+										</div>
+										 <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="custom-smile-form-label">Date Of Recovery<span
+                                                    class="text-danger">&nbsp;&nbsp;*</span></label> <input id="DateOfRecovery" type="date" th:field="*{dateOfRecovery}"
+                                                    class="form-control" placeholder="Enter Date Of Recovery"/>
+                                                <span th:errors="*{dateOfRecovery}" style="color: red"
+                                                    th:errorclass="form-field-error"></span>
+                                            </div>
+										
+										
+                                    </div>
+                                    	<div class="form-group row ml-1 mr-1">
+                                  
+												<div class="col-sm-6 mb-3 mb-sm-0" hidden="hidden">
+											<label class="custom-smile-form-label">Recovery Instance<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> <input type="number" th:field="*{recoveryInstance}" id="RecoveryInstance"
+                                                class="form-control" placeholder="Enter Recovery Amount"/>
+                                            <span th:errors="*{recoveryInstance}" style="color: red"
+                                                th:errorclass="form-field-error"></span>
+										</div>
+										  </div>
+                                        <div class="form-group row ml-1 mr-1">
+                                           
+                                            
+                                       
+                                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                                        <label class="custom-smile-form-label">DCA Charge<span
+                                                            class="text-danger">&nbsp;&nbsp;*</span></label> <input type="text" th:field="*{dcaCharge}" id="DcaCharge"
+                                                            class="form-control" placeholder="Enter DCA Charge"/>
+                                                        <span th:errors="*{dcaCharge}" style="color: red"
+                                                            th:errorclass="form-field-error"></span>
+                                                    </div>
+                                                     <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="custom-smile-form-label">Remarks<span
+                                            class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" id="Remarks" th:field="*{remarks}"
+                                            class="form-control"></textarea>
+                                              <span th:errors="*{remarks}" style="color: red"
+                                                            th:errorclass="form-field-error"></span>
+                                    </div>
+                                                    
+                                                </div>
+
+                                   
+                                <div class="form-group row ml-1 mr-1">
+                                   
+                                    
+                                </div>
+                              <div class="form-actions mt-1">
+								<input type="submit" class="btn btn-primary" value="Submit"></input>
+								
+							</div>
+					
+				</div>    
+						</div>
+					</div>
+					<!--end of modal body-->
+					
+					
+				<!--end of modal-content-->
+
+			</div>
+			</form>
+		</div>
+								<div class="modal fade" id="viewModal" role="dialog">
+			<form action="#" th:action="@{/newRecoveryDetails1}" th:object="${pebPolicyRecoveryDetailsBean}"
+						method="post">
+			<div class="modal-dialog modal-lg">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header bg-light">
+						<h4 class="modal-title custom-smile-form-header"
+							style="color: black;">View Recovery</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="card card-body">
+										<div class="form-group row ">
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Recovery Amount</label>
+												</div>
+												<div class="col-sm-3 mb-2 mb-sm-0">
+													<span id="RecoveryAmount2"></span>
+												
+												
+													</div>
+													
+											
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Date Of Recovery</label>
+												</div>
+												<div class="col-sm-3 mb-2 mb-sm-0">
+													<span id="DateOfRecovery2"></span>
+												
+												
+													</div>
+											</div>
+										
+							
+									
+                                  
+										<div class="form-group row ">
+										<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">DCA Charge</label>
+												
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<span id="DcaCharge2"></span>
+
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+											
+												<label class="custom-smile-view-label">Remarks</label>
+												
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+											
+											<span id="Remarks2"></span>
+
+											</div>
+
+										</div>
+                                       
+
+
+                             
+
+                                   
+                                             
+                                <div class="form-group row ml-1 mr-1">
+                                   
+                                    
+                                </div>
+                             
+					
+				</div>    
+						</div>
+					</div>
+					
+					<!--end of modal body-->
+					
+					
+				<!--end of modal-content-->
+
+			</div>
+			</form>
+		</div>
+		
+		<div class="modal fade" id="addModal" role="dialog">
+			<form action="#" th:action="@{/addRecoveryDetails}" th:object="${pebPolicyRecoveryDetailsBean1}"
+						method="post">
+			<div class="modal-dialog modal-lg">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header bg-light">
+						<h4 class="modal-title custom-smile-form-header"
+							style="color: black;">Add Recovery Details</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+					<div class="card card-body">					
+									<div class="form-group row ml-1 mr-1">
+										
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<label class="custom-smile-form-label">Recovery Amount<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> <input id="recoveryAmount1" type="number" th:field="*{recoveryAmount}"
+                                                class="form-control" placeholder="Enter Recovery Amount"/>
+                                            <span th:errors="*{recoveryAmount}" style="color: red"
+                                                th:errorclass="form-field-error"></span>
+										</div>
+										 <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="custom-smile-form-label">Date Of Recovery<span
+                                                    class="text-danger">&nbsp;&nbsp;*</span></label> <input id="dateOfRecovery1" type="date" th:field="*{dateOfRecovery}"
+                                                    class="form-control" placeholder="Enter Date Of Recovery"/>
+                                                <span th:errors="*{dateOfRecovery}" style="color: red"
+                                                    th:errorclass="form-field-error"></span>
+                                            </div>
+										
+										
+                                    </div>
+                                    	<div class="form-group row ml-1 mr-1">
+                                  
+												<div class="col-sm-6 mb-3 mb-sm-0" hidden="hidden">
+											<label class="custom-smile-form-label">Recovery Instance<span
+												class="text-danger">&nbsp;&nbsp;*</span></label> <input type="number" th:field="*{recoveryInstance}" id="recoveryInstance1"
+                                                class="form-control" placeholder="Enter Recovery Amount"/>
+                                            <span th:errors="*{recoveryInstance}" style="color: red"
+                                                th:errorclass="form-field-error"></span>
+										</div>
+										  </div>
+                                        <div class="form-group row ml-1 mr-1">
+                                           
+                                            
+                                       
+                                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                                        <label class="custom-smile-form-label">DCA Charge<span
+                                                            class="text-danger">&nbsp;&nbsp;*</span></label> <input type="text" th:field="*{dcaCharge}" id="dcaCharge1"
+                                                            class="form-control" placeholder="Enter DCA Charge"/>
+                                                        <span th:errors="*{dcaCharge}" style="color: red"
+                                                            th:errorclass="form-field-error"></span>
+                                                    </div>
+                                                     <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <label class="custom-smile-form-label">Remarks<span
+                                            class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" id="remarks1" th:field="*{remarks}"
+                                            class="form-control"></textarea>
+                                              <span th:errors="*{remarks}" style="color: red"
+                                                            th:errorclass="form-field-error"></span>
+                                            
+                                    </div>
+                                                    
+                                                </div>
+
+                                   
+                                <div class="form-group row ml-1 mr-1">
+                                   
+                                    
+                                </div>
+                                 
+						 <div class="form-actions mt-1">
+								<input type="submit" class="btn btn-primary" value="Submit"></input>
+								
+							</div>
+							</div>
+					</div>
+					<!--end of modal body-->
+					
+					
+					
+				</div>
+				<!--end of modal-content-->
+
+			</div>
+			</form>
+			
+		</div>
+		<!--end of modal-->
+							
+							
+							</div>
+							
+								
+									<div class="tab-pane" id="BlockedFundDetails">
+									<div class="card card-body">
+									<div class="form -group row"
+									th:if="${BlockedFundDetails== 'success'}"
+									id="divRegSuccess">
+									<div class="col-sm-5 mb-sm-0">
+										<div class="alert alert-success">BlockedFundDetails
+											Saved Successfully</div>
+									</div>
+								</div>
+								
+									 <form action="#" th:action="@{/addBlockedFundDetails}" th:object="${pebPolicyBlockedFundBean}"
+						method="post">
+							  <div class="form-group row ml-1 mr-1" id="blocdfund">
+                               
+                                <div class="col-sm-3 mb-3 mb-sm-0" >
+                                    <label class="custom-smile-form-label">Is Blocked Fund</label>
+                                    <div class="custom-radio custom-control ml-2 mr-2">
+                                        <input type="radio" th:field="*{IsBlockedFund}" id="chkYes1" onclick="ShowHideDiv1()"
+                                        value="Yes" class="custom-control-input">
+                                        <label class="custom-control-label" for="chkYes1">Yes</label>
+                                    </div>
+                                    <div class="custom-radio custom-control ml-2 mr-2">
+                                        <input type="radio" th:field="*{IsBlockedFund}" id="chkNo1" onclick="ShowHideDiv1()"
+                                        value="No" class="custom-control-input">
+                                        <label class="custom-control-label" for="chkNo1">No</label>
+                                    </div>
+                                    <span th:errors="*{IsBlockedFund}" style="color: red"
+                                    th:errorclass="form-field-error"></span>
+                                </div>
+                                  <div class="col-sm-3 mb-3 mb-sm-0">
+                                    <label class="custom-smile-form-label">Blocked Fund Date<span class="text-danger">&nbsp;*</span>
+                                    </label> <input type="date" th:field="*{blockedfundDate}"
+                                    class="form-control">
+                                <span th:errors="*{blockedfundDate}" style="color: red"
+                                    th:errorclass="form-field-error"></span>
+                                  </div>
+                                  <div class="col-sm-6 mb-3   mb-sm-0">
+                                    <label class="custom-smile-form-label">Blocked Fund Remarks<span
+                                        class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" th:field="*{remarks}"
+                                        class="form-control"></textarea>
+                                         <span th:errors="*{remarks}" style="color: red"
+                                                            th:errorclass="form-field-error"></span>
+                                </div>
+                            </div>
+                            	  <div class="form-group row ml-1 mr-1">
+                               
+                                
+                                                            
+                                  <div class="col-sm-12 mb-3 mb-sm-0">
+                                    <label class="custom-smile-form-label">Recommender Remarks<span
+                                        class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" th:field="*{recommenderRemarks}"
+                                        class="form-control"></textarea>
+                                         <span th:errors="*{recommenderRemarks}" style="color: red"
+                                                            th:errorclass="form-field-error"></span>
+                                </div>
+           
+           
+                            </div>
+                             	  <div class="form-group row ml-1 mr-1">
+                               
+                               
+                                  <div class="col-sm-12 mb-3 mb-sm-0">
+                                    <label class="custom-smile-form-label">Approver Remarks<span
+                                        class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" th:field="*{approverRemarks}"
+                                        class="form-control"></textarea>
+                                               <span th:errors="*{approverRemarks}" style="color: red"
+                                                            th:errorclass="form-field-error"></span>
+                                </div>
+                            </div>
+									<br>
+									<div class="form-group row">
+										<div class="col-sm-12 d-flex justify-content-center">		
+											<input type="submit" class="btn custom-smile-btn-success ml-2 mr-2" value="Save"></input></input>
+										
+							 		</div> 
+							 		
+									</div>
+									</div>
+									</form>
+								</div>
+							
+							
+									<div class="tab-pane" id="WriteOffDetails">
+									<div class="form -group row"
+									th:if="${WriteOffDetails== 'success'}"
+									id="divRegSuccess">
+									<div class="col-sm-5 mb-sm-0">
+										<div class="alert alert-success">WriteOff Details
+											Saved Successfully</div>
+									</div>
+								</div>
+								
+									<form action="#" th:action="@{/addWriteOffDetails}" th:object="${pebPolicyWriteOffBean}"
+						method="post">	
+<div class="card card-body">
+							  <div class="form-group row ml-1 mr-1">
+                               
+                                <div class="col-sm-3 mb-3 mb-sm-0"  >
+                                    <label class="custom-smile-form-label">Is Write-Off</label>
+                                            <div class="custom-radio custom-control ml-2 mr-2">
+                                                <input type="radio" th:field="*{IsWriteOff}" id="chkYes" onclick="ShowHideDiv()"
+                                                value="Yes" class="custom-control-input">
+                                                <label class="custom-control-label" for="chkYes">Yes</label>
+                                            </div>
+                                            <div class="custom-radio custom-control ml-2 mr-2">
+                                                <input type="radio" th:field="*{IsWriteOff}" id="chkNo" onclick="ShowHideDiv()"
+                                                value="No" class="custom-control-input">
+                                                <label class="custom-control-label" for="chkNo">No</label>
+                                            </div>
+                                            <span th:errors="*{IsWriteOff}" style="color: red"
+                                            th:errorclass="form-field-error"></span>
+                                </div>
+                                  <div class="col-sm-3 mb-3 mb-sm-0">
+                                      <label class="custom-smile-form-label">Write-Off Date<span class="text-danger">&nbsp;*</span>
+                                            </label> <input type="date" th:field="*{writeOffDate}"
+                                            class="form-control">
+                                        <span th:errors="*{writeOffDate}" style="color: red"
+                                            th:errorclass="form-field-error"></span>
+                                  </div>
+                                  <div class="col-sm-6 mb-3 mb-sm-0">
+                                   <label class="custom-smile-form-label">Write Off Remarks<span
+                                                class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" th:field="*{remarks}"
+                                                class="form-control"></textarea>
+                                                 <span th:errors="*{remarks}" style="color: red"
+                                            th:errorclass="form-field-error"></span>
+                                                
+                                </div>
+                            </div>
+									  <div class="form-group row ml-1 mr-1">
+                               
+                                                         
+                                  <div class="col-sm-12 mb-3 mb-sm-0">
+                                    <label class="custom-smile-form-label">Recommender Remarks<span
+                                        class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" th:field="*{recommenderRemarks}"
+                                        class="form-control"></textarea>
+                                         <span th:errors="*{recommenderRemarks}" style="color: red"
+                                            th:errorclass="form-field-error"></span>
+                                </div>
+           
+           
+                            </div>
+                             	  <div class="form-group row ml-1 mr-1">
+                               
+                                
+                             
+                                  <div class="col-sm-12 mb-3 mb-sm-0">
+                                    <label class="custom-smile-form-label">Approver Remarks<span
+                                        class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" th:field="*{approverRemarks}"
+                                        class="form-control"></textarea>
+                                         <span th:errors="*{approverRemarks}" style="color: red"
+                                            th:errorclass="form-field-error"></span>
+                                </div>
+                            </div>
+									<br>
+									<div class="form-group row">
+										<div class="col-sm-12 d-flex justify-content-center">		
+											<input type="submit" class="btn custom-smile-btn-success ml-2 mr-2" value="Save"></input>
+										
+							 		</div> 
+							 		
+									</div>
+									</div>
+									</form>
+								</div>
+
+
+						</div>
+</div>
+					</div>
+					<!--end of card body-->
+				</div>
+				<!-- ACTUAL BODY CONTENT -->
+
+			</div>
+		
+
+	</div>
+	
+	<th:block layout:fragment="scripts">	
+		<script type="text/javascript">
+		$(document).ready(function(){
+		/* 	$(window).scroll(function() {
+				  sessionStorage.scrollTop = $(this).scrollTop();
+				});
+
+		
+				  if (sessionStorage.scrollTop != "undefined") {
+				    $(window).scrollTop(sessionStorage.scrollTop);
+				  }
+				 */
+
+			
+			//alert("[[${activepage}]]");
+			//alert("[[${pebPolicyRecoveryMasterBean.claimNo}]]");
+			
+			$("#updateModal").modal();
+			$(" #submit1").on('click',function(event){	
+
+				event.preventDefault();
+				
+				var href=$(this).attr('href');
+				$.get(href,function(response,status){
+				
+					
+					
+				});
+				
+			});
+			if("[[${activepage}]]"=="WriteOffDetails")
+				{
+				document.getElementById(3).click();
+				}
+			else if("[[${activepage}]]"=="BlockedFundDetails")
+				{
+				document.getElementById(2).click();
+				}
+			else
+				{
+				document.getElementById(1).click();
+
+				}
+			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				  var target = $(e.target).attr("id") // activated tab
+					 
+				 
+				});
+			
+		var test=document.getElementById("claimno").value;
+
+			if(test>0)
+				{
+			 
+				}
+			else
+				{
+
+				document.getElementById(2).removeAttribute("data-toggle");
+				document.getElementById(3).removeAttribute("data-toggle");
+				}
+					
+			var checkTable = document.getElementById("table1");
+			var kchbhi=document.getElementById("example1").rows.length;
+			if(document.getElementById("example1").rows.length<=2)
+				{
+				checkTable.style.display = "none";
+					}
+			else
+				{
+				
+				checkTable.style.display = "block";
+				}
+			if("[[${showtable}]]"=="showtable")
+			{
+				document.getElementById("table1").scrollIntoView(true);
+			}
+			$('.table #editButton').on('click',function(event){	
+			
+				event.preventDefault();
+				debugger;
+				var href=$(this).attr('href');
+				$.get(href,function(response,status){
+					debugger;
+					
+					$("#RecoveryAmount").val(response.recoveryAmount);
+					var todayDate = new Date(response.dateOfRecovery).toISOString().slice(0,10);
+
+					$("#DateOfRecovery").val(todayDate);
+					$("#DcaCharge").val(response.dcaCharge);
+					$("#Remarks").val(response.remarks);
+					$("#RecoveryInstance").val(response.recoveryInstance);
+				});
+				$("#updateModal").modal();
+				
+			});
+			$('.table #viewButton').on('click',function(event){	
+				event.preventDefault();
+			//	debugger;
+				var href=$(this).attr('href');
+				$.get(href,function(response,status){
+					debugger;
+					
+					$("#RecoveryAmount2").text(response.recoveryAmount);
+					var todayDate = new Date(response.dateOfRecovery).toISOString().slice(0,10);
+					$("#DateOfRecovery2").text(todayDate);
+					$("#DcaCharge2").text(response.dcaCharge);
+					$("#Remarks2").text(response.remarks);
+				});
+				$("#viewModal").modal();
+				
+			});
+			 
+			$(" #addButton").on('click',function(event){	
+
+				event.preventDefault();
+				
+				var href=$(this).attr('href');
+				$.get(href,function(response,status){
+				
+					
+					$("#RecoveryAmount1").val(response.recoveryAmount);
+
+					$("#DateOfRecovery1").val(response.dateOfRecovery);
+					$("#DcaCharge1").val(response.dcaCharge);
+					$("#Remarks1").val(response.remarks);
+					$("#RecoveryInstance1").val(response.recoveryInstance);
+				});
+				$("#addModal").modal();
+				
+			});
+			 
+		});
+		</script>
+		<script type="text/javascript" th:src="@{/js/char-count.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.html5.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.print.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/pdfmake.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/vfs_fonts.js}"></script>
+		<script type="text/javascript" th:src="@{/js/exporttable.js}"></script>
+		<script type="text/javascript" th:src="@{/js/buttonbootstrap4.js}"></script>
+	<!-- Page level custom scripts --> 
+	
+
+	
+	</th:block>
+	
+</body>
+</html>

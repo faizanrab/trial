@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{BaseLayout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>Bank Details</title>
+<style>
+.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('/common/images/d-loading.gif') 50% 50% no-repeat
+		rgb(249, 249, 249);
+}
+
+.center {
+  margin: 20em auto;
+  width: 400px;
+}
+
+
+/*Change the size here*/
+div.tolltip-inner {
+    max-width: 1000px;
+}
+
+
+#viewPolicy {
+    position:centre;
+    
+   
+    background: transparent;
+    border: none !important;
+    width:91px;
+ 	 
+}
+</style>
+</head>
+<body>
+	<div id="page-wrapper" layout:fragment="content">
+
+		<br />
+		<nav aria-label="breadcrumb">
+			<ol class="custom-smile-breadcrumb-outer">
+				<li class="breadcrumb-item"><a href=""><font
+						class="custom-smile-breadcrumb-anchor">Home</font></a></li>
+				<li class="breadcrumb-item active" aria-current="page"><a
+					href=""><font class="custom-smile-breadcrumb-anchor">View
+							Proposal</font></a></li>		
+				<!-- <li class="breadcrumb-item active" aria-current="page"><a
+					href="/bankview"><font class="custom-smile-breadcrumb-anchor">Search
+							Proposal</font></a></li> -->
+				
+			</ol>
+		</nav>
+		<div class="row">
+			<div class="col-lg-12">
+
+				<!-------- Card  ------>
+
+				<div class="card shadow">
+					<div class="card-header custom-smile-view-header">View
+						Proposal</div>
+					<!-- ------ Card Body  ------	 -->
+					<div class="card-body">
+
+						<div class="row my-2">
+							<div class="col-lg-12 order-lg-2">
+								<ul class="nav nav-pills">
+									<li class="nav-item"><a id="1" data-toggle="tab"
+										href="#BasicProposalDetails" class="nav-link active">Basic
+											Proposal Details</a></li>
+									<li class="nav-item"><a data-toggle="tab" id="2"
+										href="#ScrutinyVerification1" class="nav-link">Scrutiny/Verification</a></li>
+									<li class="nav-item"><a id="3" data-toggle="tab"
+										href="#Exposure" class="nav-link">Exposure Norms</a></li>
+									<li class="nav-item"><a data-toggle="tab" id="4"
+										href="#Assessment2" class="nav-link">Assessment</a></li>
+									<li class="nav-item"><a id="5" data-toggle="tab"
+										href="#Miscllaneous3" class="nav-link">Miscelleneous</a></li>
+									<li class="nav-item"><a id="6" data-toggle="tab"
+										href="#Decision4" class="nav-link">Decision</a></li>
+								</ul>
+
+								<div class="tab-content py-4">
+									<div class="tab-pane active" id="BasicProposalDetails">
+										<div class="card card-body">
+
+											<div class="card section-border-left-primary mb-4 mt-3">
+
+												<!-- Card Content - Collapse -->
+												<div class="card-body">
+												<form th:object="${pebPolicyProposalBean}" >
+												
+												
+													<div class="form-group row ">
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Project
+																Id:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span th:text="${pebPolicyProposalBean.projectId}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Inward
+																Number :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span th:text="${pebPolicyProposalBean.inwardNumber}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Inward
+																Item No :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span th:text="${pebPolicyProposalBean.inwardItemNumber}"></span>
+														</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Proposal
+																Date :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span th:text="${#dates.format(pebPolicyProposalBean.proposalDate, 'dd-MM-yyyy')}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Contract
+																Value :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="${contractValue}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Product
+																Type :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<!-- <span th:text="${pebPolicyProposalBean.productId}"></span> -->
+															<div th:with="isType=${pebPolicyProposalBean.productId}">
+															  <span th:each="entry : ${productTypes}"
+															     th:if="${entry.key} == ${isType}">
+															     <span th:text="${entry.value}"></span>
+															</span>
+															</div>
+														</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Mode of
+																Payment :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="${pebPolicyProposalBean.modeOfPayment}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Instrument
+																Number :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="${pebPolicyProposalBean.instrumentNumber}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Instrument
+																Date :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="${#dates.format(pebPolicyProposalBean.instrumentDate, 'dd-MM-yyyy')}"></span>
+														</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Instrument
+																Amount :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="${pebPolicyProposalBean.instrumentAmount}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Processing
+																Fee Paid Amount :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="${pebPolicyProposalBean.processingFeePaidAmount}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Processing
+																Fee Paid Date :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="${#dates.format(pebPolicyProposalBean.processingFeePaidDate, 'dd-MM-yyyy')}"></span>
+														</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Bank Name
+																:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="${pebPolicyProposalBean.bankName}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Receipt No
+																:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="${pebPolicyProposalBean.receiptNumber}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Proposal
+																Status :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="${pebPolicyProposalBean.proposalStatus}"></span>
+														</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Tags :</label>
+														</div>
+														
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<div th:if= "${pebPolicyProposalBean.tags != ''}">
+																<span th:text="${pebPolicyProposalBean.tags}"></span>
+																<!-- <span th:text="${pebPolicyProposalBean.tags ne null} ? ${pebPolicyProposalBean.tags} : '(No Data Available!)'"></span> -->
+															</div>
+															<div th:if= "${pebPolicyProposalBean.tags == ''}">
+																<span>No Data Available</span>
+															</div>
+														</div>
+														
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Remarks :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<div th:if= "${pebPolicyProposalBean.remarks != ''}">
+																<span th:text="${pebPolicyProposalBean.remarks}"></span>
+																<!-- <span th:text="${pebPolicyProposalBean.tags ne null} ? ${pebPolicyProposalBean.tags} : '(No Data Available!)'"></span> -->
+															</div>
+															<div th:if= "${pebPolicyProposalBean.remarks == ''}">
+																<span>No Data Available</span>
+															</div>
+															
+														</div>
+													</div>
+													</form>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="ScrutinyVerification1">
+										<div class="card card-body">
+											<div class="card section-border-left-primary mb-4 mt-3">
+												<div class="card-header custom-smile-view-subsection-header">
+													Uploaded Documents</div>
+
+												<div class="card-body">
+											<th:block th:each="document : ${documentChecklist}">
+												<div class="form-group row">
+													<div class="custom-control custom-form-control-lg custom-checkbox col-sm-6">
+																<input type="checkbox"  th:field="*{pebPolicyProposalBean.documentCheckList}" id="customCheck1" name="docs" th:value="${document.id}" class="custom-control-input"   disabled="disabled">
+																<label class="custom-control-label" for="customCheck1" th:text="${document.documentName}"></label>
+																</div>
+													<div class="col-sm-6">
+														<button type="button"
+															class="btn custom-smile-btn-download ml-1 mr-1">
+															<i class="fas fa-cloud-download-alt"></i>Download
+														</button>
+													</div>
+												</div>
+											</th:block>
+												</div> 
+											</div>
+											<div class="card section-border-left-danger mb-4 mt-3">
+
+												<div class="card-body">
+													<div class="form-group row">
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Is
+																Exporter in SAL? :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span th:text="${pebPolicyProposalBean.isExporterInSAL}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Is Buyer
+																in BSAL? :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="${pebPolicyProposalBean.isBuyerInBSAL}"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<a href="#"><button type="button" class="btn btn-primary  btn-sm"><span class="text"> View Buyer Report</span></button></a>
+														</div>
+														<!-- <div class="col-sm-2 mb-2 mb-sm-0">
+															<a href="#" id="viewPan" class="btn btn-primary"> <i
+																class="fa fa-check-circle text-success"
+																aria-hidden="true"></i> View
+															</a>
+															
+														</div> --> 
+														
+													</div>
+
+												</div>
+
+											</div>
+										</div>
+										
+									</div>
+									<div class="tab-pane" id="Exposure">
+										<div class="card card-body">
+											<div class="card section-border-left-primary mb-4 mt-3">
+													<div class="card-header custom-smile-view-subsection-header">
+												Exposure Norms Details</div>
+												<div class="card-body">
+													<div class="form-group row">
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">NEIA Share Percentage :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span >90</span>
+														</div>
+														
+														
+													</div>
+													
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="Assessment2">
+									
+										<div class="card shadow mb-4 mt-2 border-left-primary">
+
+											
+											<!--card header-->
+											<div class="card-header custom-smile-form-header">List
+												Of Policy</div>
+											<!--end of card header-->
+
+
+											<div class="card-body">
+
+												<div th:if="${not #lists.isEmpty(allDummyPolicy)}">
+													<table class="table table-bordered table-striped "
+														id="example1" width="100%" cellspacing="0">
+														<thead>
+															<tr>
+																<th>Type</th>
+																<th>Transaction Type</th>
+																<th>Risk Type</th>
+																<th>Is Pre-shipment</th>
+																<th>Is Cross Country</th>
+																<th>View</th>
+																<!-- <th>Operation</th> -->
+															</tr>
+														</thead>
+
+														<tfoot>
+															<tr>
+																<th>Type</th>
+																<th>Transaction Type</th>
+																<th>Risk Type</th>
+																<th>Is Pre-shipment</th>
+																<th>Is Cross Country</th>
+																<th>View</th>
+																<!-- <th>Operation</th> -->
+															</tr>
+														</tfoot>
+
+														<tbody>
+															<tr th:each="policy : ${allDummyPolicy}">
+																<td>
+																	<div th:with="isType=${policy.isSupplyOrServiceOrBoth}">
+																		<span th:each="entry : ${typeOfWork}"
+																			th:if="${entry.key} == ${isType}"> <span
+																			th:text="${entry.value}"></span>
+																		</span>
+																	</div>
+																</td>
+																<td>
+																	<div th:with="transaction=${policy.transactionTypeId}">
+																		<span th:each="entry : ${transactionType}"
+																			th:if="${entry.key} == ${transaction}"> <span
+																			th:text="${entry.value}"></span>
+																		</span>
+																	</div>
+																</td>
+																<td>
+																	<div th:with="risk=${policy.riskTypeId}">
+																		<span th:each="entry : ${riskType}"
+																			th:if="${entry.key} == ${risk}"> <span
+																			th:text="${entry.value}"></span>
+																		</span>
+																	</div>
+																</td>
+																<td th:text="${policy.isPreshipmentRider}"></td>
+																<td th:text="${policy.isCrossCountry}"></td>
+																<!-- <td>
+								<a class="btn" data-toggle="modal"
+										th:attrappend="data-target-id=${policy.dummyPolicyNumber}"
+										data-target="#myModal"> 
+										<img th:src="@{/svg/view.svg}" height="26" width="26">
+								</a>
+							</td> -->
+						
+																
+																
+													<td><center><a class="btn text-primary"> <button id="viewPolicy" class="btn text-primary" th:onclick="|myFunction('${policy.dummyPolicyNumber}')|" type="button" ><i class="fas fa-eye fa-lg"></i>  
+									 				 </button></a></center></td>
+									 				<!--  <td><button  th:onclick="|myFunction('${policy.dummyPolicyNumber}')|" >View</button></td> -->
+									 				 
+									 				 </tr>
+
+														</tbody>
+													</table>
+												</div>
+												<span class="exportbuttons"> </span>
+												<!-- <span id="p1">Hello World!</span> -->
+												<!-- table responsive -->
+											</div>
+										<div id ="searchshow" class="loader" style="visibility: hidden;"></div>		
+										</div>
+		<!------------------------ Mine--------------------------------- -->
+
+			<div class="card-body"></div>
+										
+										
+										<!------------------------ Sections--------------------------------- -->
+										<h3 id="heading">Policy Details</h3>
+										<div id="assess" class="card section-border-left-danger mb-4 mt-3">
+									<div class="card-body" >
+										<!-- <div th:if="${not #lists.isEmpty(allDummyPolicy)}"> -->
+												
+												<div class="form-group row">
+												<!-- <p id="p2">second section!</p> -->
+														<div  class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Policy Type :</label>
+														</div>
+														<div  class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="pt"></span>
+															
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Transaction Type :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span id="tType"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Risk Type :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span id="rType"></span>
+														</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<label class="custom-smile-view-label">Loading % :</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<span id="loading"></span>
+													
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<label class="custom-smile-view-label">Advance Weightage:</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<span id="advanceW"></span>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<label class="custom-smile-view-label">Advance Paid Amount :</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<span id="advanceAmount"></span>
+												</div>		
+											</div>
+											<div class="form-group row">
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<label class="custom-smile-view-label">Advance Paid Date :</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<span id="advancePaidDate"></span>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<label class="custom-smile-view-label">Cover Value :</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<span id="coverValue"></span>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<label class="custom-smile-view-label">Cover % :</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<span id="coverP"></span>
+												</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<label class="custom-smile-view-label">NEIA Share % :</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<span id="neiaShareP"></span>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<label class="custom-smile-view-label">Maximum Liability :</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<span id="maximumLiability"></span>
+												</div>
+												
+											</div>
+											
+									</div>
+									</div>
+<div id="main" class="card section-border-left-primary mb-4 mt-3">
+											 <div class="card-header custom-smile-view-subsection-header">
+												Post Shipment Details</div>
+ 
+											<div class="card-body">
+											<div  id="h1"class="form-group row">
+												
+														<div  class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Policy Type :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="pt1"></span>
+															
+														</div>
+														
+											</div>
+											<div class="form-group row">
+												
+														
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Post Shipment Premium Rate :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span id="rate"></span>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Post Shipment Premium Amount :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span id="amount"></span>
+														</div>
+											</div>
+											<div class="form-group row">
+												
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Post Shipment Start Date :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id="postShipStartDate"></span>
+															
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Post Shipment End Date :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span id="postShipEndDate"></span>
+														</div>
+														
+											</div>
+											</div>
+										<!-- Modal ends here -->
+									</div>
+<div id="contract" class="card section-border-left-danger mb-4 mt-3">
+											 <div class="card-header custom-smile-view-subsection-header">
+												Contract Value Details</div>
+ 
+											<div class="card-body">
+											<div class="form-group row">
+												
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Local Contract Value:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="localContValue"></span>
+															
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Foreign Contract Value :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span id="foreignContValue"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Third Party Contract Value :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span id="thirdContValue"></span>
+														</div>
+											</div>
+											<div id="h2" class="form-group row">
+												
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Policy Type :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="pt2"></span>
+															
+														</div>
+														
+														
+											</div>
+											</div>
+										<!-- Modal ends here -->
+									</div>	
+
+<div id="preShipment" class="card section-border-left-primary mb-4 mt-3">
+											 <!-- <div class="card-header custom-smile-view-subsection-header">
+												Contract Value Details</div> -->
+ 
+											<div class="card-body">
+												<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Is Pre-shipment Cover Needed?:</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<span id="isPre"></span>
+													</div>
+											</div>
+											<div id="hpcr" class="form-group row">
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<label class="custom-smile-view-label">Policy Type:</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<span id="pt3"></span>
+												</div>			
+											</div>
+										</div>
+										<!-- Modal ends here -->
+									</div>	
+															
+<div id="preShipmentDetails" class="card section-border-left-danger mb-4 mt-3">
+											 <div class="card-header custom-smile-view-subsection-header">
+												Pre-Shipment Details</div>
+ 
+											<div class="card-body">
+												<div class="form-group row">
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Total Supply Value:</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<span id="totalSupply"></span>
+													</div>
+											
+												    <div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Pre Shipment Start Date :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<span id="preShipStartDate"></span>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Pre Shipment End Date :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<span id="preShipEndDate"></span>
+													</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<label class="custom-smile-view-label">Pre Shipment Premium Rate:</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<span id="preShipRate"></span>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<label class="custom-smile-view-label">Pre Shipment Premium Amount :</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<span id="preShipAmount"></span>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<label class="custom-smile-view-label">Pre Shipment Premium Discount :</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0">
+													<span id="preShipDiscount"></span>
+												</div>
+											</div>
+											<div id="hpsd" class="form-group row">
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<label class="custom-smile-view-label">Policy Type:</label>
+												</div>
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+													<span id="pt5"></span>
+												</div>
+											</div>
+										</div>
+										<!-- Modal ends here -->
+									</div>	
+<div id="preShipmentContractValueDetails" class="card section-border-left-primary mb-4 mt-3">
+											 <div class="card-header custom-smile-view-subsection-header">
+												Pre-Shipment Contract Value Details</div>
+ 
+											<div class="card-body">
+											<div class="form-group row">
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Local Contract Value:</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="localContract"></span>
+															
+														</div>
+											
+												    <div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Foreign Contract Value :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="foreignContract"></span>
+															
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Third Party Contract Value: :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span id="thirdContract"></span>
+														</div>
+													
+														
+											</div>
+											
+											<div id="hp" class="form-group row">
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Policy Type
+															:</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="pt6"></span>
+															
+														</div>
+											</div>
+											</div>
+										<!-- Modal ends here -->
+									</div>								
+<div id="crossCountry" class="card section-border-left-primary mb-4 mt-3">
+											 <!-- <div class="card-header custom-smile-view-subsection-header">
+												Contract Value Details</div> -->
+ 
+											<div class="card-body">
+											<div id="icc" class="form-group row">
+												
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Is Cross Country?:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="isCross"></span>
+															
+														</div>
+														
+														
+											</div>
+											<div id="hcross" class="form-group row">
+												
+														
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Policy Type :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="pt4"></span>
+															
+														</div>
+														
+											</div>
+											</div>
+										<!-- Modal ends here -->
+									</div>	
+<div id="crossCountryDetails" class="card section-border-left-primary mb-4 mt-3">
+											 <div class="card-header custom-smile-view-subsection-header">
+												Cross Country Details</div>
+ 
+											<div class="card-body">
+											<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Payment Country :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id="paymentCountry"></span>
+															
+														</div>
+											
+												    <div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Payment Country Rating :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id="paymentCountryRating"></span>
+															
+														</div>
+														
+											</div>
+											<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Funding Arrangement :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<span id="fundingArrangement"></span>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Funding Agency :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<span id="fundingAgency"></span>
+													</div>
+
+											</div>			
+											<div id="hcc" class="form-group row">
+												<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Policy Type
+															:</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id="pt7"></span>
+															
+														</div>
+											</div>
+											</div>
+										<!-- Modal ends here -->
+									</div>	
+<div id="currencyDetails" class="card section-border-left-danger mb-4 mt-3">
+											 <div class="card-header custom-smile-view-subsection-header">
+												Currency Details</div> 
+ 
+											<div class="card-body">
+											<div class="form-group row">
+												
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Local Currency Code:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="localCode"></span>
+															
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Local Exchange Rate :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="localExchange"></span>
+															
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Local Currency Value:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="localValue"></span>
+															
+														</div>
+														
+											</div>
+											<div class="form-group row">
+												
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Foreign Currency Code:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="foreignCode"></span>
+															
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Foreign Exchange Rate :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="foreignExchange"></span>
+															
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Foreign Currency Value:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="foreignValue"></span>
+															
+														</div>
+														
+											</div>
+											<div class="form-group row">
+												
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Third Party Currency Code:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="thirdCode"></span>
+															
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Third Party Exchange Rate :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="thirdExchange"></span>
+															
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Third Party Currency Value:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="thirdValue"></span>
+															
+														</div>
+														
+											</div>
+											<div id="hc" class="form-group row">
+												<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Policy Type
+															:</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="pt8"></span>
+															
+														</div>
+											</div>
+											</div>
+										<!-- Modal ends here -->
+									</div>	
+<div id="termsOfPaymentDetails" class="card section-border-left-primary mb-4 mt-3">
+											 <div class="card-header custom-smile-view-subsection-header">
+												Terms Of Payment Details</div>
+ 
+											<div id="top" class="card-body">
+											<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Duration of Down(in days) :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id="downD"></span>
+															
+														</div>
+											
+												    <div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Weightage of Down :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id="downW"></span>
+															
+														</div>
+														
+											</div>
+											<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Duration of Progress(in days) :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<span id="progressD"></span>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Weightage of PAC :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<span id="progressW"></span>
+													</div>
+
+											</div>
+											<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Duration of PAC(in months) :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<span id="pacD"></span>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Weightage of PAC :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<span id="pacW"></span>
+													</div>
+
+											</div>
+
+												<div class="form-group row">
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Duration
+																of FAC(in months) :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span id="facD"></span>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Weightage
+																of FAC :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span id="facW"></span>
+														</div>
+
+													</div>
+
+												<div id="ht" class="form-group row">
+													
+													
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Policy
+																Type :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id="pt9"></span>
+
+														</div>
+													
+												</div>
+												<!-- Modal ends here -->
+									</div>	
+									</div>	
+<div id="moratorium" class="card section-border-left-danger mb-4 mt-3">
+											 <div class="card-header custom-smile-view-subsection-header">
+												Moratorium Details</div>
+ 
+											<div class="card-body">
+											<div class="form-group row">
+												
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Moratorium Period(in Months):</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="moratoriumP"></span>
+															
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">No of Installments :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span id="installmentsNo"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Frequency of Installments(in Months):</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span id="installmentsFrequency"></span>
+														</div>
+											</div>
+											<div id="hi" class="form-group row">
+												
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Policy Type :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="pt10"></span>
+															
+														</div>
+														
+														
+											</div>
+											</div>
+										<!-- Modal ends here -->
+									</div>	
+<div id="InstallmentFacility" class="card section-border-left-primary mb-4 mt-3">
+											 <!-- <div class="card-header custom-smile-view-subsection-header">
+												Contract Value Details</div> -->
+ 
+											<div class="card-body">
+											<div class="form-group row">
+												
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Is Installment facility Needed?:</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id="isInstall"></span>
+															
+														</div>
+														
+														
+														
+											</div>
+											<div id="hif" class="form-group row">
+												
+														
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Policy Type
+															:</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<span id="pt11"></span>
+
+													</div>	
+														
+														
+											</div>
+											
+											</div>
+										<!-- Modal ends here -->
+									</div>	
+<div id="defferedSchedule" class="card section-border-left-danger mb-4 mt-3">
+											 <div class="card-header custom-smile-view-subsection-header">
+												Deffered Payment Schedule Details</div>
+	
+											<div id="deffD" class="card-body">
+											<!-- <div id="layerTable" class="table table-bordered" ></div> -->	
+																					
+  <table id="myTable" border="1" class="table table-bordered table-striped " width="100%" cellspacing="0"></table>
+											<div id="deff" class="form-group row">
+												
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Date of payment:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="amountDate"></span>
+															
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Amount to be paid:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span id="amountDeff"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Remarks :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span id="remarksDeff"></span>
+														</div>
+											</div>
+											<div id="hd" class="form-group row">
+												
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Policy Type :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span id="pt12"></span>
+															
+														</div>
+														
+														
+											</div>
+											</div>
+										<!-- Modal ends here -->
+									</div>									
+<div id="remarks" class="card section-border-left-primary mb-4 mt-3">
+											 <!-- <div class="card-header custom-smile-view-subsection-header">
+												Contract Value Details</div>  -->
+ 
+											<div class="card-body">
+											
+											<div id="hr" class="form-group row">
+												<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Policy type :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<span id="pt13"></span>
+
+													</div>
+											</div>
+											<div class="form-group row">
+												<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Tags :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<span id="t"></span>
+
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Remarks :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<span id="r"></span>
+
+													</div>
+											</div>
+											</div>
+										<!-- Modal ends here -->
+									</div>																		
+																								
+										<!-- <div class="modal fade" id="viewPolicyModal" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalLongTitle"
+											aria-hidden="true">
+											<div class="modal-dialog modal-lg" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">View
+															Policy</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<div class="card card-body">
+											<div class="card section-border-left-primary mb-4 mt-3">
+
+												<div class="card-body">
+													<div class="form-group row">
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Policy Type :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id="text"></span>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Transaction Type :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span th:text="www.sbi.com"></span>
+														</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Risk Type :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span th:text="active"></span>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Loading Percentage :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id=""></span>
+														</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Advance Weightage:</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span th:text="www"></span>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Advance Paid Amount :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span th:text="active"></span>
+														</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Advance Paid Date :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id=""></span>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Maximum Liabiltiy :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span th:text="www.sbi.com"></span>
+														</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Cover Value :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span th:text="active"></span>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">NEIA Share Percentage :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span id="text"></span>
+														</div>
+													</div>
+
+												</div>
+
+											</div>
+											<div class="card section-border-left-primary mb-4 mt-3">
+												<div class="card-header custom-smile-view-subsection-header">
+													Post Shipment Details</div>
+
+												<div class="card-body">
+													<div class="form-group row">
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Post Shipment Start Date :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span th:text="002"></span>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Post Shipment End Date :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span th:text="www.sbi.com"></span>
+														</div>
+													</div>
+													<div class="form-group row">
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Post Shipment Premium Rate :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span th:text="002"></span>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Post Shipment Premium Amount :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span th:text="www.sbi.com"></span>
+														</div>
+													</div>
+
+												</div>
+
+											</div>
+											<div class="card section-border-left-primary mb-4 mt-3">
+												<div class="card-header custom-smile-view-subsection-header">
+													contract Value</div>
+
+												<div class="card-body">
+													<div class="form-group row">
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Local Contract Value:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="002"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ml-1">
+															<label class="custom-smile-view-label">Foreign Contract Value :</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0">
+															<span th:text="www.sbi.com"></span>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Third Party Contract Value:</label>
+														</div>
+														<div class="col-sm-2 mb-2 mb-sm-0 ">
+															<span th:text="2"></span>
+														</div>
+													</div>
+													</div>
+
+											</div>
+										</div>
+													</div>
+
+												</div>
+											</div>
+										</div> -->
+										<!-- Modal ends here -->
+									</div>
+									
+									<div class="tab-pane" id="Miscllaneous3">
+										<div class="card card-body">
+											<div class="card section-border-left-primary mb-4 mt-3">
+
+												<div class="card-body">
+													<div class="form-group row">
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<label class="custom-smile-view-label">Total
+																Premium amount :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0 ">
+															<span th:text="${pebPolicyProposalBean.totalPremiumAmount}"></span>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Discount
+																Score :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span th:text="${pebPolicyProposalBean.discountScore}"></span>
+														</div>
+														
+													</div>
+													<div class="form-group row ">
+													<div class="col-sm-3 mb-2 mb-sm-0">
+															<label class="custom-smile-view-label">Discount
+																Percentage :</label>
+														</div>
+														<div class="col-sm-3 mb-2 mb-sm-0">
+															<span th:text="${pebPolicyProposalBean.discountPercentage}"></span>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane" id="Decision4">
+									<div class="card section-border-left-primary mb-4 mt-3">
+											<div class="card-header custom-smile-view-subsection-header">
+												Comments/Recommendations</div>
+
+											<div class="card-body">
+												<div class="form-group row">
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">PO Comments :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<!-- <div th:if= "${pebPolicyProposalBean.processingOfficerComments != ''}"> -->
+														<textArea id="p" rows="5" cols="95" readonly>Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.</textArea>
+														<!-- </div> -->		
+												<!-- <div th:if= "${pebPolicyProposalBean.processingOfficerComments == ''}">
+																<span>No Data Available</span>
+															</div> -->
+													<!-- 	 <a href="#" rel="tooltip" title='Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.'  >Hover</a> -->								</div>
+													<!-- <div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Commented On :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<span th:text="${#dates.format(pebPolicyProposalBean.ecgcDecisionDate, 'dd-MM-yyyy')}"></span>
+													</div> -->
+													
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Commented On :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<span>15-10-2020</span>
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Observer Comments :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0">
+													<!-- <textArea id="p" rows="5" cols="95" readonly>Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.Paragraphs are the building blocks of papers. Many students define paragraphs in terms of length: a paragraph is a group of at least five sentences, a paragraph is half a page long, etc. In reality, though, the unity and coherence of ideas among sentences is what constitutes a paragraph. A paragraph is defined as “a group of sentences or a single sentence that forms a unit” (Lunsford and Connors 116). Length and appearance do not determine whether a section in a paper is a paragraph. For instance, in some styles of writing, particularly journalistic styles, a paragraph can be just one sentence long. Ultimately, a paragraph is a sentence or group of sentences that support one main idea. In this handout, we will refer to this as the “controlling idea,” because it controls what happens in the rest of the paragraph.</textArea>
+													
+														 -->
+														<div th:if= "${pebPolicyProposalBean.observerComments != ''}"> 
+														 <textArea  rows="5" cols="95" readonly th:text="${pebPolicyProposalBean.observerComments}"></textArea>
+														</div>
+														<div th:if= "${pebPolicyProposalBean.observerComments == ''}">
+																<span>No Data Available</span>
+														</div>
+													
+													</div>
+												</div>	
+												<div class="form-group row">
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Commented On :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<span th:text="${#dates.format(pebPolicyProposalBean.observerCommentedDate, 'dd-MM-yyyy')}"></span>
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Recommender Comments :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0 ">
+														<div th:if= "${pebPolicyProposalBean.recommenderComments != ''}">
+														<textArea  rows="5" cols="95" readonly th:text="${pebPolicyProposalBean.recommenderComments}"></textArea>
+														</div>
+														<div th:if= "${pebPolicyProposalBean.recommenderComments == ''}">
+																<span>No Data Available</span>
+														</div>
+													
+													</div>
+												</div>	
+												<div class="form-group row">
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">Commented On :</label>
+													</div>
+													<div class="col-sm-2 mb-2 mb-sm-0">
+														<span th:text="${#dates.format(pebPolicyProposalBean.recommenderCommentedDate, 'dd-MM-yyyy')}"></span>
+													</div>
+													
+												</div>
+											</div>
+
+										</div>
+									
+									
+									
+										<div class="card section-border-left-danger mb-4 mt-3">
+											<div class="card-header custom-smile-view-subsection-header">
+												ECGC Decision</div>
+
+											<div class="card-body">
+												<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Decision by
+															ECGC :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<span th:text="${pebPolicyProposalBean.ecgcDecision}"></span>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">
+															Decision Date :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<span th:text="${#dates.format(pebPolicyProposalBean.ecgcDecisionDate, 'dd-MM-yyyy')}"></span>
+													</div>
+
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">CA
+															Remarks :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+													<div th:if= "${pebPolicyProposalBean.ecgcRemarks != ''}">
+																<span th:text="${pebPolicyProposalBean.ecgcRemarks}"></span>
+																<!-- <span th:text="${pebPolicyProposalBean.tags ne null} ? ${pebPolicyProposalBean.tags} : '(No Data Available!)'"></span> -->
+															</div>
+															<div th:if= "${pebPolicyProposalBean.ecgcRemarks == ''}">
+																<span>No Data Available</span>
+															</div>
+														
+														
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">CA
+															Recommendations :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<div th:if= "${pebPolicyProposalBean.ecgcRecommendation != null}">
+																<span th:text="${pebPolicyProposalBean.ecgcRecommendation}"></span>
+																<!-- <span th:text="${pebPolicyProposalBean.tags ne null} ? ${pebPolicyProposalBean.tags} : '(No Data Available!)'"></span> -->
+															</div>
+															<div th:if= "${pebPolicyProposalBean.ecgcRecommendation == null}">
+																<span>No Data Available</span>
+															</div>
+													</div>
+												</div>
+
+											</div>
+
+										</div>
+										<div class="card section-border-left-primary mb-4 mt-3">
+											<div class="card-header custom-smile-view-subsection-header">
+												COD Decision</div>
+
+											<div class="card-body">
+												<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">Decision by
+															COD :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<span th:text="${pebPolicyProposalBean.codDecision}"></span>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">
+															Decision Date :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<span th:text="${#dates.format(pebPolicyProposalBean.codDecisionDate, 'dd-MM-yyyy')}"></span>
+													</div>
+													
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">COD Remarks
+															:</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<div th:if= "${pebPolicyProposalBean.codRemarks != ''}">
+																<span th:text="${pebPolicyProposalBean.codRemarks}"></span>
+																<!-- <span th:text="${pebPolicyProposalBean.tags ne null} ? ${pebPolicyProposalBean.tags} : '(No Data Available!)'"></span> -->
+															</div>
+															<div th:if= "${pebPolicyProposalBean.codRemarks == ''}">
+																<span>No Data Available</span>
+															</div>
+														
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<label class="custom-smile-view-label">COD
+															Recommendations :</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<div th:if= "${pebPolicyProposalBean.codRecommendation != null}">
+																<span th:text="${pebPolicyProposalBean.codRecommendation}"></span>
+																<!-- <span th:text="${pebPolicyProposalBean.tags ne null} ? ${pebPolicyProposalBean.tags} : '(No Data Available!)'"></span> -->
+															</div>
+															<div th:if= "${pebPolicyProposalBean.codRecommendation == null}">
+																<span>No Data Available</span>
+															</div>
+														
+													</div>
+													</div>
+													
+													<div class="form-group row">
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<label class="custom-smile-view-label">COD Meeting Date
+															:</label>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0">
+														<span th:text="${#dates.format(pebPolicyProposalBean.codMeetingDate, 'dd-MM-yyyy')}"></span>
+													</div>
+													<div class="col-sm-3 mb-2 mb-sm-0 ">
+														<a href="#"><button type="button" class="btn btn-primary  btn-sm"><span class="text"> View Agenda</span></button></a>
+													</div>
+													</div>
+													
+													</div>
+												</div>
+												<a th:href="@{/listProposal}" class="btn custom-smile-btn-back col-2 offset-5">
+					<span class="icon"> <i class="fas fa-angle-double-left mr-1 ml-1"></i></span> 
+					<span class="text">Back</span>
+				</a>
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+							</div>
+							
+							<!-- col-lg-12 -->
+						</div>
+					</div>
+					<!-- row -->
+
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<th:block layout:fragment="scripts">
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.html5.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.print.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/pdfmake.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/vfs_fonts.js}"></script>
+		<script type="text/javascript" th:src="@{/js/exporttable.js}"></script>
+		<script type="text/javascript" th:src="@{/js/buttonbootstrap4.js}"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			 $('#assess').css('visibility', 'hidden');
+			 $('#viewAssess').css('visibility', 'hidden');
+			 $('#main').css('visibility', 'hidden');
+			 $('#searchshow').css('visibility', 'hidden');
+			 $('#contract').css('visibility', 'hidden');
+			 $('#preShipment').css('visibility', 'hidden');
+			 $('#crossCountry').css('visibility', 'hidden');
+			 $('#preShipmentDetails').css('visibility', 'hidden');
+			 $('#preShipmentContractValueDetails').css('visibility', 'hidden');
+			 $('#crossCountry').css('visibility', 'hidden');
+			 $('#crossCountryDetails').css('visibility', 'hidden'); 
+			 $('#currencyDetails').css('visibility', 'hidden');
+			 $('#termsOfPaymentDetails').css('visibility', 'hidden');
+			 $('#moratorium').css('visibility', 'hidden');
+			 $('#defferedSchedule').css('visibility', 'hidden');
+			 $('#InstallmentFacility').css('visibility', 'hidden');
+			 $('#remarks').css('visibility', 'hidden');
+			 $('#heading').css('visibility', 'hidden'); 
+			 
+			  /*  $("a").tooltip({
+				    'selector': '',
+				    'placement': 'top',
+				    'container':'body'
+				  }); */
+			  
+			  $('.table #viewButton').on('click',function(event)
+						{	
+							 event.preventDefault();
+							 $('#searchshow').css('visibility', 'visible');
+							 $('.loader').fadeOut(1000);
+							 $('#assess').css('visibility', 'visible');
+							 $('#viewAssess').css('visibility', 'visible');
+							 $('#main').css('visibility', 'visible');
+							 $('#contract').css('visibility', 'visible');
+							 $('#preShipment').css('visibility', 'visible');
+							 //$('#preShipmentDetails').css('visibility', 'visible');
+							 //$('#preShipmentContractValueDetails').css('visibility', 'visible');
+							 $('#crossCountry').css('visibility', 'visible');
+							 $('#crossCountryDetails').show();
+				 
+					var href=$(this).attr('href');
+					$.get(href,function(response,status){
+						});
+			}); 
+			
+		});
+		
+		//$('.auto-tooltip').tooltip();
+		
+		function myFunction(x) {
+			$('#searchshow').css('visibility', 'visible');
+			 $('.loader').fadeOut(1000);
+			$('#assess').css('visibility', 'visible');
+			 $('#viewAssess').css('visibility', 'visible');
+			 $('#main').css('visibility', 'visible');
+			 $('#contract').css('visibility', 'visible');
+			 $('#preShipment').css('visibility', 'visible');
+			 $('#preShipmentDetails').css('visibility', 'visible');
+			 $('#preShipmentContractValueDetails').css('visibility', 'visible');
+			 $('#crossCountry').css('visibility', 'visible');
+			 $('#crossCountryDetails').css('visibility', 'visible');
+			 $('#termsOfPaymentDetails').css('visibility', 'visible');
+			 $('#moratorium').css('visibility', 'visible');
+			 $('#InstallmentFacility').css('visibility', 'visible');
+			 $('#remarks').css('visibility', 'visible');
+			 $('#defferedSchedule').css('visibility', 'visible');
+			 $('#currencyDetails').css('visibility', 'visible');
+			 $('#heading').css('visibility', 'visible'); 
+			// $('#preShipment').show();
+			// $('#preShipmentDetails').show();
+			// $('#preShipmentContractValueDetails').show();
+			// $('#crossCountryDetails').show();
+			var z= parseFloat(x);
+			var b= /*[[${allDummyPolicy}]]*/ "test";
+			//alert(b);	
+			 var data = {}
+			/* $.ajax({
+				type : "GET",
+				contentType : "application/json",
+				 url : "http://localhost:8888/getDummyPolicy", 
+				//url : "/getDummyPolicy"
+				//data : JSON.stringify(data),
+				data : {z} ,
+				//dataType : 'json',
+				timeout : 100000,
+				success : function(data) {
+					console.log("SUCCESS: ", data);
+					//display(data);
+				},
+				error : function(e) {
+					console.log("ERROR: ", e);
+					//display(e);
+				},
+				done : function(e) {
+					console.log("DONE");
+				}
+			}); */ 
+			
+			 $.getJSON("http://localhost:8888/getDummyPolicy", {dummyPolicyId:z}, function (data) { 
+				
+			 	if(data.policyDeferredPaymentScheduleDetails!= null)
+			 	{ var table = document.getElementById('myTable'); 
+				//alert("table:"+JSON.stringify(table));
+				if(table==null){
+					alert("null table");
+					table = document.createElement('table');
+					//table.setAttribute('class',"table table-bordered");
+					//table.setAttribute('class',"table table-striped deferredPaymentSchedule");
+					//table.setAttribute('border',1);
+					//table.setAttribute('id',"myTable");
+					//$("#myTable").addClass("table table-striped deferredPaymentSchedule");
+				}
+				//document.getElementById("layerTable").setAttribute('class',"table table-bordered");
+				 var header = table.createTHead();
+				  var row = header.insertRow(0);
+				  var cell0 = row.insertCell(0);
+				  var cell1 = row.insertCell(1);
+				  var cell2 = row.insertCell(2);
+				  cell0.innerHTML = "<b>Date Of Payment</b>";
+				  cell1.innerHTML = "<b>Amount To Be Paid</b>";
+				  cell2.innerHTML = "<b>Remarks</b>";
+				  header.setAttribute('class',"thead-dark");
+				  var arrHead = new Array();
+				  arrHead = ['Date Of Payment', 'Amount To Be Paid', 'Remarks'];
+			      for (var index = 0; index < data.policyDeferredPaymentScheduleDetails.length; index++){
+					   //alert("In for:"+data.policyDeferredPaymentScheduleDetails[index].amountToBePaid);
+					     var tr = document.createElement('tr');   
+					   	 var td = document.createElement('td');
+				    	 var text1 = document.createElement('span');
+				 	     text1.innerHTML = convertDate(data.policyDeferredPaymentScheduleDetails[index].dateOfPaymentToBeDone);
+				 	     text1.setAttribute('readonly', true); 
+				 	     var td1 = document.createElement('td');
+				 	     var text2 = document.createElement('span');
+				 	     text2.innerHTML = data.policyDeferredPaymentScheduleDetails[index].amountToBePaid;
+				 	     text2.setAttribute('readonly', true);
+				 	     var td2 = document.createElement('td');
+				 	     var text3 = document.createElement('span');
+				 	     text3.innerHTML = data.policyDeferredPaymentScheduleDetails[index].remarks;
+				 	     text3.setAttribute('readonly', true);
+	 	  				 td.appendChild(text1);
+						 td1.appendChild(text2);
+						 td2.appendChild(text3);
+						 tr.appendChild(td);
+						 tr.appendChild(td1);
+						 tr.appendChild(td2);
+						 table.appendChild(tr);
+									}
+				    rowCount = $('#myTable tr').length;}
+				  function convertDate(inputFormat) {
+										function pad(s) {
+											//alert("s:"+s);
+											return (s < 10) ? '0' + s : s;
+										}
+										var d = new Date(inputFormat)
+										//alert("d:"+d);
+										return [ pad(d.getDate()),
+												pad(d.getMonth() + 1),
+												d.getFullYear() ].join('-')
+									}
+
+					if (data.isPreshipmentRider == null || data.isPreshipmentRider == "No") 
+					{
+						// $('#preShipment').css('visibility', 'hidden');
+						//$('#preShipment').hide();
+						$('#preShipmentDetails').hide();
+						$('#preShipmentContractValueDetails').hide();
+					}
+					if (data.isCrossCountry == null || data.isCrossCountry == "No")
+					{
+						//$('#crossCountry').hide();
+						//$('#icc').hide();
+						$('#crossCountryDetails').hide();
+
+					}
+
+					if (data.policyDeferredPaymentScheduleDetails== null || data.isInstallmentFacility == null || data.isInstallmentFacility == "No")
+					{
+						//$('#InstallmentFacility').hide();
+						$('#defferedSchedule').hide();
+					}
+			 				
+					document.getElementById("pt").innerHTML = data.transactionTypeId;
+					document.getElementById("pt1").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt2").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt3").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt4").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt5").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt6").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt7").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt8").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt9").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt10").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt11").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt13").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById("pt12").innerHTML = data.isSupplyOrServiceOrBoth;
+					document.getElementById('tType').innerHTML = data.transactionTypeId;
+					document.getElementById('rType').innerHTML = data.riskTypeId;
+					document.getElementById('loading').innerHTML = data.loadingPercentage;
+					document.getElementById('advanceW').innerHTML = data.advanceWeightage;
+					document.getElementById('advanceAmount').innerHTML = data.advancePaidAmount;
+					document.getElementById('advancePaidDate').innerHTML = convertDate(data.advancePaidDate);
+					document.getElementById('coverValue').innerHTML = data.coverValue;
+					document.getElementById('coverP').innerHTML = data.coverPercentage;
+					document.getElementById('neiaShareP').innerHTML = data.neiaSharePercentage;
+					document.getElementById('maximumLiability').innerHTML = data.maximumLiability;
+					document.getElementById('rate').innerHTML = data.postShipmentPremiumRate;
+					document.getElementById('amount').innerHTML = data.postShipmentPremiumAmount;
+					//document.getElementById('postShipStartDate').innerHTML = convertDate(data.postShipmentStartDate);
+					//document.getElementById('postShipEndDate').innerHTML = convertDate(data.postShipmentEndDate);
+					if(data.postShipmentStartDate == null)	
+					{document.getElementById('postShipStartDate').innerHTML = "No data available."}
+					else
+					{
+						document.getElementById('postShipStartDate').innerHTML = convertDate(data.postShipmentStartDate);				
+					}
+					if(data.postShipmentEndDate == null)	
+					{document.getElementById('postShipEndDate').innerHTML = "No data available."}
+					else
+					{
+						document.getElementById('postShipEndDate').innerHTML = convertDate(data.postShipmentEndDate);						
+					}
+					document.getElementById('localContValue').innerHTML = data.contractValueLocal;
+					document.getElementById('foreignContValue').innerHTML = data.contractValueForeign;
+					document.getElementById('thirdContValue').innerHTML = data.contractValueThirdParty;
+					document.getElementById('totalSupply').innerHTML = data.totalSupplyValue;
+					document.getElementById('preShipStartDate').innerHTML = convertDate(data.preShipmentStartDate);
+					document.getElementById('preShipEndDate').innerHTML = convertDate(data.preShipmentEndDate);
+					document.getElementById('preShipRate').innerHTML = data.preShipmentPremiumRate;
+					document.getElementById('preShipAmount').innerHTML = data.preShipmentPremiumAmount;
+					document.getElementById('preShipDiscount').innerHTML = data.preShipmentDiscount;
+					document.getElementById('localContract').innerHTML = data.preShipmentContractValueLocal;
+					document.getElementById('foreignContract').innerHTML = data.preShipmentContractValueForeign;
+					document.getElementById('thirdContract').innerHTML = data.preShipmentContractValueThirdParty;
+					document.getElementById('isPre').innerHTML = data.isPreshipmentRider;
+					document.getElementById('isCross').innerHTML = data.isCrossCountry;
+					document.getElementById('isInstall').innerHTML = data.isInstallmentFacility;
+					document.getElementById('paymentCountry').innerHTML = data.paymentCountry;
+					document.getElementById('paymentCountryRating').innerHTML = data.paymentCountryRating;
+					document.getElementById('fundingArrangement').innerHTML = data.fundingArrangement;
+					document.getElementById('fundingAgency').innerHTML = data.fundingAgencyName;
+					document.getElementById('localCode').innerHTML = data.pebPolicyDummyCurrencyDetails.currencyCodeLocal;
+					document.getElementById('localExchange').innerHTML = data.pebPolicyDummyCurrencyDetails.exchangeRateLocal;
+					document.getElementById('localValue').innerHTML = data.pebPolicyDummyCurrencyDetails.localValue;
+					document.getElementById('foreignCode').innerHTML = data.pebPolicyDummyCurrencyDetails.currencyCodeForeign;
+					document.getElementById('foreignExchange').innerHTML = data.pebPolicyDummyCurrencyDetails.exchangeRateForeign;
+					document.getElementById('foreignValue').innerHTML = data.pebPolicyDummyCurrencyDetails.foreignValue;
+					document.getElementById('thirdCode').innerHTML = data.pebPolicyDummyCurrencyDetails.currencyCodeThirdParty;
+					document.getElementById('thirdExchange').innerHTML = data.pebPolicyDummyCurrencyDetails.exchangeRateThirdParty;
+					document.getElementById('thirdValue').innerHTML = data.pebPolicyDummyCurrencyDetails.thirdPartyValue;
+					document.getElementById('downD').innerHTML = data.paymentTenureDetails.downTenureValue;
+					document.getElementById('downW').innerHTML = data.paymentWeightageDetails.downWeightageValue;
+					document.getElementById('progressD').innerHTML = data.paymentTenureDetails.progressTenureValue;
+					document.getElementById('progressW').innerHTML = data.paymentWeightageDetails.progressWeightageValue;
+					document.getElementById('pacD').innerHTML = data.paymentTenureDetails.pacTenureValue;
+					document.getElementById('pacW').innerHTML = data.paymentWeightageDetails.pacWeightageValue;
+					document.getElementById('facD').innerHTML = data.paymentTenureDetails.facTenureValue;
+					document.getElementById('facW').innerHTML = data.paymentWeightageDetails.facWeightageValue;
+					if(data.moratoriumPeriod == null)	
+					{document.getElementById('moratoriumP').innerHTML = "No data available."}
+					else
+					{
+						document.getElementById('moratoriumP').innerHTML = data.moratoriumPeriod;					
+					}	
+					
+					if(data.moratoriumNumberOfInstallment != null)
+					{document.getElementById('installmentsNo').innerHTML = data.moratoriumNumberOfInstallment;}
+					else
+					{document.getElementById('installmentsNo').innerHTML = "No data available."}
+					
+					if(data.moratoriumFreqOfInstallment == null)	
+					{document.getElementById('installmentsFrequency').innerHTML= "No data available."}
+					else
+					{
+						document.getElementById('installmentsFrequency').innerHTML = data.moratoriumFreqOfInstallment;			
+					}
+					if(data.tags == "")	
+					{document.getElementById('t').innerHTML = "No data available."}
+					else
+					{
+						document.getElementById('t').innerHTML = data.tags;					
+					}
+					
+					if(data.remarks == "")	
+					{document.getElementById('r').innerHTML = "No data available."}
+					else
+					{
+						document.getElementById('r').innerHTML = data.remarks;					
+					}
+					/* for (index = 0; index < data.policyDeferredPaymentScheduleDetails.length; index++) {
+						console.log("r::"
+										+ data.policyDeferredPaymentScheduleDetails[index].remarks);
+
+						document.getElementById('amountDate').innerHTML = convertDate(data.policyDeferredPaymentScheduleDetails[index].dateOfPaymentToBeDone);
+						document.getElementById('amountDeff').innerHTML = data.policyDeferredPaymentScheduleDetails[index].amountToBePaid;
+						document.getElementById('remarksDeff').innerHTML = data.policyDeferredPaymentScheduleDetails[index].remarks
+					}  */
+					//document.getElementById('amountDeff').innerHTML = data.policyDeferredPaymentScheduleDetails[0].amountToBePaid;
+					//document.getElementById('amountDate').innerHTML = convertDate(data.policyDeferredPaymentScheduleDetails.dateOfPaymentToBeDone);
+
+					document.getElementById("h1").style.display = 'none';
+					document.getElementById("h2").style.display = 'none';
+					document.getElementById("hr").style.display = 'none';
+					document.getElementById("hd").style.display = 'none';
+					document.getElementById("hi").style.display = 'none';
+					document.getElementById("ht").style.display = 'none';
+					document.getElementById("hc").style.display = 'none';
+					document.getElementById("hcc").style.display = 'none';
+					document.getElementById("hp").style.display = 'none';
+					document.getElementById("hpsd").style.display = 'none';
+					document.getElementById("hif").style.display = 'none';
+					document.getElementById("hcross").style.display = 'none';
+					document.getElementById("hpcr").style.display = 'none';
+					document.getElementById("deff").style.display = 'none';
+					//document.getElementById("deffD").style.display = 'none';
+								//counter++;
+				});
+			  
+			}
+		</script>
+	</th:block>
+</body>
+</html>

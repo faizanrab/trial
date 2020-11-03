@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{BaseLayout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>PEB Policy</title>
+<style>
+.form-actions {
+	margin: 0;
+	text-align: center;
+}
+
+.close {
+	float: right;
+	display: inline-block;
+	padding: 2px 5px;
+	background: #ccc;
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+	<div id="page-wrapper" layout:fragment="content">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="indexwithsm">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Recovery Entry</li>
+				</ol>
+			</nav>
+			<div class="card shadow mb-4 mt-2 bkg-color">
+
+				<!--card header-->
+				<div class="card-header">
+					<span class="custom-smile-form-header" id="datatables">Recovery Entry</span>
+				</div>
+				<!--end of card header-->
+				<div class="card-body">
+					<div class="row my-2">
+						<div class="col-lg-12 order-lg-2">
+						<ul class="nav nav-pills">
+							<li class="nav-item"><a id="1" data-toggle="tab"
+								href="#RecoveryMaster" class="nav-link active">Recovery Master</a></li>
+
+							<li class="nav-item"><a data-toggle="tab" id="2"
+								href="#BlockedFundDetails" class="nav-link">BlockedFund Details</a></li>
+								<li class="nav-item"><a data-toggle="tab" id="3"
+								href="#WriteOffDetails" class="nav-link">Write-Off Details</a></li>
+							
+							
+							
+						</ul>
+						<div class="tab-content py-4">
+							<div class="tab-pane active" id="RecoveryMaster">
+								<!-- Basic Proposal Success Message -->
+								<div class="form -group row"
+									th:if="${RecoveryMaster == 'success'}"
+									id="divRegSuccess">
+									<div class="col-sm-5 mb-sm-0">
+										<div class="alert alert-success">Recovery Master Details
+											Saved Successfully</div>
+									</div>
+								</div>
+						<form action="#" id="f"  th:object="${pebPolicyRecoveryMasterBean}"
+						method="post">
+
+						<div class="card card-body">
+
+							
+								<!-- Card Content - Collapse -->
+
+										<div class="form-group row ">
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Claim No:</label> 
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+											<span th:text="${pebPolicyRecoveryMasterBean.claimNo}"></span>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">DCA Id:</label> 
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+                                            <span th:text="${pebPolicyRecoveryMasterBean.dcaId}"></span>
+                                            </div>
+										</div>
+									
+										<div class="form-group row ">
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Recovery Initiated Date:</label> 
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+											<span th:text="${#dates.format(pebPolicyRecoveryMasterBean.recoveryInitiatedDate,'dd-MM-yyyy')}"></span>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Status:</label> 
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+                                            <span th:text="${pebPolicyRecoveryMasterBean.status}"></span>
+                                            </div>
+										</div>
+										<div class="form-group row ">
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Remarks:</label> 
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+											<span th:text="${pebPolicyRecoveryMasterBean.remarks}"></span>
+											</div>
+											
+										</div>
+									
+
+								
+                                   
+
+							
+				
+					 
+					</div>
+                         
+                        </form>
+                       											
+		
+							<!--start of modal related to add new record-->
+								
+							
+							</div>
+							
+								
+									<div class="tab-pane" id="BlockedFundDetails">
+									<div class="card card-body">
+									<div class="form -group row"
+									th:if="${BlockedFundDetails== 'success'}"
+									id="divRegSuccess">
+									<div class="col-sm-5 mb-sm-0">
+										<div class="alert alert-success">Basic BlockedFundDetails
+											Saved Successfully</div>
+									</div>
+								</div>
+								
+									 <form action="#" th:action="@{/addBlockedFundDetails}" th:object="${pebPolicyBlockedFundBean}"
+						method="post">
+							  <div class="form-group row " id="blocdfund">
+                            
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Is Blocked Fund:</label> 
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+											<span th:text="${pebPolicyBlockedFundBean.IsBlockedFund}"></span>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Blocked Fund Date:</label> 
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+                                            <span th:text="${#dates.format(pebPolicyBlockedFundBean.blockedfundDate,'dd-MM-yyyy')}"></span>
+                                            </div>
+										</div>
+										
+										<div class="form-group row mb-3 ">
+										<div class="col-sm-3 mb-2 mb-sm-0">
+										<label class="custom-smile-view-label">Blocked Fund Remarks:</label>
+										</div>
+										<div class="col-sm-6 mb-3   mb-sm-0">
+										<textarea rows="3" th:field="*{remarks}"
+                                        class="form-control" readonly></textarea>
+										</div>
+										</div>
+										<div class="form-group row ">
+										<div class="col-sm-3 mb-2 mb-sm-0">
+										<label class="custom-smile-view-label">Recommender Remarks:</label>
+										</div>
+										<div class="col-sm-9 mb-3   mb-sm-0">
+										<textarea rows="3" th:field="*{recommenderRemarks}"
+                                        class="form-control" readonly></textarea>
+										</div>
+										</div>
+										<div class="form-group row ">
+										<div class="col-sm-3 mb-2 mb-sm-0">
+										<label class="custom-smile-view-label">Approver Remarks:</label>
+										</div>
+										<div class="col-sm-9 mb-3   mb-sm-0">
+										<textarea rows="3" th:field="*{approverRemarks}"
+                                        class="form-control" readonly></textarea>
+										</div>
+										</div>
+                           <!--      <div class="col-sm-3 mb-3 mb-sm-0" >
+                                    <label class="custom-smile-form-label"></label>
+                                   
+                                  <div class="col-sm-6 mb-3   mb-sm-0">
+                                    <label class="custom-smile-form-label">Blocked Fund Remarks<span
+                                        class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" th:field="*{remarks}"
+                                        class="form-control"></textarea>
+                                         <span th:errors="*{remarks}" style="color: red"
+                                                            th:errorclass="form-field-error"></span>
+                                </div>
+                            </div> -->
+                            	 
+                             	<!--   <div class="form-group row ml-1 mr-1">
+                               
+                               
+                                  <div class="col-sm-12 mb-3 mb-sm-0">
+                                    <label class="custom-smile-form-label">Approver Remarks<span
+                                        class="text-danger">&nbsp;&nbsp;*</span></label><textarea placeholder="Enter Remarks Here.." rows="3" th:field="*{approverRemarks}"
+                                        class="form-control"></textarea>
+                                               <span th:errors="*{}" style="color: red"
+                                                            th:errorclass="form-field-error"></span>
+                                </div>
+                            </div> -->
+									<br>
+									
+							 		
+									
+									</div>
+									</form>
+								</div>
+							
+							
+									<div class="tab-pane" id="WriteOffDetails">
+									<div class="form -group row"
+									th:if="${WriteOffDetails== 'success'}"
+									id="divRegSuccess">
+									<div class="col-sm-5 mb-sm-0">
+										<div class="alert alert-success">WriteOff Details
+											Saved Successfully</div>
+									</div>
+								</div>
+								
+									<form action="#" id="f1" th:action="@{/addWriteOffDetails}" th:object="${pebPolicyWriteOffBean}"
+						method="post">	
+<div class="card card-body">
+ <div class="form-group row " id="blocdfund">
+                            
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Is Write-Off:</label> 
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+											<span th:text="${pebPolicyWriteOffBean.IsWriteOff}"></span>
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+												<label class="custom-smile-view-label">Write-Off Date:</label> 
+											</div>
+											<div class="col-sm-3 mb-2 mb-sm-0">
+                                            <span th:text="${#dates.format(pebPolicyWriteOffBean.writeOffDate,'dd-MM-yyyy')}"></span>
+                                            </div>
+										</div>
+										
+										<div class="form-group row mb-3 ">
+										<div class="col-sm-3 mb-2 mb-sm-0">
+										<label class="custom-smile-view-label">Blocked Fund Remarks:</label>
+										</div>
+										<div class="col-sm-6 mb-3   mb-sm-0">
+										<textarea rows="3" th:field="*{remarks}"
+                                        class="form-control" readonly></textarea>
+										</div>
+										</div>
+										<div class="form-group row ">
+										<div class="col-sm-3 mb-2 mb-sm-0">
+										<label class="custom-smile-view-label">Recommender Remarks:</label>
+										</div>
+										<div class="col-sm-9 mb-3   mb-sm-0">
+										<textarea rows="3" th:field="*{recommenderRemarks}"
+                                        class="form-control" readonly></textarea>
+										</div>
+										</div>
+										<div class="form-group row ">
+										<div class="col-sm-3 mb-2 mb-sm-0">
+										<label class="custom-smile-view-label">Approver Remarks:</label>
+										</div>
+										<div class="col-sm-9 mb-3   mb-sm-0">
+										<textarea rows="3" th:field="*{approverRemarks}"
+                                        class="form-control" readonly></textarea>
+										</div>
+										</div>
+							
+									<br>
+									
+							 		
+									</div>
+									</div>
+									</form>
+								</div>
+
+
+						</div>
+</div>
+					</div>
+					<!--end of card body-->
+				</div>
+				<!-- ACTUAL BODY CONTENT -->
+
+			</div>
+		
+
+	</div>
+	
+	<th:block layout:fragment="scripts">	
+		<script type="text/javascript">
+		$(document).ready(function(){
+		/* 	$(window).scroll(function() {
+				  sessionStorage.scrollTop = $(this).scrollTop();
+				});
+
+		
+				  if (sessionStorage.scrollTop != "undefined") {
+				    $(window).scrollTop(sessionStorage.scrollTop);
+				  }
+				 */
+
+			
+			//alert("[[${activepage}]]");
+			//alert("[[${pebPolicyRecoveryMasterBean.claimNo}]]");
+			debugger
+			
+			
+			if("[[${activepage}]]"=="WriteOffDetails")
+				{
+				document.getElementById(3).click();
+				}
+			else if("[[${activepage}]]"=="BlockedFundDetails")
+				{
+				document.getElementById(2).click();
+				}
+			else
+				{
+				document.getElementById(1).click();
+
+				}
+			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				  var target = $(e.target).attr("id") // activated tab
+					 
+				 
+				});
+			
+		var test=document.getElementById("claimno").value;
+
+					
+			var checkTable = document.getElementById("table1");
+			var kchbhi=document.getElementById("example1").rows.length;
+			if(document.getElementById("example1").rows.length<=2)
+				{
+				checkTable.style.display = "none";
+					}
+			else
+				{
+				
+				checkTable.style.display = "block";
+				}
+			if("[[${showtable}]]"=="showtable")
+			{
+				document.getElementById("table1").scrollIntoView(true);
+			}
+			$('.table #editButton').on('click',function(event){	
+			
+				event.preventDefault();
+				debugger;
+				var href=$(this).attr('href');
+				$.get(href,function(response,status){
+					debugger;
+					
+					$("#RecoveryAmount").val(response.recoveryAmount);
+					var todayDate = new Date(response.dateOfRecovery).toISOString().slice(0,10);
+
+					$("#DateOfRecovery").val(todayDate);
+					$("#DcaCharge").val(response.dcaCharge);
+					$("#Remarks").val(response.remarks);
+					$("#RecoveryInstance").val(response.recoveryInstance);
+				});
+				$("#updateModal").modal();
+				
+			});
+			$('.table #viewButton').on('click',function(event){	
+				alert("hii3");
+				event.preventDefault();
+			//	debugger;
+				var href=$(this).attr('href');
+				$.get(href,function(response,status){
+					debugger;
+					
+					$("#RecoveryAmount2").text(response.recoveryAmount);
+					var todayDate = new Date(response.dateOfRecovery).toISOString().slice(0,10);
+					$("#DateOfRecovery2").text(todayDate);
+					$("#DcaCharge2").text(response.dcaCharge);
+					$("#Remarks2").text(response.remarks);
+				});
+				$("#viewModal").modal();
+				
+			});
+	/* 		$(" #submit1").on('click',function(event){	
+				debugger
+
+				event.preventDefault();
+				
+				var href="/addfinalRecoveryDetailsList";
+				$.get(href,function(response,status){
+				
+					
+					alert(response.claimNo);
+				});
+				
+			}); */
+			 
+			 
+			$(" #addButton").on('click',function(event){	
+				alert(document.documentElement.scrollTop)
+
+				event.preventDefault();
+				
+				var href=$(this).attr('href');
+				$.get(href,function(response,status){
+				
+					
+					$("#RecoveryAmount1").val(response.recoveryAmount);
+
+					$("#DateOfRecovery1").val(response.dateOfRecovery);
+					$("#DcaCharge1").val(response.dcaCharge);
+					$("#Remarks1").val(response.remarks);
+					$("#RecoveryInstance1").val(response.recoveryInstance);
+				});
+				$("#addModal").modal();
+				
+			});
+			 
+		});
+		</script>
+		<script type="text/javascript" th:src="@{/js/char-count.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.html5.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.print.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/pdfmake.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/vfs_fonts.js}"></script>
+		<script type="text/javascript" th:src="@{/js/exporttable.js}"></script>
+		<script type="text/javascript" th:src="@{/js/buttonbootstrap4.js}"></script>
+	<!-- Page level custom scripts --> 
+	
+
+	
+	</th:block>
+	
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{BaseLayout/layout}">
+<head>
+<meta charset="UTF-8">
+<title>Pre-bid Quote Interface</title>
+</head>
+<body>
+<div id="page-wrapper" layout:fragment="content">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="#">Pre-Bid Quote</a></li>
+				<li class="breadcrumb-item" aria-current="page">List</li>
+				<li class="breadcrumb-item active" aria-current="page">View</li>
+			</ol>
+		</nav>
+		<div class="card shadow mb-4 mt-2">
+			<!--card header-->
+			<div class="card-header py-3 custom-smile-form-header">
+				
+				Pre-bid Quotation Details
+				<button type="button" class="btn custom-smile-btn-light float-right" data-toggle="modal" data-target="#helpModal">
+					<i class="fas fa-question-circle"></i>
+				</button>
+			</div>
+			<!--end of card header-->
+			
+			<div class="card-body">
+				<div class="card section-border-left-primary mb-4 mt-3">
+					<a href="#collapseCardViewProposal" class="d-block card-header " data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardViewProposal">
+						<span class="custom-smile-view-subsection-header">Pre-Bid Quote Details</span>
+					</a>
+					<!-- Card Content - Collapse -->
+					<div class="collapse show" id="collapseCardViewProposal">
+						<div class="card-body">
+							<div class="form-group row ">
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">Inward Number :</label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.inwardNumber}"></span>
+								</div>
+								 <div class="col-sm-2 mb-2 mb-sm-0">
+								 	<label class="custom-smile-view-label">Inward Item Number : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.inwardItemNumber}"></span>
+								 </div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+								 	<label class="custom-smile-view-label">Pre-Bid Id : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.pbId}"></span>
+								 </div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">Contract Value : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${contractValue}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">Supply Portion %: </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.supplyValue}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">Service Portion %: </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.serviceValue}"></span>
+								</div>
+							</div>
+							<div class="form-group row">
+								
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Exporter Name : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.exporterName}"></span>
+                                 </div>
+                                 <div class="col-sm-2 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">Exporter Code : </label> <br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.exporterCode}"></span>
+								</div> 
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Buyer Name : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.buyerName}"></span>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Buyer Type : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.buyerType}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Project Country : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.projectCountry}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Project Country Rating : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.projectCountryRating}"></span>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Payment Country : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.paymentCountry}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Payment Country Rating : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.paymentCountryRating}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Is PostBid Flag: </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.isPostBidFlag}"></span>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Funding Arrangement : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.fundingArrangement}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Funding Agency Type : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.fundingAgencyType}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Funded Agency Name : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.fundedBy}"></span>
+								</div>
+							</div>
+							
+							<div class="form-group row">
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Period of Contract Execution (Months) : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.duration}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Risk Type : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.riskType}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Transaction Type : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.transactionType}"></span>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Advance Paid Date : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${#dates.format(prebid.advancePaidDate, 'dd-MM-yyyy')}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Security : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.security}"></span>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Project Details : </label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.projectDetails}"></span>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="card section-border-left-danger mb-4 mt-3">
+					<a href="#collapseCardViewProposal1" class="d-block card-header " data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardViewProposal">
+						<span class="custom-smile-view-subsection-header">Pre-Shipment Details</span>
+					</a>
+					<!-- Card Content - Collapse -->
+					<div class="collapse show" id="collapseCardViewProposal1">
+						<div class="card-body">
+								<div class="form-group row">
+								<div class="col-sm-3 mb-2 mb-sm-0">
+									<label class="custom-smile-view-label">Is Pre-shipment Cover Required : </label><br>
+								</div>
+								<div class="col-sm-3 mb-2 mb-sm-0">
+									<span class="" th:text="${prebid.isPreshipmentCoverRequired}"></span>
+								</div>
+								<th:block th:if="${prebid.isPreshipmentCoverRequired == 'yes'}">
+									<div class="col-sm-3 mb-2 mb-sm-0">
+										<label class="custom-smile-view-label">Pre-shipment Cover Tenure : </label><br>
+									</div>
+									<div class="col-sm-3 mb-2 mb-sm-0">
+										<span class="" th:text="${prebid.preshipmentCoverTenure}"></span>
+									</div>
+								</th:block>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div id="supplyMoratorium" class="card section-border-left-primary mb-4 mt-3">
+					<a href="#collapseCardViewProposal2" class="d-block card-header " data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardViewProposal">
+						<span class="custom-smile-view-subsection-header">Moratorium Details</span>
+					</a>
+					<!-- Card Content - Collapse -->
+					<div class="collapse show" id="collapseCardViewProposal2">
+						<div class="card-body">
+							<div class="form-group row ">
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">Moratorium Period :</label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.supplyMoratoriumPeriod}"></span>
+								</div>
+								 <div class="col-sm-2 mb-2 mb-sm-0">
+								 	<label class="custom-smile-view-label">Moratorium Freq. of Installments :</label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.supplyMoratoriumFreqOfInstallments}"></span>
+								 </div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">Moratorium No. of Installments :</label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.supplyMoratoriumNoOfInstallments}"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="serviceMoratorium" class="card section-border-left-primary mb-4 mt-3">
+					<a href="#collapseCardViewProposal2" class="d-block card-header " data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardViewProposal">
+						<span class="custom-smile-view-subsection-header">Moratorium Details</span>
+					</a>
+					
+					<div class="collapse show" id="collapseCardViewProposal2">
+						<div class="card-body">
+							<div class="form-group row ">
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">Moratorium Period :</label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.serviceMoratoriumPeriod}"></span>
+								</div>
+								 <div class="col-sm-2 mb-2 mb-sm-0">
+								 	<label class="custom-smile-view-label">Moratorium Freq. of Installments :</label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.serviceMoratoriumNoOfInstallments}"></span>
+								 </div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">Moratorium No. of Installments :</label><br>
+								</div>
+								<div class="col-sm-2 mb-2 mb-sm-0 ">
+									<span class="" th:text="${prebid.serviceMoratoriumFreqOfInstallments}"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="bothMoratorium" class="card section-border-left-primary mb-4 mt-3">
+					<a href="#collapseCardViewProposal2" class="d-block card-header " data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardViewProposal">
+						<span class="custom-smile-view-subsection-header">Moratorium Details</span>
+					</a>
+					
+					<div class="collapse show" id="collapseCardViewProposal2">
+						<div class="card-body">
+							<table class="table table-bordered terms_of_payment">
+								<thead class="thead-light">
+									<tr>
+										<th></th>
+										<th>Moratorium Period</th>
+										<th>Number of Installments</th>
+										<th>Frequency of Installments</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr >
+										<th>Supply</th>
+										
+										<td><span class="" th:text="${prebid.supplyMoratoriumPeriod}"></span></td>
+										<td><span class="" th:text="${prebid.supplyMoratoriumFreqOfInstallments}"></span></td>
+										<td><span class="" th:text="${prebid.supplyMoratoriumNoOfInstallments}"></span></td>
+									</tr >
+									<tr >
+										<th>Service</th>
+										<td><span class="" th:text="${prebid.serviceMoratoriumPeriod}"></span></td>
+										<td><span class="" th:text="${prebid.serviceMoratoriumFreqOfInstallments}"></span></td>
+										<td><span class="" th:text="${prebid.serviceMoratoriumNoOfInstallments}"></span></td>
+										</tr>
+									</tbody>
+									</table>
+						</div>
+					</div>
+				</div>
+		<div>
+					<!--  <p th:each="top : ${top}"
+       				th:text="${top.isSupplyService}">
+       				<div th:with="isType=${top[0].isSupplyService}"> 
+       				<span th:text="${isType}"></span> -->
+				<!-- 	<div th:with="isType=${top[0].isSupplyService}">
+					<div th:with="isType=${top[1].isSupplyService}">
+				 	<span th:text="${isType}"></span>  -->
+				<div th:each="top : ${prebid.termsOfPayment}">
+					
+				<div  id="supplyTopW" class="card section-border-left-primary mb-4 mt-3">
+					<a href="#collapseCardViewProposal4" class="d-block card-header " data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardViewProposal">
+						<span class="custom-smile-view-subsection-header">Terms of Payment Weightage Details</span>
+					</a>
+					
+					<div class="collapse show" id="collapseCardViewProposal3">
+					
+						<div class="card-body">
+							<table id="myTable" border="1" class="table table-bordered  " width="100%" cellspacing="0">
+								<tr class="thead-light">
+									<th></th>
+									<th colspan="2">
+									<span th:if="${top.isSupplyService == 1}">Supply</span>
+									<span th:if="${top.isSupplyService == 2}">Service</span>
+									</th>
+								</tr>
+								<tr>
+									<th></th>
+									<th>Percentage</th>
+									<th>Amount</th>
+								</tr>
+								<tr>
+									<th>Advance</th>
+									<td><span class="" th:text="${top.advancePercentage}"></span></td>
+									<td><span class="" th:text="${top.advanceAmount}"></span></td>
+									
+								</tr>
+								<tr>
+									<th>Down</th>
+									<td><span class="" th:text="${top.downPercentage}"></span></td>
+									<td><span class="" th:text="${top.downAmount}"></span></td>
+									
+								</tr>
+								<tr>
+									<th>Progress</th>
+									<td><span class="" th:text="${top.progressPercentage}"></span></td>
+									<td><span class="" th:text="${top.progressAmount}"></span></td>
+									
+								</tr>
+								<tr>
+									<th>PAC</th>
+									<td><span class="" th:text="${top.pacPercentage}"></span></td>
+									<td><span class="" th:text="${top.pacAmount}"></span></td>
+									
+								</tr>
+								<tr>
+									<th>FAC</th>
+									<td><span class="" th:text="${top.facPercentage}"></span></td>
+									<td><span class="" th:text="${top.facAmount}"></span></td>
+									
+								</tr>
+							</table>
+							
+						</div>
+					</div>
+				
+				</div>
+			</div>	
+		<div th:each="top : ${prebid.termsOfPayment}">		
+				<div  id="supplyTopD" class="card section-border-left-danger mb-4 mt-3">
+					<a href="#collapseCardViewProposal3" class="d-block card-header " data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardViewProposal">
+						<span class="custom-smile-view-subsection-header">Terms of Payment Duration Details</span>
+					</a>
+					<!-- Card Content - Collapse -->
+					<div class="collapse show" id="collapseCardViewProposal3">
+						<div class="card-body">
+							<div class="form-group row ">
+								<!-- <div class="col-sm-6 mb-2 mb-sm-0 ">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label class="custom-smile-view-label">Supply</label><br>
+								</div> -->
+								<div class="col-sm-6 mb-2 mb-sm-0 ">
+									<label th:if="${top.isSupplyService == 1}" class="custom-smile-view-label">Supply</label><br>
+									<label th:if="${top.isSupplyService == 2}" class="custom-smile-view-label">Service</label><br>
+								</div>
+								
+							</div>
+							<div class="form-group row ">
+								<div class="col-sm-3 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">Down Duration :</label><br>
+								</div>
+								<div class="col-sm-3 mb-2 mb-sm-0 ">
+									<span class="" th:text="${top.DownDuration}"></span>
+								</div>
+								<div class="col-sm-3 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">Progress Duration :</label><br>
+								</div>
+								<div class="col-sm-3 mb-2 mb-sm-0 ">
+									<span class="" th:text="${top.ProgressDuration}"></span>
+								</div>
+							</div>
+							
+							<div class="form-group row ">
+								<div class="col-sm-3 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">FAC Duration :</label><br>
+								</div>
+								<div class="col-sm-3 mb-2 mb-sm-0 ">
+									<span class="" th:text="${top.FacDuration}"></span>
+								</div>
+								<div class="col-sm-3 mb-2 mb-sm-0 ">
+									<label class="custom-smile-view-label">PAC Duration :</label><br>
+								</div>
+								<div class="col-sm-3 mb-2 mb-sm-0 ">
+									<span class="" th:text="${top.PacDuration}"></span>
+								</div>
+							</div>
+							
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>			
+	</div>
+				<div class="modal fade" id="helpModal" role="dialog">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header bg-light">
+								<h4 class="modal-title" style="color: black;">This is Modal For help</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							<div class="modal-body">
+								<div class="form-group row">
+									<div class="col-sm-12 mb-3 mb-sm-0">Content regarding Help goes here</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<a th:href="@{/pebpolicy/viewPrebids}" class="btn custom-smile-btn-back col-2 offset-5">
+					<span class="icon"> <i class="fas fa-angle-double-left mr-1 ml-1"></i></span> 
+					<span class="text">Back</span>
+				</a>
+				
+			</div>
+		</div>
+</div>
+
+
+<th:block layout:fragment="scripts">
+	<!-- Data Tables -->
+	<script type="text/javascript" th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/jquery.dataTables.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/datatables-buttons/js/buttons.html5.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/datatables-buttons/js/buttons.print.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/datatablejs/pdfmake.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/datatablejs/vfs_fonts.js}"></script>
+	<script type="text/javascript" th:src="@{/js/exporttable.js}"></script>
+	<script type="text/javascript" th:src="@{/js/buttonbootstrap4.js}"></script>
+	<script th:inline="javascript">
+		$(document).ready(function(){
+			
+			
+			document.getElementById("supplyMoratorium").style.display = 'none';
+			document.getElementById("serviceMoratorium").style.display = 'none';
+			document.getElementById("bothMoratorium").style.display = 'none';
+	
+			var moraSupply =  /*[[${prebid.supplyMoratoriumPeriod}]]*/ 'default';
+			//alert("moraSupply::"+moraSupply);
+			var moraService =  /*[[${prebid.serviceMoratoriumPeriod}]]*/ 'default';
+			//alert("moraService::"+moraService);
+			var message = /*[[${prebid.isSupplyServiceBoth}]]*/ 'default';
+			//alert("b::"+message);	
+	
+			if(message == "Supply")
+			{
+				//alert("In supply");
+				document.getElementById("supplyMoratorium").style.display = 'block';
+				document.getElementById("serviceMoratorium").style.display = 'none';
+				document.getElementById("bothMoratorium").style.display = 'none'; 
+			}
+			if(message == "Service")
+			{
+				//alert("In serv");
+				document.getElementById("supplyMoratorium").style.display = 'none';
+				document.getElementById("serviceMoratorium").style.display = 'block';
+				document.getElementById("bothMoratorium").style.display = 'none'; 
+			}
+			if(message == "Both")
+			{
+				//alert("In both");
+				document.getElementById("supplyMoratorium").style.display = 'none';
+				document.getElementById("serviceMoratorium").style.display = 'none';
+				document.getElementById("bothMoratorium").style.display = 'block'; 
+			}
+	
+		});
+	</script>
+</th:block>
+
+</body>
+</html>

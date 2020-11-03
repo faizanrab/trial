@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{BaseLayout/layout}">
+<head>
+
+<title>List Recovery Details</title>
+<style>
+
+/*style for loader*/
+.loader {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url('/common/images/d-loading.gif') 50% 50% no-repeat
+		rgb(249, 249, 249);
+}
+</style>
+
+</head>
+<body>
+
+	<div id="page-wrapper" layout:fragment="content">
+		<div class="loader"></div>
+
+
+		</div>
+	
+	<!-- /.container-fluid -->
+
+	<!-- End of Main Content -->
+
+
+
+
+	<!-- End of Content Wrapper -->
+
+
+	<!-- End of Page Wrapper -->
+
+
+
+
+
+	<!--export table js-->
+	<th:block layout:fragment="scripts">
+
+		<!-- Page level custom scripts -->
+
+		<script>
+    $(window).ready(function() {
+      $('.loader').fadeOut(1000);
+    });
+     $(document).ready(function() {
+
+   	  $(".view").on('click', function() {
+   		 
+   		  
+     	    $('.case:checkbox:checked').parents("tr").remove();
+     	  });
+   	 $(".view").on('click', function() {
+   		 
+  	    $('.check:radio:checked').parents("tr").remove();
+  	  });
+          
+    	 
+    	  $(".edit").on('click', function() {
+      	    $('.case:checkbox:checked').parents("tr").edit();
+      	  });
+     });  
+    	  
+    	  /*  $("body").on("click", ".btn-edit", function(){
+    	        var name = $(this).parents("tr").attr('data-name');
+    	        var email = $(this).parents("tr").attr('data-email');
+    	    
+    	        $(this).parents("tr").find("td:eq(0)").html('<input name="edit_name" value="'+name+'">');
+    	        $(this).parents("tr").find("td:eq(1)").html('<input name="edit_email" value="'+email+'">');
+    	    
+    	        $(this).parents("tr").find("td:eq(2)").prepend("<button class='btn btn-info btn-xs btn-update'>Update</button><button class='btn btn-warning btn-xs btn-cancel'>Cancel</button>")
+    	        $(this).hide();
+    	    });
+    	  
+
+     $(document).ready(function() {
+  	   var myTable = $('#example1').DataTable();
+                $('#example1').on( 'click', 'tbody tr', function () {
+      	      myTable.row( this ).edit();
+      	  });
+     }); */
+  </script>
+
+		<!-- Data Tables -->
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/jquery.dataTables.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/startbootstrap-sb-admin-2/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.html5.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/webjars/datatables-buttons/js/buttons.print.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/pdfmake.min.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/datatablejs/vfs_fonts.js}"></script>
+		<script type="text/javascript" th:src="@{/js/exporttable.js}"></script>
+		<script type="text/javascript" th:src="@{/js/buttonbootstrap4.js}"></script>
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+	debugger
+  var x = document.getElementById("myDIV");
+
+	  if ("[[${activepage}]]" === "") {
+		  x.style.display = "none";
+		   
+		  } else {
+			  
+			  x.style.display = "block";
+		    
+		  }
+  
+})
+		</script>
+
+	</th:block>
+
+
+	<!--js for loader--->
+
+
+
+</body>
+</html>
+
+
+
+
